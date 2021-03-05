@@ -1,0 +1,293 @@
+---
+title: "Flytrap Example: Qubit and Gates"
+description: |
+  This is an example to apply for an internship at Quantum Flytrap
+author:
+  - name: Claudia Zendejas-Morales
+    url: http://claudiazm.xyz
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r echo=FALSE, message=FALSE, results='asis'}
+cat(
+  "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
+  "<script src='https://unpkg.com/quantum-tensors@0.4.13/dist/quantum-tensors.min.js'></script>",
+  "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>"
+)
+```
+
+
+Quantum computing is the use of quantum phenomena such as superposition and entanglement to perform computation.  There are several models of quantum computers, including the quantum circuit model, adiabatic quantum, amog others. Quantum circuits are based on the **qubit**. 
+
+A **qubit** is the equivalent to a *bit* in classical computation. A qubit is a two-state (or two-level) quantum-mechanical system, we write qubits with Dirac notation.
+
+The general quantum state of a qubit can be represented by a linear superposition of its two orthonormal basis states (or basis vectors). These vectors are usually denoted as $|0\rangle$ and $|1\rangle$:
+
+$$|0\rangle = \begin{bmatrix}
+1\\
+0
+\end{bmatrix}
+\; \; \; , \; \; \;
+|1\rangle = \begin{bmatrix}
+0\\
+1
+\end{bmatrix}$$
+
+Therefore, the quantum state of a qubit $|\psi\rangle$ can be $|\psi\rangle=|0\rangle$ or $|\psi\rangle=|1\rangle$ or $|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$ (a superposition), where $\alpha$ and $\beta$ are complex numbers.
+
+To this qubits we can apply **quantum gates**, so we can modify its state. This quantum gates have different effects, let's see some of them when starting with state $|0\rangle$:
+
+<br>
+
+(Click on the quantum gate you want to apply to the qubit $|0\rangle$)
+
+
+```{r}
+HTML("
+<div id='gates1'>
+  <label>
+    <input type='radio' name='gate_applied' v-on:click='show = 1' value='x' checked> 
+    X Gate
+  </label>
+  <label>
+    <input type='radio' name='gate_applied' v-on:click='show = 2' value='y'> 
+    Y Gate
+  </label>
+  <label>
+    <input type='radio' name='gate_applied' v-on:click='show = 3' value='z'>
+    Z Gate
+  </label>
+  <label>
+    <input type='radio' name='gate_applied' v-on:click='show = 4' value='h'>
+    H Gate
+  </label>
+  
+  <br><br>
+
+  <div class='gate_title' v-show='show == 1'>
+    Apply X Gate:
+    <div id='ketlist1'></div>
+  </div>
+  
+  <div class='gate_title' v-show='show == 2'>
+    Apply Y Gate:
+    <div id='ketlist2'></div>
+  </div>
+  
+  <div class='gate_title' v-show='show == 3'>
+    Apply Z Gate:
+    <div id='ketlist3'></div>
+  </div>
+  
+  <div class='gate_title' v-show='show == 4'>
+    Apply H Gate:
+    <div id='ketlist4'></div>
+  </div>
+
+</div> <!-- end id='gates1' -->
+
+")
+```
+
+<br>
+<br>
+
+But we can also start with state $|1\rangle$, to see this, now we use a matrix representation of the quantum gates.
+
+Each gate is a matrix that you multiply by the left of the qubit (remember, a qubit is a vector).
+
+In this representation we can see which is the output (the state after applying a gate) for each possible input ($|0\rangle$ or $|1\rangle$).
+
+<br>
+
+(Place your pointer on the input you want to review and the corresponding output will be the one with a colored circle)
+
+<br>
+
+```{r}
+HTML("
+  <table align='center' class='matrices'>
+    <tr>
+      <td align='center'>
+        X Gate (Pauli X)
+        <div id='gate-x'></div>
+      </td>
+      <td align='center'>
+        Y Gate (Pauli Y)
+        <div id='gate-y'></div>
+      </td>
+    </tr>
+    <tr>
+      <td align='center'>
+        Z Gate (Pauli Z)
+        <div id='gate-z'></div>
+      </td>
+      <td align='center'>
+        H Gate (Hadamard)
+        <div id='gate-h'></div>
+      </td>
+    </tr>
+  </table>
+")
+```
+
+<br>
+<br>
+
+Of course, you can also apply gates in sequence to modify the state of the qubit as needed depending on your algorithm.
+
+The following example applies the gates $Z$, $H$, $X$, $Z$, $Y$ (in that order).
+
+This in Dirac notation looks like:
+
+$$ Y \; Z \; X \;H \; Z \; |0\rangle $$
+
+Note that the order of application is first the gate closest to state $|0\rangle$ and then the one that follows from right to left.
+
+<br>
+
+<div id='ketlist5'></div>
+
+<br>
+<br>
+<br>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const { Circuit, Gates } = QuantumTensors;
+const { KetListViewer, MatrixViewer } = BraKetVue;
+
+
+const circuitHistory = [];
+Circuit.qubits(1)
+  .saveTo(circuitHistory)
+  .X(0)
+  .saveTo(circuitHistory)
+
+Circuit.qubits(1)
+  .Y(0)
+  .saveTo(circuitHistory)
+
+Circuit.qubits(1)
+  .Z(0)
+  .saveTo(circuitHistory)
+
+Circuit.qubits(1)
+  .H(0)
+  .saveTo(circuitHistory)
+
+const circuitHistoryBig = [];
+Circuit.qubits(1)
+  .saveTo(circuitHistoryBig)
+  .Z(0)
+  .saveTo(circuitHistoryBig)
+  .H(0)
+  .saveTo(circuitHistoryBig)
+  .X(0)
+  .saveTo(circuitHistoryBig)
+  .Z(0)
+  .saveTo(circuitHistoryBig)
+  .Y(0)
+  .saveTo(circuitHistoryBig)
+
+
+function addKetList(name, gate, cirq) {
+
+  new Vue({
+    el: '#'+name+cirq,
+    template: "<ket-list-viewer :steps='stepsQuantumComputing' :dark-mode='false'/>",
+    components: {
+      KetListViewer,
+    },
+    data() {
+  	  return {
+        stepsQuantumComputing: [
+          { value: 'Initial state', vector: circuitHistory[0].vector },
+          { value: 'After apply '+gate+' gate', vector: circuitHistory[cirq].vector },
+        ],
+  	  }
+    }
+  })
+}
+
+function addGate(name, operator) {
+
+  new Vue({
+    el: '#'+name,
+    template: "<matrix-viewer :operator-raw='operator' :dark-mode='false'/>",
+    components: {
+      MatrixViewer,
+    },
+    data() {
+  	  return { operator }
+    }
+  })
+}
+
+
+new Vue({
+  el: '#gates1',
+  data: {
+          show: 1
+  }
+});
+
+
+addKetList('ketlist','X',1);
+addKetList('ketlist','Y',2);
+addKetList('ketlist','Z',3);
+addKetList('ketlist','H',4);
+
+
+addGate('gate-x', Gates.X());
+addGate('gate-y', Gates.Y());
+addGate('gate-z', Gates.Z());
+addGate('gate-h', Gates.H());
+
+
+new Vue({
+  el: '#ketlist5',
+  template: "<ket-list-viewer :steps='stepsQuantumComputing' :dark-mode='false'/>",
+  components: {
+    KetListViewer,
+  },
+  data() {
+	  return {
+      stepsQuantumComputing: [
+        { value: 'Initial state', vector: circuitHistoryBig[0].vector },
+        { value: 'Apply Z gate', vector: circuitHistoryBig[1].vector },
+        { value: 'Apply H gate', vector: circuitHistoryBig[2].vector },
+        { value: 'Apply X gate', vector: circuitHistoryBig[3].vector },
+        { value: 'Apply Z gate', vector: circuitHistoryBig[4].vector },
+        { value: 'Apply Y gate', vector: circuitHistoryBig[5].vector },
+      ],
+	  }
+  }
+})
+
+
+```
+
+```{css, echo=FALSE}
+.matrix-viewer {
+  margin: auto;
+}
+
+.gate_title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.matrices td, .matrices tr {
+  border: 2px solid #006666;
+  border-collapse: collapse;
+  font-size: 16px;
+  font-weight: bold;
+}
+```

@@ -1,0 +1,12 @@
+name: "."
+title: "Flytrap Examples"
+description: |
+  Flytrap Example
+output_dir: "_site"
+navbar:
+  right:
+    - text: "Qubit and Gates"
+      href: index.html
+    - text: "Teleportation"
+      href: teleportation.html
+output: distill::distill_article
