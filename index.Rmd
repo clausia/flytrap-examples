@@ -15,9 +15,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r echo=FALSE, message=FALSE, results='asis'}
 cat(
+  "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>",
   "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
   "<script src='https://unpkg.com/quantum-tensors@0.4.13/dist/quantum-tensors.min.js'></script>",
-  "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>"
+  "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>",
+  "<script src='https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js'></script>",
+  "<script src='https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js'></script>"
 )
 ```
 
@@ -141,21 +144,39 @@ HTML("
 
 Of course, you can also apply gates in sequence to modify the state of the qubit as needed depending on your algorithm.
 
-The following example applies the gates $Z$, $H$, $X$, $Z$, $Y$ (in that order).
+The following example applies the gates $Z$, $H$, $X$ (in that order).
 
 This in Dirac notation looks like:
 
-$$ Y \; Z \; X \;H \; Z \; |0\rangle $$
+$$ X \;H \; Z \; |0\rangle $$
 
 Note that the order of application is first the gate closest to state $|0\rangle$ and then the one that follows from right to left.
-
-<br>
 
 <div id='ketlist5'></div>
 
 <br>
 <br>
 <br>
+
+
+Next, you can test for yourself the effect of the different gates, simply drag the gate you want to apply to the *selected gates* area, to delete a gate from that area click on it (double tap on mobile).
+
+Observe how the state changes according to the applied gates.
+
+If you want to test the effects of gates with state $|1\rangle$, then apply a gate $X$ to the start and observe the impact of this in the steps.
+
+<br>
+
+<div id='dnd'></div>
+
+<br>
+
+<div id='ketlist6'></div>
+
+<br>
+<br>
+<br>
+
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
@@ -189,11 +210,7 @@ Circuit.qubits(1)
   .H(0)
   .saveTo(circuitHistoryBig)
   .X(0)
-  .saveTo(circuitHistoryBig)
-  .Z(0)
-  .saveTo(circuitHistoryBig)
-  .Y(0)
-  .saveTo(circuitHistoryBig)
+  .saveTo(circuitHistoryBig);
 
 
 function addKetList(name, gate, cirq) {
@@ -263,12 +280,160 @@ new Vue({
         { value: 'Apply Z gate', vector: circuitHistoryBig[1].vector },
         { value: 'Apply H gate', vector: circuitHistoryBig[2].vector },
         { value: 'Apply X gate', vector: circuitHistoryBig[3].vector },
-        { value: 'Apply Z gate', vector: circuitHistoryBig[4].vector },
-        { value: 'Apply Y gate', vector: circuitHistoryBig[5].vector },
       ],
 	  }
   }
-})
+});
+
+
+
+new Vue({
+  el: '#dnd',
+  template: `
+  <div>
+  
+    <div>
+      <fieldset class="box-available">
+        <legend class="legend-text">Available gates</legend>
+        <draggable
+          class="row"
+          :list="availableGates"
+          :group="{ name: '1qGates', pull: 'clone', put: false }"
+          :sort="false"
+          chosen-class="chosen"
+        >
+          <div
+            class="col-auto list-group-item"
+            v-for="gate in availableGates"
+            v-bind:class="gate.class"
+            :key="gate.name"
+          >
+            {{ gate.name }}
+          </div>
+        </draggable>
+      </fieldset>
+    </div>
+    
+    <br><br>
+    
+    <table class=table-circuit>
+      <tr>
+        <td>
+          <div>
+            <fieldset class="box-selected">
+              <legend class="legend-text">Selected gates</legend>
+              <draggable
+                class="row dragArea"
+                :list="selectedGates"
+                group="1qGates"
+                @change="setGates"
+                chosen-class="chosen"
+              >
+                <div
+                  class="col-auto list-group-item"
+                  v-for="(gate,index) in selectedGates"
+                  v-bind:class="gate.class"
+                  :key="gate.name"
+                  @click="deleteItem(index)"
+                >
+                  {{ gate.name }}
+                </div>
+              </draggable>
+            </fieldset>
+          </div>
+        </td>
+        <td>
+          <span style="font-family: MathJax_Main; font-size:30px;">|0⟩</span>
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+  `,
+  data() {
+    return {
+      availableGates: [
+        { name: "X" , class: "x-class selected" },
+        { name: "Y" , class: "y-class selected" },
+        { name: "Z" , class: "z-class selected" },
+        { name: "H" , class: "h-class selected" }
+      ],
+      selectedGates: [
+        { name: "X" , class: "x-class selected" },
+        { name: "H" , class: "h-class selected"}
+      ]
+    };
+  },
+  methods: {
+    deleteItem(index) {
+      this.selectedGates.splice(index, 1);
+      this.setGates();
+    },
+    setGates() {
+      updateGates(this.selectedGates);
+    }
+  }
+});
+
+
+var circuitHistoryBig2 = [];
+circ = Circuit.qubits(1).saveTo(circuitHistoryBig2)
+              .H(0).saveTo(circuitHistoryBig2)
+              .X(0).saveTo(circuitHistoryBig2);
+
+var klv = new Vue({
+  el: '#ketlist6',
+  template: "<ket-list-viewer :steps='stepsQuantumComputing' :dark-mode='false'/>",
+  components: {
+    KetListViewer,
+  },
+  data() {
+    return {
+      stepsQuantumComputing: [
+        { value: 'Initial state', vector: circuitHistoryBig2[0].vector },
+        { value: 'Apply H gate', vector: circuitHistoryBig2[1].vector },
+        { value: 'Apply X gate', vector: circuitHistoryBig2[2].vector },
+      ],
+    }
+  }
+});
+
+updateGates = function(gates) {
+  
+  circuitHistoryBig2 = [];
+  circ = Circuit.qubits(1).saveTo(circuitHistoryBig2);
+  
+  var i;
+  for (i = gates.length - 1; i >= 0; i--) {
+    switch(gates[i].name) {
+      case 'X':
+        circ.X(0).saveTo(circuitHistoryBig2);
+        break;
+      case 'Y':
+        circ.Y(0).saveTo(circuitHistoryBig2);
+        break;
+      case 'Z':
+        circ.Z(0).saveTo(circuitHistoryBig2);
+        break;
+      case 'H':
+        circ.H(0).saveTo(circuitHistoryBig2);
+        break;
+      default:
+        // default case
+    }
+  }
+  
+  
+  klv.$data.stepsQuantumComputing.splice(0, klv.$data.stepsQuantumComputing.length);
+  klv.$data.stepsQuantumComputing.push({ value: 'Initial state', vector: circuitHistoryBig2[0].vector });
+  
+  for(i = 1; i < circuitHistoryBig2.length; i++) {
+    var namegate = gates[gates.length - i]?.name;
+    klv.$data.stepsQuantumComputing.push({ 
+      value: 'Apply ' + namegate + ' gate ', 
+      vector: circuitHistoryBig2[i].vector });
+  }
+}
 
 
 ```
@@ -290,4 +455,65 @@ new Vue({
   font-size: 16px;
   font-weight: bold;
 }
+
+div .x-class {
+  background-color: #FAD7A0;
+  margin: 3px 3px 3px 3px;
+  cursor: grab;
+}
+
+div .y-class {
+  background-color: #ABEBC6;
+  margin: 3px 3px 3px 3px;
+  cursor: grab;
+}
+
+div .z-class {
+  background-color: #E6B0AA;
+  margin: 3px 3px 3px 3px;
+  cursor: grab;
+}
+
+div .h-class {
+  background-color: #AED6F1;
+  margin: 3px 3px 3px 3px;
+  cursor: grab;
+}
+
+div .chosen {
+  transform: scale(1.1) rotate(-5deg);
+  cursor: grabbing;
+}
+
+div .box-available {
+  border-radius: 25px;
+  border: 2px solid #006666;
+  padding: 15px 0px 0px 35px;
+  width: 280px;
+  height: 125px;
+}
+
+.legend-text {
+  width: 130px;
+  margin: 10px 0px 0px 00px;
+  font-size: 15px;
+}
+
+div .box-selected {
+  border-radius: 25px;
+  border: 2px solid #006666;
+  padding: 15px 0px 0px 35px;
+  width: auto;
+  height: 125px;
+}
+
+.table-circuit {
+  width: 100%;
+  padding: 0px;
+  border: 0px;
+  margin: 0px;
+  border-collapse: collapse;
+}
+
 ```
+
