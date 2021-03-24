@@ -177,6 +177,10 @@ If you want to test the effects of gates with state $|1\rangle$, then apply a ga
 <br>
 <br>
 
+Choose initial state:
+
+
+
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
@@ -449,33 +453,38 @@ updateGates = function(gates) {
   text-align: left;
 }
 
-.matrices td, .matrices tr {
-  border: 2px solid #006666;
-  border-collapse: collapse;
+.matrices td {
+  border: 10px solid #ffffff;
+  background-color: rgba(0,0,0,0.03);
+  padding: 3px 3px 3px 3px;
   font-size: 16px;
   font-weight: bold;
 }
 
 div .x-class {
-  background-color: #FAD7A0;
+  background-color: #ff0055;
+  color: #ffffff;
   margin: 3px 3px 3px 3px;
   cursor: grab;
 }
 
 div .y-class {
-  background-color: #ABEBC6;
+  background-color: #5c00d3;
+  color: #ffffff;
   margin: 3px 3px 3px 3px;
   cursor: grab;
 }
 
 div .z-class {
-  background-color: #E6B0AA;
+  background-color: #0071dd;
+  color: #ffffff;
   margin: 3px 3px 3px 3px;
   cursor: grab;
 }
 
 div .h-class {
-  background-color: #AED6F1;
+  background-color: #2e006a;
+  color: #ffffff;
   margin: 3px 3px 3px 3px;
   cursor: grab;
 }
@@ -486,8 +495,9 @@ div .chosen {
 }
 
 div .box-available {
-  border-radius: 25px;
-  border: 2px solid #006666;
+  border-radius: 0px;
+  border: none;
+  background-color: rgba(0,0,0,0.05);
   padding: 15px 0px 0px 35px;
   width: 280px;
   height: 125px;
@@ -500,8 +510,9 @@ div .box-available {
 }
 
 div .box-selected {
-  border-radius: 25px;
-  border: 2px solid #006666;
+  border-radius: 0px;
+  border: none;
+  background-color: rgba(0,0,0,0.05);
   padding: 15px 0px 0px 35px;
   width: auto;
   height: 125px;
