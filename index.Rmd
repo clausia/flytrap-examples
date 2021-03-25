@@ -20,7 +20,8 @@ cat(
   "<script src='https://unpkg.com/quantum-tensors@0.4.13/dist/quantum-tensors.min.js'></script>",
   "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>",
   "<script src='https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js'></script>",
-  "<script src='https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js'></script>"
+  "<script src='https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js'></script>",
+  "<script src='https://cdn.jsdelivr.net/npm/vue-round-slider@1.0.1/dist/vue-roundslider.min.js'></script>"
 )
 ```
 
@@ -177,10 +178,85 @@ If you want to test the effects of gates with state $|1\rangle$, then apply a ga
 <br>
 <br>
 
-Choose initial state:
+You can define an initial state as you wish, for this use the following values of $\theta$ and $\phi$ that correspond to the state defined by the Bloch sphere:
+
+$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
+
+thus,
+
+$$\alpha=\cos\left(\tfrac{\theta}{2}\right)$$
+
+$$\beta=\left(\cos\phi+i\sin\phi\right)\sin\left(\tfrac{\theta}{2}\right)$$
+where,
+
+$$0\leq \theta \leq \pi \; \; \text{and} \; \;  0\leq \phi <2\pi$$
+<br>
+
+You can move the slider until you find the desired value for each angle (given in fractions of $\pi$) or you can capture it directly by clicking on the central part of each slider.
+
+<br>
+
+<div id='state'>
+
+  <table align='center' style='border: none;'>
+    <tr>
+      <td>
+        <round-slider
+          class='theta' 
+          v-model='thetaVal' 
+          start-angle='0' 
+          end-angle='180' 
+          line-cap='round' 
+          radius='80' 
+          width='10' 
+          animation='false' 
+          handle-size='22' 
+          handle-shape='round' 
+          min='0' 
+          max='1' 
+          step='0.01' 
+          range-color='#ff0055' 
+          circle-shape='full' 
+          v-bind:tooltip-format='formatTheta' 
+          v-bind:value-change='changeAngles'>
+        </round-slider>
+      </td>
+      <td>
+        <round-slider 
+          class='phi' 
+          v-model='phiVal' 
+          start-angle='0' 
+          end-angle='360' 
+          line-cap='round' 
+          radius='80' 
+          width='10' 
+          animation='false' 
+          handle-size='22' 
+          handle-shape='round' 
+          min='0' 
+          max='2' 
+          step='0.01' 
+          range-color='#5c00d3' 
+          circle-shape='full' 
+          v-bind:tooltip-format='formatPhi' 
+          v-bind:value-change='changeAngles'>
+        </round-slider>
+      </td>
+    </tr>
+  </table>
+
+<p align='center'>
+<span style='font-family: Asana Math; font-size:20px;'>
+  {{alpha}} |0⟩ + ( {{beta_r}} + {{beta_i}} i ) |1⟩
+</span>
+</p>
+  
+</div>
 
 
-
+<br>
+<br>
+<br>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
@@ -440,6 +516,57 @@ updateGates = function(gates) {
 }
 
 
+new Vue({
+  el: "#state",
+  data: {
+    thetaVal: 0.5,
+    phiVal: 1.0,
+    alpha: 0.707,
+    beta_r: -0.707,
+    beta_i: 0,
+  },
+  methods: {
+    formatTheta() {
+      return "<span class='round-slider-font'>&theta; = " + this.thetaVal + " &pi;</span>";
+    },
+    formatPhi() {
+      return "<span class='round-slider-font'>&phi; = " + this.phiVal + " &pi;</span>";
+    },
+    changeAngles() {
+      
+      let cos_theta_2 = Math.cos(this.thetaVal*Math.PI / 2);
+      let sin_theta_2 = Math.sin(this.thetaVal*Math.PI / 2);
+      let cos_phi = Math.cos(this.phiVal*Math.PI);
+      let sin_phi = Math.sin(this.phiVal*Math.PI);
+      let b_r = cos_phi * sin_theta_2;
+      let b_i = sin_phi * sin_theta_2;
+      
+      //this.alpha = Number.parseFloat(cos_theta_2).toPrecision(3);
+      //this.beta_r = Number.parseFloat(b_r).toPrecision(3);
+      //this.beta_i = Number.parseFloat(b_i).toPrecision(2);
+      this.alpha = Math.round(cos_theta_2 * 1000) / 1000;
+      this.beta_r = Math.round(b_r * 1000) / 1000;
+      this.beta_i = Math.round(b_i * 1000) / 1000;
+    },
+  },
+  computed: {
+  	state_a() {
+    	return this.alpha !== 0 ? this.alpha : '0';
+    },
+    state_b() {
+      let b_r = this.beta_r;
+      let b_i = this.beta_i;
+      if (b_r === 0 && b_i === 0) return '0';
+      let sgn = ' + '; 
+      if (b_i < 0) { 
+        sgn = ' - '; 
+        b_i = -b_i;
+      }
+    	return (b_r !== 0 ? b_r : '') + (b_i !== 0 ? sgn + b_i + ' i' : '');
+    },
+  },
+});
+
 ```
 
 ```{css, echo=FALSE}
@@ -525,6 +652,22 @@ div .box-selected {
   margin: 0px;
   border-collapse: collapse;
 }
+
+.theta .rs-handle {
+  background-color: #ff0055;
+  box-shadow: 0px 0px 0px 0px #000;
+}
+
+.phi .rs-handle {
+  background-color: #5c00d3;
+  box-shadow: 0px 0px 0px 0px #000;
+}
+
+.round-slider-font {
+  font-weight: 500;
+  font-family: Asana Math;
+}
+
 
 ```
 
