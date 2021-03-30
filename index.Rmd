@@ -198,59 +198,66 @@ You can move the slider until you find the desired value for each angle (given i
 
 <div id='state'>
 
-  <table align='center' style='border: none;'>
+  <table align="center">
     <tr>
       <td>
+        <!-- Vue Round Slider -->
         <round-slider
-          class='theta' 
-          v-model='thetaVal' 
-          start-angle='0' 
-          end-angle='180' 
-          line-cap='round' 
-          radius='80' 
-          width='10' 
-          animation='false' 
-          handle-size='22' 
-          handle-shape='round' 
-          min='0' 
-          max='1' 
-          step='0.01' 
-          range-color='#ff0055' 
-          circle-shape='full' 
-          v-bind:tooltip-format='formatTheta' 
-          v-bind:value-change='changeAngles'>
+          class="theta"
+          v-model="thetaVal"
+          start-angle="0"
+          end-angle="180"
+          line-cap="round"
+          radius="80"
+          width="10"
+          animation="false"
+          handle-size="22"
+          handle-shape="round"
+          min="0"
+          max="1"
+          step="0.01"
+          range-color="#ff0055"
+          circle-shape="full"
+          v-bind:tooltip-format="formatTheta"
+          v-bind:value-change="changeAngles">
         </round-slider>
+        <!-- === -->
       </td>
       <td>
-        <round-slider 
-          class='phi' 
-          v-model='phiVal' 
-          start-angle='0' 
-          end-angle='360' 
-          line-cap='round' 
-          radius='80' 
-          width='10' 
-          animation='false' 
-          handle-size='22' 
-          handle-shape='round' 
-          min='0' 
-          max='2' 
-          step='0.01' 
-          range-color='#5c00d3' 
-          circle-shape='full' 
-          v-bind:tooltip-format='formatPhi' 
-          v-bind:value-change='changeAngles'>
+        <round-slider
+          class="phi"
+          v-model="phiVal"
+          start-angle="0"
+          end-angle="360"
+          line-cap="round"
+          radius="80"
+          width="10"
+          animation="false"
+          handle-size="22"
+          handle-shape="round"
+          min="0"
+          max="2"
+          step="0.01"
+          range-color="#5c00d3"
+          circle-shape="full"
+          v-bind:tooltip-format="formatPhi"
+          v-bind:value-change="changeAngles">
         </round-slider>
       </td>
     </tr>
   </table>
 
 <p align='center'>
-<span style='font-family: Asana Math; font-size:20px;'>
-  {{alpha}} |0⟩ + ( {{beta_r}} + {{beta_i}} i ) |1⟩
+$|\psi\rangle$<span style='font-family: "Times New Roman", Courier, Garamond, serif;'>{{state_a}}</span> $|0\rangle + ($ <span style='font-family: Symbol;'>{{state_b}}</span> $) |1\rangle$
+<br>
+<span style='font-family: CMEX10, Symbol, Times; font-size:20px;'>
+  |&#x03C8;&rangle; = {{state_a}} |0&#x27E9;<!-- ⟩ --> + ( {{state_b}} ) |1&#x27E9;<!-- ⟩ -->
 </span>
 </p>
-  
+<div align="center" style="font-family: Asana Math; font-size:20px;">
+  |&#x03C8;&rangle; = {{state_a}} |0&rangle; + ( {{state_b}} ) |1&rangle;
+</div>
+
 </div>
 
 
@@ -260,7 +267,7 @@ You can move the slider until you find the desired value for each angle (given i
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-const { Circuit, Gates } = QuantumTensors;
+const { Circuit, Gates, Vector, Cx, Dimension } = QuantumTensors;
 const { KetListViewer, MatrixViewer } = BraKetVue;
 
 
@@ -365,9 +372,9 @@ new Vue({
   }
 });
 
+updateGates = function() {}
 
-
-new Vue({
+var dnd = new Vue({
   el: '#dnd',
   template: `
   <div>
@@ -423,7 +430,7 @@ new Vue({
           </div>
         </td>
         <td>
-          <span style="font-family: MathJax_Main; font-size:30px;">|0⟩</span>
+          <span style="font-family: MathJax_Main; font-size:30px;">|&#x03C8;&rangle;</span>
         </td>
       </tr>
     </table>
@@ -450,14 +457,80 @@ new Vue({
       this.setGates();
     },
     setGates() {
-      updateGates(this.selectedGates);
+      updateGates();
     }
   }
 });
 
+var stateSlider = new Vue({
+  el: "#state",
+  data: {
+    thetaVal: 0.5,
+    phiVal: 1.0,
+    alpha: 0.707,
+    beta_r: -0.707,
+    beta_i: 0,
+  },
+  methods: {
+    formatTheta() {
+      return "<span class='round-slider-font'>&theta; = " + this.thetaVal + " &pi;</span>";
+    },
+    formatPhi() {
+      return "<span class='round-slider-font'>&phi; = " + this.phiVal + " &pi;</span>";
+    },
+    changeAngles() {
+      let cos_theta_2 = Math.cos(this.thetaVal*Math.PI / 2);
+      let sin_theta_2 = Math.sin(this.thetaVal*Math.PI / 2);
+      let cos_phi = Math.cos(this.phiVal*Math.PI);
+      let sin_phi = Math.sin(this.phiVal*Math.PI);
+      let b_r = cos_phi * sin_theta_2;
+      let b_i = sin_phi * sin_theta_2;
+      
+      //this.alpha = Number.parseFloat(cos_theta_2).toPrecision(3);
+      //this.beta_r = Number.parseFloat(b_r).toPrecision(3);
+      //this.beta_i = Number.parseFloat(b_i).toPrecision(2);
+      //this.alpha = Math.round(cos_theta_2 * 1000) / 1000;
+      //this.beta_r = Math.round(b_r * 1000) / 1000;
+      //this.beta_i = Math.round(b_i * 1000) / 1000;
+      this.alpha = cos_theta_2;
+      this.beta_r = b_r ;
+      this.beta_i = b_i;
+      
+      updateGates();
+      
+    },
+  },
+  computed: {
+  	state_a() {
+      let a = Math.round(this.alpha * 1000) / 1000;
+    	return a !== 0 ? a : '0';
+    },
+    state_b() {
+      let b_r = Math.round(this.beta_r * 1000) / 1000;
+      let b_i = Math.round(this.beta_i * 1000) / 1000;
+      if (b_r === 0 && b_i === 0) return '0';
+      let sgn = ' + '; 
+      if (b_i < 0) { 
+        sgn = ' - '; 
+        b_i = -b_i;
+      }
+    	return (b_r !== 0 ? b_r : '') + (b_i !== 0 ? sgn + b_i + ' i' : '');
+    },
+  },
+});
+
+
+circ = new Circuit(
+  Vector.fromArray(
+    [Cx(stateSlider.$data.alpha, 0), Cx(stateSlider.$data.beta_r, stateSlider.$data.beta_i)], 
+    [Dimension.qubit()]
+  ),
+  1, 
+  [0]
+);
 
 var circuitHistoryBig2 = [];
-circ = Circuit.qubits(1).saveTo(circuitHistoryBig2)
+circ = circ.saveTo(circuitHistoryBig2)
               .H(0).saveTo(circuitHistoryBig2)
               .X(0).saveTo(circuitHistoryBig2);
 
@@ -478,10 +551,23 @@ var klv = new Vue({
   }
 });
 
-updateGates = function(gates) {
+updateGates = function() {
+  
+  var gates = dnd.$data.selectedGates;
+  
+  var initialState = Vector.fromArray(
+    [Cx(stateSlider.$data.alpha, 0), Cx(stateSlider.$data.beta_r, stateSlider.$data.beta_i)], 
+    [Dimension.qubit()]
+  );
+  
+  circ = new Circuit(
+    initialState,
+    1, 
+    [0]
+  );
   
   circuitHistoryBig2 = [];
-  circ = Circuit.qubits(1).saveTo(circuitHistoryBig2);
+  circ = circ.saveTo(circuitHistoryBig2);
   
   var i;
   for (i = gates.length - 1; i >= 0; i--) {
@@ -515,57 +601,6 @@ updateGates = function(gates) {
   }
 }
 
-
-new Vue({
-  el: "#state",
-  data: {
-    thetaVal: 0.5,
-    phiVal: 1.0,
-    alpha: 0.707,
-    beta_r: -0.707,
-    beta_i: 0,
-  },
-  methods: {
-    formatTheta() {
-      return "<span class='round-slider-font'>&theta; = " + this.thetaVal + " &pi;</span>";
-    },
-    formatPhi() {
-      return "<span class='round-slider-font'>&phi; = " + this.phiVal + " &pi;</span>";
-    },
-    changeAngles() {
-      
-      let cos_theta_2 = Math.cos(this.thetaVal*Math.PI / 2);
-      let sin_theta_2 = Math.sin(this.thetaVal*Math.PI / 2);
-      let cos_phi = Math.cos(this.phiVal*Math.PI);
-      let sin_phi = Math.sin(this.phiVal*Math.PI);
-      let b_r = cos_phi * sin_theta_2;
-      let b_i = sin_phi * sin_theta_2;
-      
-      //this.alpha = Number.parseFloat(cos_theta_2).toPrecision(3);
-      //this.beta_r = Number.parseFloat(b_r).toPrecision(3);
-      //this.beta_i = Number.parseFloat(b_i).toPrecision(2);
-      this.alpha = Math.round(cos_theta_2 * 1000) / 1000;
-      this.beta_r = Math.round(b_r * 1000) / 1000;
-      this.beta_i = Math.round(b_i * 1000) / 1000;
-    },
-  },
-  computed: {
-  	state_a() {
-    	return this.alpha !== 0 ? this.alpha : '0';
-    },
-    state_b() {
-      let b_r = this.beta_r;
-      let b_i = this.beta_i;
-      if (b_r === 0 && b_i === 0) return '0';
-      let sgn = ' + '; 
-      if (b_i < 0) { 
-        sgn = ' - '; 
-        b_i = -b_i;
-      }
-    	return (b_r !== 0 ? b_r : '') + (b_i !== 0 ? sgn + b_i + ' i' : '');
-    },
-  },
-});
 
 ```
 
