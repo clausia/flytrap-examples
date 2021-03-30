@@ -44,6 +44,24 @@ $$|0\rangle = \begin{bmatrix}
 
 Therefore, the quantum state of a qubit $|\psi\rangle$ can be $|\psi\rangle=|0\rangle$ or $|\psi\rangle=|1\rangle$ or $|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$ (a superposition), where $\alpha$ and $\beta$ are complex numbers.
 
+The **Bloch sphere** is a geometrical representation of the pure state space of a two-level quantum mechanical system (qubit). The north and south poles of the Bloch sphere are typically chosen to correspond to the standard basis vectors $|0\rangle$  and $|1\rangle$, respectively, which in turn might correspond e.g. to the spin-up and spin-down states of an electron.
+
+Therefore, it is possible to define a state using $\theta$ and $\phi$ which correspond to the definition of the Bloch sphere as follows:
+
+$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
+
+thus,
+
+$$\alpha=\cos\left(\tfrac{\theta}{2}\right)$$
+
+$$\beta=\left(\cos\phi+i\sin\phi\right)\sin\left(\tfrac{\theta}{2}\right)$$
+where,
+
+$$0\leq \theta \leq \pi \; \; \text{and} \; \;  0\leq \phi <2\pi$$
+
+<br>
+<br>
+
 To this qubits we can apply **quantum gates**, so we can modify its state. This quantum gates have different effects, let's see some of them when starting with state $|0\rangle$:
 
 <br>
@@ -160,41 +178,11 @@ Note that the order of application is first the gate closest to state $|0\rangle
 <br>
 
 
-Next, you can test for yourself the effect of the different gates, simply drag the gate you want to apply to the *selected gates* area, to delete a gate from that area click on it (double tap on mobile).
+You can test for yourself the effect of the different gates, simply drag the gate you want to apply to the *selected gates* area, to delete a gate from that area click on it (double tap on mobile).
 
 Observe how the state changes according to the applied gates.
 
-If you want to test the effects of gates with state $|1\rangle$, then apply a gate $X$ to the start and observe the impact of this in the steps.
-
-<br>
-
-<div id='dnd'></div>
-
-<br>
-
-<div id='ketlist6'></div>
-
-<br>
-<br>
-<br>
-
-You can define an initial state as you wish, for this use the following values of $\theta$ and $\phi$ that correspond to the state defined by the Bloch sphere:
-
-$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
-
-thus,
-
-$$\alpha=\cos\left(\tfrac{\theta}{2}\right)$$
-
-$$\beta=\left(\cos\phi+i\sin\phi\right)\sin\left(\tfrac{\theta}{2}\right)$$
-where,
-
-$$0\leq \theta \leq \pi \; \; \text{and} \; \;  0\leq \phi <2\pi$$
-<br>
-
-You can move the slider until you find the desired value for each angle (given in fractions of $\pi$) or you can capture it directly by clicking on the central part of each slider.
-
-<br>
+To change the *initial state* use the sliders until you find the desired value for each angle (given in fractions of $\pi$) or you can capture it directly by clicking on the central part of each slider.
 
 <div id='state'>
 
@@ -248,22 +236,20 @@ You can move the slider until you find the desired value for each angle (given i
   </table>
 
 <p align='center'>
-$|\psi\rangle$<span style='font-family: "Times New Roman", Courier, Garamond, serif;'>{{state_a}}</span> $|0\rangle + ($ <span style='font-family: Symbol;'>{{state_b}}</span> $) |1\rangle$
-<br>
-<span style='font-family: CMEX10, Symbol, Times; font-size:20px;'>
+<span style='font-family: Asana Math; font-size:20px;'>
   |&#x03C8;&rangle; = {{state_a}} |0&#x27E9;<!-- ⟩ --> + ( {{state_b}} ) |1&#x27E9;<!-- ⟩ -->
 </span>
 </p>
-<div align="center" style="font-family: Asana Math; font-size:20px;">
-  |&#x03C8;&rangle; = {{state_a}} |0&rangle; + ( {{state_b}} ) |1&rangle;
-</div>
 
 </div>
+<div id='dnd'></div>
+<div id='ketlist6'></div>
+
+<br>
+<br>
+<br>
 
 
-<br>
-<br>
-<br>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
