@@ -7,6 +7,7 @@ author:
     url: http://claudiazm.xyz
 date: "`r Sys.Date()`"
 output: distill::distill_article
+bibliography: refs.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -42,19 +43,17 @@ $$|0\rangle = \begin{bmatrix}
 1
 \end{bmatrix}$$
 
-Therefore, the quantum state of a qubit $|\psi\rangle$ can be $|\psi\rangle=|0\rangle$ or $|\psi\rangle=|1\rangle$ or $|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$ (a superposition), where $\alpha$ and $\beta$ are complex numbers.
+Therefore, the quantum state of a qubit $|\psi\rangle$ can be $|\psi\rangle=|0\rangle$ or $|\psi\rangle=|1\rangle$ or $|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$ (a superposition), where $\alpha$ and $\beta$ are complex numbers [@Mermin07].
 
 The **Bloch sphere** is a geometrical representation of the pure state space of a two-level quantum mechanical system (qubit). The north and south poles of the Bloch sphere are typically chosen to correspond to the standard basis vectors $|0\rangle$  and $|1\rangle$, respectively, which in turn might correspond e.g. to the spin-up and spin-down states of an electron.
 
-Therefore, it is possible to define a state using $\theta$ and $\phi$ which correspond to the definition of the Bloch sphere as follows:
+Therefore, it is possible to define a state using $\theta$ and $\phi$ which correspond to the definition of the Bloch sphere as follows [@Nielsen16]:
 
 $$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
 
 thus,
 
-$$\alpha=\cos\left(\tfrac{\theta}{2}\right)$$
-
-$$\beta=\left(\cos\phi+i\sin\phi\right)\sin\left(\tfrac{\theta}{2}\right)$$
+$$\alpha=\cos\left(\tfrac{\theta}{2}\right) \; \; \; \; \; , \; \; \; \; \; \beta=\left(\cos\phi+i\sin\phi\right)\sin\left(\tfrac{\theta}{2}\right)$$
 where,
 
 $$0\leq \theta \leq \pi \; \; \text{and} \; \;  0\leq \phi <2\pi$$
@@ -245,10 +244,6 @@ To change the *initial state* use the sliders until you find the desired value f
 <div id='dnd'></div>
 <div id='ketlist6'></div>
 
-<br>
-<br>
-<br>
-
 
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -401,6 +396,9 @@ var dnd = new Vue({
                 group="1qGates"
                 @change="setGates"
                 chosen-class="chosen"
+                @choose="showTrashArea"
+                @end="hideTrash"
+                @update="hideTrash"
               >
                 <div
                   class="col-auto list-group-item"
@@ -419,6 +417,25 @@ var dnd = new Vue({
           <span style="font-family: MathJax_Main; font-size:30px;">|&#x03C8;&rangle;</span>
         </td>
       </tr>
+      <tr>
+        <td>
+          <div v-show='showTrash'>
+            <fieldset class="box-selected">
+              <legend class="legend-text">Trash &#x1F5D1;</legend>
+              <draggable
+                class="row dragArea"
+                :list="deletedGates"
+                group="1qGates"
+                chosen-class="chosen"
+                @add="hideTrash"
+              >
+              </draggable>
+            </fieldset>
+          </div>
+        </td>
+        <td>
+        </td>
+      </tr>
     </table>
     
   </div>
@@ -434,7 +451,9 @@ var dnd = new Vue({
       selectedGates: [
         { name: "X" , class: "x-class selected" },
         { name: "H" , class: "h-class selected"}
-      ]
+      ],
+      deletedGates: [],
+      showTrash: 0,
     };
   },
   methods: {
@@ -443,7 +462,14 @@ var dnd = new Vue({
       this.setGates();
     },
     setGates() {
+      this.hideTrash();
       updateGates();
+    }, 
+    showTrashArea() {
+      this.showTrash = true;
+    },
+    hideTrash() {
+      this.showTrash = false;
     }
   }
 });
