@@ -186,7 +186,7 @@ To change the *initial state* use the sliders until you find the desired value f
 
 <div id='state'>
 
-  <table align="center">
+  <table align="center" style="border:none;">
     <tr>
       <td>
         <!-- Vue Round Slider -->
@@ -472,12 +472,6 @@ var stateSlider = new Vue({
       let b_r = cos_phi * sin_theta_2;
       let b_i = sin_phi * sin_theta_2;
       
-      //this.alpha = Number.parseFloat(cos_theta_2).toPrecision(3);
-      //this.beta_r = Number.parseFloat(b_r).toPrecision(3);
-      //this.beta_i = Number.parseFloat(b_i).toPrecision(2);
-      //this.alpha = Math.round(cos_theta_2 * 1000) / 1000;
-      //this.beta_r = Math.round(b_r * 1000) / 1000;
-      //this.beta_i = Math.round(b_i * 1000) / 1000;
       this.alpha = cos_theta_2;
       this.beta_r = b_r ;
       this.beta_i = b_i;
