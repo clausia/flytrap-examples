@@ -7,6 +7,7 @@ author:
     url: http://claudiazm.xyz
 date: "`r Sys.Date()`"
 output: distill::distill_article
+bibliography: refs.bib
 ---
 
 
@@ -32,7 +33,7 @@ with this she will be able to send Bob information in $\alpha$ and $\beta$.
 
 The quantum mechanics theorem of non-cloning indicates that it is not possible to generate an exact copy of an unknown quantum state. As a result of this we can see that Alice cannot just copy $|\psi\rangle$ and give that copy to Bob. We can only copy classic states (not superpositions).
 
-However, by taking advantage of two classical bits and a pair of entangled quibits, Alice can transfer her state $|\psi\rangle$ to Bob. This protocol is called teleportation because eventually Bob will have $|\psi\rangle$ and Alice will no longer have it.
+However, by taking advantage of two classical bits and a pair of entangled quibits, Alice can transfer her state $|\psi\rangle$ to Bob. This protocol is called teleportation because eventually Bob will have $|\psi\rangle$ and Alice will no longer have it [@Nielsen16].
 
 
 
@@ -100,7 +101,7 @@ $$
 
 ### Step 2
 
-Now Alice, according to the protocol, applies a $CNOT$ gate to her two qubits: where the target is qubit $1$ (her entangled qubit), and the control is $|\psi\rangle$ (position $0$), which is the qubit that she wants to send to Bob.
+Now Alice, according to the protocol, applies a $CNOT$ gate to her two qubits: where the target is qubit $1$ (her entangled qubit), and the control is $|\psi\rangle$ (position $0$), which is the qubit that she wants to send to Bob [@Laflamme07].
 
 Alice then applies a Hadamard gate to $|\psi\rangle$.
 
