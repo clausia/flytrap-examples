@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 cat(
   "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>",
   "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
-  "<script src='https://unpkg.com/quantum-tensors@0.4.13/dist/quantum-tensors.min.js'></script>",
+  "<script src='https://unpkg.com/quantum-tensors@0.4.14/dist/quantum-tensors.min.js'></script>",
   "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>",
   "<script src='https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js'></script>",
   "<script src='https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js'></script>",
@@ -594,14 +594,14 @@ updateGates = function() {
       case 'H':
         circ.H(0).saveTo(circuitHistoryBig2);
         break;
-      case 'I':
-        circ.applyGate(Gates.I(), [0]).saveTo(circuitHistoryBig2);
+       case 'I':
+        circ.I(0).saveTo(circuitHistoryBig2);
         break;
       case 'S':
-        circ.applyGate(Gates.S(), [0]).saveTo(circuitHistoryBig2);
+        circ.S(0).saveTo(circuitHistoryBig2);
         break;
       case 'T':
-        circ.applyGate(Gates.T(), [0]).saveTo(circuitHistoryBig2);
+        circ.T(0).saveTo(circuitHistoryBig2);
         break;
       default:
         // default case
@@ -671,22 +671,22 @@ div .h-class {
 }
 
 div .i-class {
-  background-color: rgb(128, 255, 0);
-  color: #000; /*#ffffff;*/
+  background-color: rgb(0, 127, 18);
+  color: #ffffff;
   margin: 3px 3px 3px 3px;
   cursor: grab;
 }
 
 div .s-class {
-  background-color: rgb(255, 0, 191);
+  background-color: rgb(132, 104, 165);
   color: #ffffff;
   margin: 3px 3px 3px 3px;
   cursor: grab;
 }
 
 div .t-class {
-  background-color: rgb(0, 255, 255);
-  color: #000; /*#ffffff;*/
+  background-color: rgb(97, 170, 181);
+  color: #ffffff;
   margin: 3px 3px 3px 3px;
   cursor: grab;
 }
