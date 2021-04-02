@@ -1,10 +1,14 @@
 ---
 title: "Flytrap Example: Qubit and Gates"
 description: |
-  This is an example to apply for an internship at Quantum Flytrap
+  Quantum logic gates for a single qubit, interactively
 author:
   - name: Claudia Zendejas-Morales
     url: http://claudiazm.xyz
+  - name: Piotr Migdał 
+    url: https://p.migdal.pl
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumgame.io
 date: "`r Sys.Date()`"
 output: distill::distill_article
 bibliography: refs.bib
@@ -26,12 +30,12 @@ cat(
 )
 ```
 
+Quantum computers use quantum physics to perform computation. They use phenomena such as superposition and entanglement that make it possible to use more powerful algorithms than in classical computing. In classical computing, we use the electric signal as the carrier of information. In quantum, we use various implementations, including the polarization of light, the spin of ions, and the states of superconductors.
 
-Quantum computing is the use of quantum phenomena such as superposition and entanglement to perform computation.  There are several models of quantum computers, including the quantum circuit model, adiabatic quantum, amog others. Quantum circuits are based on the **qubit**. 
 
-A **qubit** is the equivalent to a *bit* in classical computation. A qubit is a two-state (or two-level) quantum-mechanical system, we write qubits with Dirac notation.
+## Qubit
 
-The general quantum state of a qubit can be represented by a linear superposition of its two orthonormal basis states (or basis vectors). These vectors are usually denoted as $|0\rangle$ and $|1\rangle$:
+In classical computing, the basic unit is a bit - 0 or 1. In quantum computing, the basic unit is a qubit. Instead of just two values, we have a vector with two components. In this article, we explore what is a single qubit, and what are the quantum computing operations: 
 
 $$|0\rangle = \begin{bmatrix}
 1\\
@@ -42,31 +46,35 @@ $$|0\rangle = \begin{bmatrix}
 0\\
 1
 \end{bmatrix}$$
+In general, a qubit can be any superposition of $|0\rangle$ and $|1\rangle$ - that is
 
-Therefore, the quantum state of a qubit $|\psi\rangle$ can be $|\psi\rangle=|0\rangle$ or $|\psi\rangle=|1\rangle$ or $|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$ (a superposition), where $\alpha$ and $\beta$ are complex numbers [@Mermin07].
+$$|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$$
 
-The **Bloch sphere** is a geometrical representation of the pure state space of a two-level quantum mechanical system (qubit). The north and south poles of the Bloch sphere are typically chosen to correspond to the standard basis vectors $|0\rangle$  and $|1\rangle$, respectively, which in turn might correspond e.g. to the spin-up and spin-down states of an electron.
+where $\alpha$ and $\beta$ are [complex numbers](https://www.3blue1brown.com/videos-blog/complex-number-fundamentals-lockdown-math-ep-3)
 
-Therefore, it is possible to define a state using $\theta$ and $\phi$ which correspond to the definition of the Bloch sphere as follows [@Nielsen16]:
+For example:
 
-$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
+$$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \; \; \; \; \; , \; \; \; \; \; |-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}$$
 
-thus,
+$$|R\rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \; \; \; \; \; , \; \; \; \; \; |L\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
 
-$$\alpha=\cos\left(\tfrac{\theta}{2}\right) \; \; \; \; \; , \; \; \; \; \; \beta=\left(\cos\phi+i\sin\phi\right)\sin\left(\tfrac{\theta}{2}\right)$$
-where,
 
-$$0\leq \theta \leq \pi \; \; \text{and} \; \;  0\leq \phi <2\pi$$
+If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be told without complex numbers. Second, complex numbers are fun on their own.
+
+
+## Gates
+
+Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
+How do they work? Let us pick a state and a quantum gate!
+
+**[INTERACTIVE VISUALIZATION]**
+
+[pick a state] [pick an operator] [display output state (ket, not ket list)]
+
+**(this is Work in Progress)**
+*(meanwhile, I leave what was before:)*
 
 <br>
-<br>
-
-To this qubits we can apply **quantum gates**, so we can modify its state. This quantum gates have different effects, let's see some of them when starting with state $|0\rangle$:
-
-<br>
-
-(Click on the quantum gate you want to apply to the qubit $|0\rangle$)
-
 
 ```{r}
 HTML("
@@ -118,39 +126,46 @@ HTML("
 <br>
 <br>
 
-But we can also start with state $|1\rangle$, to see this, now we use a matrix representation of the quantum gates.
-
-Each gate is a matrix that you multiply by the left of the qubit (remember, a qubit is a vector).
-
-In this representation we can see which is the output (the state after applying a gate) for each possible input ($|0\rangle$ or $|1\rangle$).
-
-<br>
-
-(Place your pointer on the input you want to review and the corresponding output will be the one with a colored circle)
-
-<br>
+Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post you will be able to compose gates. 
+So, what are the most typical gates?  
 
 ```{r}
 HTML("
   <table align='center' class='matrices'>
     <tr>
       <td align='center'>
-        X Gate (Pauli X)
-        <div id='gate-x'></div>
+        I Gate (Identity)
+        <div id='gate_I'></div>
       </td>
       <td align='center'>
-        Y Gate (Pauli Y)
-        <div id='gate-y'></div>
+        X Gate (Pauli X)
+        <div id='gate_X'></div>
       </td>
     </tr>
     <tr>
       <td align='center'>
-        Z Gate (Pauli Z)
-        <div id='gate-z'></div>
+        Y Gate (Pauli Y)
+        <div id='gate_Y'></div>
       </td>
       <td align='center'>
+        Z Gate (Pauli Z)
+        <div id='gate_Z'></div>
+      </td>
+    </tr>
+    <tr>
+      <td align='center'>
         H Gate (Hadamard)
-        <div id='gate-h'></div>
+        <div id='gate_H'></div>
+      </td>
+      <td align='center'>
+        S Gate (Phase shift)
+        <div id='gate_S'></div>
+      </td>
+    </tr>
+    <tr>
+      <td align='center'>
+        T Gate (Phase shift)
+        <div id='gate_T'></div>
       </td>
     </tr>
   </table>
@@ -158,30 +173,25 @@ HTML("
 ```
 
 <br>
+
+## Quantum circuits
+
+Quantum gates can be composed. In a conventional matrix notation, we read from right to left. That is, $X \;H \; Z \; |0\rangle$ means that we start with state $|0\rangle$, then apply $Z$ gate, then $H$, then $X$. It is a historic notation that is going to stay here.
+
+You can interact with various sequences of gates. Simply drag the gate you want to apply to the selected gates area. To delete a gate from that area, drag it to the trash area.
+
+Remember, in this visualization we are using a gate application order from left to right.
+
+You can pick any input state from the gauges. It uses a general parametrization of:
+
+$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
+
+If you want to avoid complex values, use $\phi=0$ or $\phi=\pi$.
+
+Observe how the state changes according to the applied gates. In BraKetVue, we use colors to denote phase of complex numbers, see [@DomainColoring20], Chapter 3 from [@Migdal14], and [@Qubism20] from QuTip.
+
 <br>
-
-Of course, you can also apply gates in sequence to modify the state of the qubit as needed depending on your algorithm.
-
-The following example applies the gates $Z$, $H$, $X$ (in that order).
-
-This in Dirac notation looks like:
-
-$$ X \;H \; Z \; |0\rangle $$
-
-Note that the order of application is first the gate closest to state $|0\rangle$ and then the one that follows from right to left.
-
-<div id='ketlist5'></div>
-
 <br>
-<br>
-<br>
-
-
-You can test for yourself the effect of the different gates, simply drag the gate you want to apply to the *selected gates* area, to delete a gate from that area, you must drag it to the trash area that appears below when you select a gate.
-
-Observe how the state changes according to the applied gates.
-
-To change the *initial state* use the sliders until you find the desired value for each angle (given in fractions of $\pi$) or you can capture it directly by clicking on the central part of each slider.
 
 <div id='state'>
 
@@ -243,6 +253,18 @@ To change the *initial state* use the sliders until you find the desired value f
 </div>
 <div id='dnd'></div>
 <div id='ketlist6'></div>
+
+<br>
+<br>
+
+## Remarks
+
+This post is a part of the quantum computing series by Quantum Flytrap. It uses [Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The source to this post is in [here](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
+
+<br>
+
+*[Thanks or so] (this part is still missing)*
+
 
 
 
@@ -329,10 +351,13 @@ addKetList('ketlist','Z',3);
 addKetList('ketlist','H',4);
 
 
-addGate('gate-x', Gates.X());
-addGate('gate-y', Gates.Y());
-addGate('gate-z', Gates.Z());
-addGate('gate-h', Gates.H());
+addGate('gate_I', Gates.I());
+addGate('gate_X', Gates.X());
+addGate('gate_Y', Gates.Y());
+addGate('gate_Z', Gates.Z());
+addGate('gate_H', Gates.H());
+addGate('gate_S', Gates.S());
+addGate('gate_T', Gates.T());
 
 
 new Vue({
