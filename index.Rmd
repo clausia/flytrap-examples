@@ -371,12 +371,10 @@ var dnd = new Vue({
           chosen-class="chosen"
         >
           <div
-            class="col-auto list-group-item"
             v-for="gate in availableGates"
             v-bind:class="gate.class"
             :key="gate.name"
           >
-            {{ gate.name }}
           </div>
         </draggable>
       </fieldset>
@@ -401,13 +399,11 @@ var dnd = new Vue({
                 @update="hideTrash"
               >
                 <div
-                  class="col-auto list-group-item"
                   v-for="(gate,index) in selectedGates"
                   v-bind:class="gate.class"
                   :key="gate.name"
                   @click="deleteItem(index)"
                 >
-                  {{ gate.name }}
                 </div>
               </draggable>
             </fieldset>
@@ -443,11 +439,11 @@ var dnd = new Vue({
   data() {
     return {
       availableGates: [
+        { name: "I" , class: "i-class selected" },
         { name: "X" , class: "x-class selected" },
         { name: "Y" , class: "y-class selected" },
         { name: "Z" , class: "z-class selected" },
         { name: "H" , class: "h-class selected" },
-        { name: "I" , class: "i-class selected" },
         { name: "S" , class: "s-class selected" },
         { name: "T" , class: "t-class selected" }
       ],
@@ -643,52 +639,73 @@ updateGates = function() {
 }
 
 div .x-class {
-  background-color: #ff0055;
   color: #ffffff;
   margin: 3px 3px 3px 3px;
+  height: 50px;
+  width: 50px;
   cursor: grab;
+  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Cpath d='M 342.313 299.152 L 307.503 299.152 L 285.353 266.012 L 263.523 299.152 L 229.003 299.152 L 267.943 245.092 L 230.683 192.262 L 264.743 192.262 L 286.123 223.102 L 307.193 192.262 L 339.873 192.262 L 302.613 243.872 L 342.313 299.152 Z' transform='matrix(0.9286789894104004, 0, 0, 0.9679050445556641, -165.3771514892578, -136.51661682128906)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .y-class {
-  background-color: #5c00d3;
   color: #ffffff;
   margin: 3px 3px 3px 3px;
+  height: 50px;
+  width: 50px;
   cursor: grab;
+  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(127, 0, 255, 0.6);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(128, 255, 0, 0.6);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Cpath d='M 338.193 192.262 L 297.263 260.822 L 297.263 299.152 L 267.033 299.152 L 267.033 260.362 L 226.263 192.262 L 258.173 192.262 L 283.523 234.712 L 308.873 192.262 L 338.193 192.262 Z' transform='matrix(0.8812999725341797, 0, 0, 0.9684740304946899, -148.7193603515625, -136.82974243164062)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .z-class {
-  background-color: #0071dd;
   color: #ffffff;
   margin: 3px 3px 3px 3px;
+  height: 50px;
+  width: 50px;
   cursor: grab;
+  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 255, 255, 0.6);'%3E%3C/rect%3E%3Cpath d='M 273.603 275.502 L 329.033 275.502 L 329.033 299.152 L 234.583 299.152 L 234.583 280.472 L 287.763 217.352 L 235.943 217.352 L 235.943 193.702 L 326.773 193.702 L 326.773 212.382 L 273.603 275.502 Z' transform='matrix(0.9775470495223999, 0, 0, 0.9815950393676758, -174.16375732421875, -140.6441650390625)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .h-class {
-  background-color: #2e006a;
   color: #ffffff;
   margin: 3px 3px 3px 3px;
+  height: 50px;
+  width: 50px;
   cursor: grab;
+  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 255, 255, 0.6);'%3E%3C/rect%3E%3Cpath d='M 310.353 193.702 L 340.183 193.702 L 340.183 299.152 L 310.353 299.152 L 310.353 258.032 L 269.683 258.032 L 269.683 299.152 L 239.853 299.152 L 239.853 193.702 L 269.683 193.702 L 269.683 233.322 L 310.353 233.322 L 310.353 193.702 Z' transform='matrix(0.8235750198364258, 0, 0, 0.9815950393676758, -138.8560028076172, -140.6441650390625)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .i-class {
-  background-color: rgb(0, 127, 18);
   color: #ffffff;
   margin: 3px 3px 3px 3px;
+  height: 50px;
+  width: 50px;
   cursor: grab;
+  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Cpath d='M 239.853 299.152 L 239.853 193.702 L 269.683 193.702 L 269.683 299.152 L 239.853 299.152 Z' transform='matrix(0.9788930416107178, 0, 0, 0.9799250364303589, -149.47230529785156, -140.3878631591797)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .s-class {
-  background-color: rgb(132, 104, 165);
   color: #ffffff;
   margin: 3px 3px 3px 3px;
+  height: 50px;
+  width: 50px;
   cursor: grab;
+  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(128, 255, 0, 0.6);'%3E%3C/rect%3E%3Cpath d='M 276.913 301.262 C 268.38 301.262 260.096 300.209 252.063 298.102 C 244.03 295.989 237.5 293.175 232.473 289.662 L 242.263 267.672 C 246.983 270.785 252.456 273.295 258.683 275.202 C 264.91 277.109 271.036 278.062 277.063 278.062 C 288.516 278.062 294.243 275.199 294.243 269.472 C 294.243 266.459 292.61 264.225 289.343 262.772 C 286.076 261.319 280.83 259.789 273.603 258.182 C 265.67 256.475 259.04 254.642 253.713 252.682 C 248.393 250.722 243.826 247.582 240.013 243.262 C 236.193 238.949 234.283 233.125 234.283 225.792 C 234.283 219.365 236.04 213.565 239.553 208.392 C 243.073 203.219 248.323 199.125 255.303 196.112 C 262.276 193.099 270.836 191.592 280.983 191.592 C 287.91 191.592 294.74 192.372 301.473 193.932 C 308.2 195.485 314.123 197.769 319.243 200.782 L 310.053 222.932 C 300.013 217.505 290.273 214.792 280.833 214.792 C 274.906 214.792 270.586 215.672 267.873 217.432 C 265.166 219.185 263.813 221.469 263.813 224.282 C 263.813 227.095 265.42 229.205 268.633 230.612 C 271.846 232.019 277.016 233.475 284.143 234.982 C 292.176 236.689 298.83 238.522 304.103 240.482 C 309.376 242.435 313.946 245.549 317.813 249.822 C 321.68 254.089 323.613 259.885 323.613 267.212 C 323.613 273.539 321.856 279.265 318.343 284.392 C 314.83 289.512 309.556 293.602 302.523 296.662 C 295.496 299.729 286.96 301.262 276.913 301.262 Z' transform='matrix(1.0259699821472168, 0, 0, 0.9790090322494507, -185.2677459716797, -139.92605590820312)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .t-class {
-  background-color: rgb(97, 170, 181);
   color: #ffffff;
   margin: 3px 3px 3px 3px;
+  height: 50px;
+  width: 50px;
   cursor: grab;
+  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(255, 191, 0, 0.6);'%3E%3C/rect%3E%3Cpath d='M 262.303 299.152 L 262.303 217.352 L 229.913 217.352 L 229.913 193.702 L 324.363 193.702 L 324.363 217.352 L 292.133 217.352 L 292.133 299.152 L 262.303 299.152 Z' transform='matrix(1.036102056503296, 0, 0, 0.9793420433998108, -187.591064453125, -140.02294921875)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .chosen {
@@ -701,23 +718,23 @@ div .box-available {
   border: none;
   background-color: rgba(0,0,0,0.05);
   padding: 15px 0px 0px 30px;
-  width: 430px;
-  height: 125px;
+  width: 425px;
+  height: 120px;
 }
 
 .legend-text {
-  width: 130px;
-  margin: 10px 0px 0px 00px;
-  font-size: 15px;
+  width: 140px;
+  margin: 10px 0px 0px 0px;
+  font-size: 120%;
 }
 
 div .box-selected {
   border-radius: 0px;
   border: none;
   background-color: rgba(0,0,0,0.05);
-  padding: 15px 0px 0px 35px;
+  padding: 15px 0px 0px 30px;
   width: auto;
-  height: 125px;
+  height: 120px;
 }
 
 .table-circuit {
