@@ -295,8 +295,6 @@ This post is a part of the quantum computing series by Quantum Flytrap. It uses 
 
 <br>
 
-*[Thanks or so] (this part is still missing)*
-
 
 
 
