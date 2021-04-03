@@ -1,5 +1,5 @@
 ---
-title: "Flytrap Example: Qubit and Gates"
+title: "Quantum logic gates for a single qubit, interactively"
 description: |
   Quantum logic gates for a single qubit, interactively
 author:
