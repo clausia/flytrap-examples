@@ -295,7 +295,7 @@ This post is a part of the quantum computing series by Quantum Flytrap. It uses 
 
 <br>
 
-
+Stay tuned for our next posts!
 
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
