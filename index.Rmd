@@ -20,13 +20,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r echo=FALSE, message=FALSE, results='asis'}
 cat(
-  "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>",
+  "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'>",
+  "<link rel='stylesheet' href='https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css'>",
   "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
   "<script src='https://unpkg.com/quantum-tensors@0.4.14/dist/quantum-tensors.min.js'></script>",
   "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>",
   "<script src='https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js'></script>",
   "<script src='https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js'></script>",
-  "<script src='https://cdn.jsdelivr.net/npm/vue-round-slider@1.0.1/dist/vue-roundslider.min.js'></script>"
+  "<script src='https://cdn.jsdelivr.net/npm/vue-round-slider@1.0.1/dist/vue-roundslider.min.js'></script>",
+  "<script src='https://cdn.jsdelivr.net/npm/pretty-checkbox-vue@1.1/dist/pretty-checkbox-vue.min.js'></script>",
+  "<script src='https://unpkg.com/vue-multiselect@2.1.0'></script>"
 )
 ```
 
@@ -67,61 +70,91 @@ If complex numbers are new to you - don’t worry. First, many interesting quant
 Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
 How do they work? Let us pick a state and a quantum gate!
 
-**[INTERACTIVE VISUALIZATION]**
+**1. Pick a state:**
 
-[pick a state] [pick an operator] [display output state (ket, not ket list)]
-
-**(this is Work in Progress)**
-*(meanwhile, I leave what was before:)*
-
-<br>
 
 ```{r}
 HTML("
-<div id='gates1'>
-  <label>
-    <input type='radio' name='gate_applied' v-on:click='show = 1' value='x' checked> 
-    X Gate
-  </label>
-  <label>
-    <input type='radio' name='gate_applied' v-on:click='show = 2' value='y'> 
-    Y Gate
-  </label>
-  <label>
-    <input type='radio' name='gate_applied' v-on:click='show = 3' value='z'>
-    Z Gate
-  </label>
-  <label>
-    <input type='radio' name='gate_applied' v-on:click='show = 4' value='h'>
-    H Gate
-  </label>
-  
-  <br><br>
+<div id='states-basis'>
 
-  <div class='gate_title' v-show='show == 1'>
-    Apply X Gate:
-    <div id='ketlist1'></div>
-  </div>
-  
-  <div class='gate_title' v-show='show == 2'>
-    Apply Y Gate:
-    <div id='ketlist2'></div>
-  </div>
-  
-  <div class='gate_title' v-show='show == 3'>
-    Apply Z Gate:
-    <div id='ketlist3'></div>
-  </div>
-  
-  <div class='gate_title' v-show='show == 4'>
-    Apply H Gate:
-    <div id='ketlist4'></div>
-  </div>
+  <div style='font-family: MathJax_Main;'>
 
-</div> <!-- end id='gates1' -->
+    <p-radio class=\"p-switch p-fill state_0\" name=\"switch1\" color=\"success\" value=\"st_0\" v-model=\"picked\" @change=\"changeRadio\">|0&rangle;</p-radio>
 
+    <p-radio class=\"p-switch p-fill state_1\" name=\"switch1\" color=\"success\" value=\"st_1\" v-model=\"picked\" @change=\"changeRadio\">|1&rangle;</p-radio>
+
+    <p-radio class=\"p-switch p-fill state_p\" name=\"switch1\" color=\"success\" value=\"st_p\" v-model=\"picked\" @change=\"changeRadio\">|&plus;&rangle;</p-radio>
+
+    <p-radio class=\"p-switch p-fill state_m\" name=\"switch1\" color=\"success\" value=\"st_m\" v-model=\"picked\" @change=\"changeRadio\">|&minus;&rangle;</p-radio>
+
+    <p-radio class=\"p-switch p-fill state_r\" name=\"switch1\" color=\"success\" value=\"st_r\" v-model=\"picked\" @change=\"changeRadio\">|R&rangle;</p-radio>
+
+    <p-radio class=\"p-switch p-fill state_l\" name=\"switch1\" color=\"success\" value=\"st_l\" v-model=\"picked\" @change=\"changeRadio\">|L&rangle;</p-radio>
+    
+  </div>
+  
+</div>
 ")
 ```
+
+<br>
+
+**2. Pick a gate:**
+
+```{r}
+HTML("
+<div id='gate_combo'>
+  
+<table align='center' style='border: 0; margin: 0; padding: 0;'>
+  <tr>
+  <td width='300px'>
+
+  <multiselect 
+    v-model='value' 
+    placeholder='Choose a gate' 
+    label='gateDesc' 
+    track-by='gateName' 
+    :options='options' 
+    :option-height='50'
+    :show-labels='false'
+    @select='selectCombo'
+    @input='updateValue'>
+    
+  <template 
+    slot='singleLabel' 
+    slot-scope='props'>
+    <div :class='props.option.gateVis'></div>
+    {{ props.option.gateDesc }}
+  </template>
+  <template 
+    slot='option'
+    slot-scope='props'>
+    <div :class='props.option.gateVis'></div>
+    {{ props.option.gateDesc }}
+  </template>
+    
+  </multiselect>
+
+  </td>
+  <td>
+    <div v-show='showMatrix == \"I\"'><div id='gate_I_0'></div></div>
+    <div v-show='showMatrix == \"X\"'><div id='gate_X_0'></div></div>
+    <div v-show='showMatrix == \"Y\"'><div id='gate_Y_0'></div></div>
+    <div v-show='showMatrix == \"Z\"'><div id='gate_Z_0'></div></div>
+    <div v-show='showMatrix == \"H\"'><div id='gate_H_0'></div></div>
+    <div v-show='showMatrix == \"S\"'><div id='gate_S_0'></div></div>
+    <div v-show='showMatrix == \"T\"'><div id='gate_T_0'></div></div>
+  </td>
+  </tr>
+</table>
+      
+</div>
+")
+```
+
+**3. Check the result:**
+<div id='ket0'></div>
+
 
 <br>
 <br>
@@ -271,7 +304,7 @@ This post is a part of the quantum computing series by Quantum Flytrap. It uses 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const { Circuit, Gates, Vector, Cx, Dimension } = QuantumTensors;
-const { KetListViewer, MatrixViewer } = BraKetVue;
+const { KetViewer, KetListViewer, MatrixViewer } = BraKetVue;
 
 
 const circuitHistory = [];
@@ -434,7 +467,7 @@ var dnd = new Vue({
             </fieldset>
           </div>
         </td>
-        <td>
+        <td width="40px">
           <span style="font-family: MathJax_Main; font-size:30px;">|&#x03C8;&rangle;</span>
         </td>
       </tr>
@@ -464,17 +497,17 @@ var dnd = new Vue({
   data() {
     return {
       availableGates: [
-        { name: "I" , class: "i-class selected" },
-        { name: "X" , class: "x-class selected" },
-        { name: "Y" , class: "y-class selected" },
-        { name: "Z" , class: "z-class selected" },
-        { name: "H" , class: "h-class selected" },
-        { name: "S" , class: "s-class selected" },
-        { name: "T" , class: "t-class selected" }
+        { name: "I" , class: "gate-class i-class" },
+        { name: "X" , class: "gate-class x-class" },
+        { name: "Y" , class: "gate-class y-class" },
+        { name: "Z" , class: "gate-class z-class" },
+        { name: "H" , class: "gate-class h-class" },
+        { name: "S" , class: "gate-class s-class" },
+        { name: "T" , class: "gate-class t-class" }
       ],
       selectedGates: [
-        { name: "X" , class: "x-class selected" },
-        { name: "H" , class: "h-class selected"}
+        { name: "X" , class: "gate-class x-class" },
+        { name: "H" , class: "gate-class h-class" }
       ],
       deletedGates: [],
       showTrash: 0,
@@ -642,6 +675,144 @@ updateGates = function() {
 }
 
 
+Vue.use(PrettyCheckbox);
+
+var stateBasis = new Vue({
+  el: '#states-basis',
+  data: {
+    picked: "st_0",
+  },
+  methods: {
+    changeRadio: function () {
+      updateOneState();
+    },
+  }
+});
+
+var comboboxGate = new Vue({
+  el: '#gate_combo',
+  components: {
+  	Multiselect: window.VueMultiselect.default
+	},
+  data: {
+    options: [
+      { gateDesc: "Identity", gateVis: "gate-class i-class", gateName: "I" },
+      { gateDesc: "Pauli X", gateVis: "gate-class x-class", gateName: "X" },
+      { gateDesc: "Pauli Y", gateVis: "gate-class y-class", gateName: "Y" },
+      { gateDesc: "Pauli Z", gateVis: "gate-class z-class", gateName: "Z" },
+      { gateDesc: "Hadamard", gateVis: "gate-class h-class", gateName: "H" },
+      { gateDesc: "Phase S", gateVis: "gate-class s-class", gateName: "S" },
+      { gateDesc: "Phase T", gateVis: "gate-class t-class", gateName: "T" },
+    ],
+    value: { gateDesc: "Identity", gateVis: "gate-class i-class", gateName: "I" },
+    showMatrix: "I",
+  },
+  methods: {
+    selectCombo(selectedOption) {
+      this.showMatrix = selectedOption.gateName;
+    },
+    updateValue() {
+      updateOneState();
+    }
+  }
+})
+
+addGate('gate_I_0', Gates.I());
+addGate('gate_X_0', Gates.X());
+addGate('gate_Y_0', Gates.Y());
+addGate('gate_Z_0', Gates.Z());
+addGate('gate_H_0', Gates.H());
+addGate('gate_S_0', Gates.S());
+addGate('gate_T_0', Gates.T());
+
+var circuitHis = [];
+Circuit.qubits(1).saveTo(circuitHis);
+
+var oneState = new Vue({
+  el: '#ket0',
+  template: "<ket-viewer :vector='vector' :dark-mode='false'/>",
+  components: {
+    KetViewer,
+  },
+  data() {
+    return { 
+      vector: circuitHis[0].vector,
+    }
+  }
+})
+
+updateOneState = function() {
+  
+  var alpha;
+  var beta;
+  
+  switch(stateBasis.$data.picked) {
+    case 'st_0':
+      alpha = Cx(1, 0);
+      beta = Cx(0, 0);
+      break;
+    case 'st_1':
+      alpha = Cx(0, 0);
+      beta = Cx(1, 0);
+      break;
+    case 'st_p':
+      alpha = Cx(0.707107, 0);
+      beta = Cx(0.707107, 0);
+      break;
+    case 'st_m':
+      alpha = Cx(0.707107, 0);
+      beta = Cx(-0.707107, 0);
+      break;
+    case 'st_r':
+      alpha = Cx(0.707107, 0);
+      beta = Cx(0, 0.707107);
+      break;
+    case 'st_l':
+      alpha = Cx(0.707107, 0);
+      beta = Cx(0, -0.707107);
+      break;
+  }
+  
+  circuitHis = [];
+  circ = new Circuit(
+    Vector.fromArray(
+      [alpha, beta], 
+      [Dimension.qubit()],
+    ),
+    1, 
+    [0]
+  );
+  switch(comboboxGate.$data.value.gateName) {
+    case 'X':
+      circ.X(0).saveTo(circuitHis);
+      break;
+    case 'Y':
+      circ.Y(0).saveTo(circuitHis);
+      break;
+    case 'Z':
+      circ.Z(0).saveTo(circuitHis);
+      break;
+    case 'H':
+      circ.H(0).saveTo(circuitHis);
+      break;
+    case 'I':
+      circ.I(0).saveTo(circuitHis);
+      break;
+    case 'S':
+      circ.S(0).saveTo(circuitHis);
+      break;
+    case 'T':
+      circ.T(0).saveTo(circuitHis);
+      break;
+    default:
+      // default case
+  }
+  
+  oneState.$data.vector = circuitHis[0].vector;
+  
+}
+
+
 ```
 
 ```{css, echo=FALSE}
@@ -663,73 +834,41 @@ updateGates = function() {
   font-weight: bold;
 }
 
-div .x-class {
-  color: #ffffff;
+div .gate-class {
+  display: inline-block;
   margin: 3px 3px 3px 3px;
   height: 50px;
   width: 50px;
   cursor: grab;
   background-size: 50px 50px;
+  vertical-align: middle;
+}
+
+div .x-class {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Cpath d='M 342.313 299.152 L 307.503 299.152 L 285.353 266.012 L 263.523 299.152 L 229.003 299.152 L 267.943 245.092 L 230.683 192.262 L 264.743 192.262 L 286.123 223.102 L 307.193 192.262 L 339.873 192.262 L 302.613 243.872 L 342.313 299.152 Z' transform='matrix(0.9286789894104004, 0, 0, 0.9679050445556641, -165.3771514892578, -136.51661682128906)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .y-class {
-  color: #ffffff;
-  margin: 3px 3px 3px 3px;
-  height: 50px;
-  width: 50px;
-  cursor: grab;
-  background-size: 50px 50px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(127, 0, 255, 0.6);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(128, 255, 0, 0.6);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Cpath d='M 338.193 192.262 L 297.263 260.822 L 297.263 299.152 L 267.033 299.152 L 267.033 260.362 L 226.263 192.262 L 258.173 192.262 L 283.523 234.712 L 308.873 192.262 L 338.193 192.262 Z' transform='matrix(0.8812999725341797, 0, 0, 0.9684740304946899, -148.7193603515625, -136.82974243164062)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .z-class {
-  color: #ffffff;
-  margin: 3px 3px 3px 3px;
-  height: 50px;
-  width: 50px;
-  cursor: grab;
-  background-size: 50px 50px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 255, 255, 0.6);'%3E%3C/rect%3E%3Cpath d='M 273.603 275.502 L 329.033 275.502 L 329.033 299.152 L 234.583 299.152 L 234.583 280.472 L 287.763 217.352 L 235.943 217.352 L 235.943 193.702 L 326.773 193.702 L 326.773 212.382 L 273.603 275.502 Z' transform='matrix(0.9775470495223999, 0, 0, 0.9815950393676758, -174.16375732421875, -140.6441650390625)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .h-class {
-  color: #ffffff;
-  margin: 3px 3px 3px 3px;
-  height: 50px;
-  width: 50px;
-  cursor: grab;
-  background-size: 50px 50px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(0, 255, 255, 0.6);'%3E%3C/rect%3E%3Cpath d='M 310.353 193.702 L 340.183 193.702 L 340.183 299.152 L 310.353 299.152 L 310.353 258.032 L 269.683 258.032 L 269.683 299.152 L 239.853 299.152 L 239.853 193.702 L 269.683 193.702 L 269.683 233.322 L 310.353 233.322 L 310.353 193.702 Z' transform='matrix(0.8235750198364258, 0, 0, 0.9815950393676758, -138.8560028076172, -140.6441650390625)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .i-class {
-  color: #ffffff;
-  margin: 3px 3px 3px 3px;
-  height: 50px;
-  width: 50px;
-  cursor: grab;
-  background-size: 50px 50px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);'%3E%3C/rect%3E%3Cpath d='M 239.853 299.152 L 239.853 193.702 L 269.683 193.702 L 269.683 299.152 L 239.853 299.152 Z' transform='matrix(0.9788930416107178, 0, 0, 0.9799250364303589, -149.47230529785156, -140.3878631591797)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .s-class {
-  color: #ffffff;
-  margin: 3px 3px 3px 3px;
-  height: 50px;
-  width: 50px;
-  cursor: grab;
-  background-size: 50px 50px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(128, 255, 0, 0.6);'%3E%3C/rect%3E%3Cpath d='M 276.913 301.262 C 268.38 301.262 260.096 300.209 252.063 298.102 C 244.03 295.989 237.5 293.175 232.473 289.662 L 242.263 267.672 C 246.983 270.785 252.456 273.295 258.683 275.202 C 264.91 277.109 271.036 278.062 277.063 278.062 C 288.516 278.062 294.243 275.199 294.243 269.472 C 294.243 266.459 292.61 264.225 289.343 262.772 C 286.076 261.319 280.83 259.789 273.603 258.182 C 265.67 256.475 259.04 254.642 253.713 252.682 C 248.393 250.722 243.826 247.582 240.013 243.262 C 236.193 238.949 234.283 233.125 234.283 225.792 C 234.283 219.365 236.04 213.565 239.553 208.392 C 243.073 203.219 248.323 199.125 255.303 196.112 C 262.276 193.099 270.836 191.592 280.983 191.592 C 287.91 191.592 294.74 192.372 301.473 193.932 C 308.2 195.485 314.123 197.769 319.243 200.782 L 310.053 222.932 C 300.013 217.505 290.273 214.792 280.833 214.792 C 274.906 214.792 270.586 215.672 267.873 217.432 C 265.166 219.185 263.813 221.469 263.813 224.282 C 263.813 227.095 265.42 229.205 268.633 230.612 C 271.846 232.019 277.016 233.475 284.143 234.982 C 292.176 236.689 298.83 238.522 304.103 240.482 C 309.376 242.435 313.946 245.549 317.813 249.822 C 321.68 254.089 323.613 259.885 323.613 267.212 C 323.613 273.539 321.856 279.265 318.343 284.392 C 314.83 289.512 309.556 293.602 302.523 296.662 C 295.496 299.729 286.96 301.262 276.913 301.262 Z' transform='matrix(1.0259699821472168, 0, 0, 0.9790090322494507, -185.2677459716797, -139.92605590820312)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
 div .t-class {
-  color: #ffffff;
-  margin: 3px 3px 3px 3px;
-  height: 50px;
-  width: 50px;
-  cursor: grab;
-  background-size: 50px 50px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(255, 191, 0, 0.6);'%3E%3C/rect%3E%3Cpath d='M 262.303 299.152 L 262.303 217.352 L 229.913 217.352 L 229.913 193.702 L 324.363 193.702 L 324.363 217.352 L 292.133 217.352 L 292.133 299.152 L 262.303 299.152 Z' transform='matrix(1.036102056503296, 0, 0, 0.9793420433998108, -187.591064453125, -140.02294921875)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
@@ -742,32 +881,32 @@ div .box-available {
   border-radius: 0px;
   border: none;
   background-color: rgba(0,0,0,0.05);
-  padding: 15px 0px 0px 30px;
-  width: 425px;
-  height: 120px;
+  padding: 15px 0px 0px 15px;
+  width: 410px;
+  height: 100px;
 }
 
 .legend-text {
   width: 140px;
-  margin: 10px 0px 0px 0px;
+  margin: 10px 0px 0px 10px;
   font-size: 120%;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 div .box-selected {
   border-radius: 0px;
   border: none;
   background-color: rgba(0,0,0,0.05);
-  padding: 15px 0px 0px 30px;
+  padding: 15px 0px 0px 15px;
   width: auto;
-  height: 120px;
+  height: 100px;
 }
 
-.table-circuit {
+.table-circuit{
   width: 100%;
   padding: 0px;
   border: 0px;
   margin: 0px;
-  border-collapse: collapse;
 }
 
 .theta .rs-handle {
@@ -783,6 +922,58 @@ div .box-selected {
 .round-slider-font {
   font-weight: 500;
   font-family: Asana Math;
+}
+
+.pretty.p-switch.p-fill.state_0 input:checked~.state.p-success:before {
+    background-color: #ff0055!important;
+}
+.pretty.p-switch.state_0 input:checked~.state.p-success:before {
+    border-color: #ff0055;
+}
+  
+.pretty.p-switch.p-fill.state_1 input:checked~.state.p-success:before {
+    background-color: #5c00d3!important;
+}
+.pretty.p-switch.state_1 input:checked~.state.p-success:before {
+    border-color: #5c00d3;
+}
+  
+.pretty.p-switch.p-fill.state_p input:checked~.state.p-success:before {
+    background-color: #0071dd!important;
+}
+.pretty.p-switch.state_p input:checked~.state.p-success:before {
+    border-color: #0071dd;
+}
+
+.pretty.p-switch.p-fill.state_m input:checked~.state.p-success:before {
+    background-color: rgb(97, 219, 239)!important;
+}
+.pretty.p-switch.state_m input:checked~.state.p-success:before {
+    border-color: rgb(97, 219, 239);
+}
+
+.pretty.p-switch.p-fill.state_r input:checked~.state.p-success:before {
+    background-color: rgb(119, 216, 7)!important;
+}
+.pretty.p-switch.state_r input:checked~.state.p-success:before {
+    border-color: rgb(119, 216, 7);
+}
+
+.pretty.p-switch.p-fill.state_l input:checked~.state.p-success:before {
+    background-color: rgb(97, 170, 181)!important;
+}
+.pretty.p-switch.state_l input:checked~.state.p-success:before {
+    border-color: rgb(97, 170, 181);
+}
+
+.multiselect__option--highlight {
+  background: rgba(0,0,0,0.03);
+  color: black;
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+  background: rgba(0,0,0,0.1);
+  color: black;
 }
 
 
