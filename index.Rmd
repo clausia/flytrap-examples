@@ -210,7 +210,7 @@ HTML("
 
 Quantum gates can be composed. In a conventional matrix notation, we read from right to left. That is, $X \;H \; Z \; |0\rangle$ means that we start with state $|0\rangle$, then apply $Z$ gate, then $H$, then $X$. It is a historic notation that is going to stay here.
 
-You can interact with various sequences of gates. Simply drag the gate you want to apply to the selected gates area. To delete a gate from that area, drag it to the trash area.
+You can interact with various sequences of gates, in the section below. Simply drag the gate you want to apply to the selected gates area. To delete a gate from that area, drag it to the trash area.
 
 Remember, in this visualization we are using a gate application order from left to right.
 
