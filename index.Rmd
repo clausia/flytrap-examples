@@ -1,7 +1,7 @@
 ---
 title: "Quantum logic gates for a single qubit, interactively"
 description: |
-  Quantum logic gates for a single qubit, interactively
+  Interactive visualization of different quantum gates applied to a qubit
 author:
   - name: Claudia Zendejas-Morales
     url: http://claudiazm.xyz
@@ -105,7 +105,7 @@ HTML("
 <div id='gate_combo'>
 <table align='center' style='border: none; margin: none; padding: none;'>
   <tr>
-  <td width='300px'>
+  <td width='300px' style='min-width: 165px;'>
   <multiselect 
     v-model='value' 
     placeholder='Choose a gate' 
@@ -130,6 +130,7 @@ HTML("
   </template>
   </multiselect>
   </td>
+  <td width='30px'></td>
   <td>
     <div v-show='showMatrix == \"I\"'><div id='gate_I_0'></div></div>
     <div v-show='showMatrix == \"X\"'><div id='gate_X_0'></div></div>
@@ -138,6 +139,7 @@ HTML("
     <div v-show='showMatrix == \"H\"'><div id='gate_H_0'></div></div>
     <div v-show='showMatrix == \"S\"'><div id='gate_S_0'></div></div>
     <div v-show='showMatrix == \"T\"'><div id='gate_T_0'></div></div>
+    <div v-show='showMatrix == \"sqrtX\"'><div id='gate_sqrtX_0'></div></div>
   </td>
   </tr>
 </table>
@@ -192,6 +194,10 @@ HTML("
       <td align='center'>
         T Gate (Phase shift)
         <div id='gate_T'></div>
+      </td>
+      <td align='center'>
+        &radic;X Gate (Square root of X)
+        <div id='gate_sqrtX'></div>
       </td>
     </tr>
   </table>
@@ -296,7 +302,7 @@ This post is a part of the quantum computing series by Quantum Flytrap. It uses 
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-const { Circuit, Gates, Vector, Cx, Dimension } = QuantumTensors;
+const { Circuit, Gates, Vector, Cx, Dimension, Operator } = QuantumTensors;
 const { KetViewer, KetListViewer, MatrixViewer } = BraKetVue;
 
 
@@ -327,6 +333,19 @@ Circuit.qubits(1)
   .saveTo(circuitHistoryBig)
   .X(0)
   .saveTo(circuitHistoryBig);
+
+
+function SqrtX() {
+  return Operator.fromSparseCoordNames(
+    [
+      ['0', '0', Cx(1, 1)],
+      ['1', '0', Cx(1, -1)],
+      ['0', '1', Cx(1, -1)],
+      ['1', '1', Cx(1, 1)],
+    ],
+    [Dimension.qubit()]
+  ).mulConstant(Cx(0.5));
+}
 
 
 function addKetList(name, gate, cirq) {
@@ -384,6 +403,7 @@ addGate('gate_Z', Gates.Z());
 addGate('gate_H', Gates.H());
 addGate('gate_S', Gates.S());
 addGate('gate_T', Gates.T());
+addGate('gate_sqrtX', SqrtX());
 
 
 new Vue({
@@ -496,7 +516,8 @@ var dnd = new Vue({
         { name: "Z" , class: "gate-class z-class" },
         { name: "H" , class: "gate-class h-class" },
         { name: "S" , class: "gate-class s-class" },
-        { name: "T" , class: "gate-class t-class" }
+        { name: "T" , class: "gate-class t-class" },
+        { name: "sqrtX" , class: "gate-class sqrtx-class" }
       ],
       selectedGates: [
         { name: "X" , class: "gate-class x-class" },
@@ -650,6 +671,9 @@ updateGates = function() {
       case 'T':
         circ.T(0).saveTo(circuitHistoryBig2);
         break;
+      case 'sqrtX':
+        circ.applyGate(SqrtX(), [0]).saveTo(circuitHistoryBig2);
+        break;
       default:
         // default case
     }
@@ -696,6 +720,7 @@ var comboboxGate = new Vue({
       { gateDesc: "Hadamard", gateVis: "gate-class h-class", gateName: "H" },
       { gateDesc: "Phase S", gateVis: "gate-class s-class", gateName: "S" },
       { gateDesc: "Phase T", gateVis: "gate-class t-class", gateName: "T" },
+      { gateDesc: "Sqrt X", gateVis: "gate-class sqrtx-class", gateName: "sqrtX" },
     ],
     value: { gateDesc: "Identity", gateVis: "gate-class i-class", gateName: "I" },
     showMatrix: "I",
@@ -717,6 +742,7 @@ addGate('gate_Z_0', Gates.Z());
 addGate('gate_H_0', Gates.H());
 addGate('gate_S_0', Gates.S());
 addGate('gate_T_0', Gates.T());
+addGate('gate_sqrtX_0', SqrtX());
 
 var circuitHis = [];
 Circuit.qubits(1).saveTo(circuitHis);
@@ -811,6 +837,9 @@ updateOneStateAndGate = function() {
     case 'T':
       circ.T(0).saveTo(circuitHis);
       break;
+    case 'sqrtX':
+      circ.applyGate(SqrtX(), [0]).saveTo(circuitHis);
+      break;
     default:
       // default case
   }
@@ -880,6 +909,10 @@ div .t-class {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 0, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(0, 0, 0, 0.1);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(255, 191, 0, 0.6);'%3E%3C/rect%3E%3Cpath d='M 262.303 299.152 L 262.303 217.352 L 229.913 217.352 L 229.913 193.702 L 324.363 193.702 L 324.363 217.352 L 292.133 217.352 L 292.133 299.152 L 262.303 299.152 Z' transform='matrix(1.036102056503296, 0, 0, 0.9793420433998108, -187.591064453125, -140.02294921875)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3C/svg%3E");
 }
 
+div .sqrtx-class {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'%3E%3Crect width='100' height='100' style='fill: rgba(255, 191, 0, 0.6);' data-bx-origin='0.5 0.5'%3E%3C/rect%3E%3Crect x='100' width='100' height='100' style='fill: rgba(255, 0, 191, 0.6);'%3E%3C/rect%3E%3Crect y='100' width='100' height='100' style='fill: rgba(255, 0, 191, 0.6);'%3E%3C/rect%3E%3Crect x='100' y='100' width='100' height='100' style='fill: rgba(255, 191, 0, 0.6);'%3E%3C/rect%3E%3Cg transform='matrix(1, 0, 0, 1, -4.054447, -10.607145)'%3E%3Cpath d='M 340.783 299.152 L 306.443 299.152 L 284.593 266.462 L 263.053 299.152 L 229.013 299.152 L 267.423 245.822 L 230.673 193.702 L 264.263 193.702 L 285.353 224.132 L 306.143 193.702 L 338.373 193.702 L 301.623 244.622 L 340.783 299.152 Z' transform='matrix(0.8669739365577698, 0, 0, 0.9812610149383545, -113.16642761230469, -120.74628448486328)' style='line-height: 222.692px; white-space: pre;'%3E%3C/path%3E%3Cpath d='M 303.759 124.613 L 307.029 124.613 L 295.479 158.303 L 291.909 158.303 L 285.219 140.123 L 280.499 140.123 L 280.499 137.283 L 287.769 137.283 L 293.679 153.843 L 303.759 124.613 Z' transform='matrix(2.5905051231384277, 0, 0, 3.988955020904541, -709.808349609375, -452.89447021484375)' style='white-space: pre;'%3E%3C/path%3E%3Crect x='77.598' y='43.578' width='110' height='7' style=''%3E%3C/rect%3E%3C/g%3E%3C/svg%3E");
+}
+
 div .chosen {
   transform: scale(1.1) rotate(-5deg);
   cursor: grabbing;
@@ -890,7 +923,7 @@ div .box-available {
   border: none;
   background-color: rgba(0,0,0,0.05);
   padding: 15px 0px 0px 15px;
-  width: 410px;
+  width: 464px;
   height: 100px;
 }
 
