@@ -485,17 +485,18 @@ var dnd = new Vue({
       <tr>
         <td>
           <div v-show='showTrash'>
-            <fieldset class="box-selected">
-              <legend class="legend-text">Trash &#x1F5D1;</legend>
-              <draggable
-                class="row dragArea"
-                :list="deletedGates"
-                group="1qGates"
-                chosen-class="chosen"
-                @add="hideTrash"
-              >
-              </draggable>
-            </fieldset>
+            <div class="box-trash">
+              <fieldset class="box-selected">
+                <legend class="legend-text">Trash &#x1F5D1;</legend>
+                <draggable
+                  :list="deletedGates"
+                  group="1qGates"
+                  chosen-class="chosen"
+                  @add="hideTrash"
+                >
+                </draggable>
+              </fieldset>
+            </div>
           </div>
         </td>
         <td>
@@ -939,6 +940,13 @@ div .box-selected {
   padding: 15px 0px 0px 15px;
   width: auto;
   height: 100px;
+}
+
+div .box-trash {
+  z-index: 1;
+  position: absolute;
+  width: 464px;
+  background-color: rgb(255,255,255);
 }
 
 .table-circuit{
