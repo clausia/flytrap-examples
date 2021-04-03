@@ -96,19 +96,16 @@ HTML("
 </div>
 ")
 ```
+<div id='ket-state-basis'></div>
 
-<br>
-
+<div style='border: none; margin: 0px; padding: none;'>
 **2. Pick a gate:**
-
 ```{r}
 HTML("
 <div id='gate_combo'>
-  
-<table align='center' style='border: 0; margin: 0; padding: 0;'>
+<table align='center' style='border: none; margin: none; padding: none;'>
   <tr>
   <td width='300px'>
-
   <multiselect 
     v-model='value' 
     placeholder='Choose a gate' 
@@ -119,7 +116,6 @@ HTML("
     :show-labels='false'
     @select='selectCombo'
     @input='updateValue'>
-    
   <template 
     slot='singleLabel' 
     slot-scope='props'>
@@ -132,9 +128,7 @@ HTML("
     <div :class='props.option.gateVis'></div>
     {{ props.option.gateDesc }}
   </template>
-    
   </multiselect>
-
   </td>
   <td>
     <div v-show='showMatrix == \"I\"'><div id='gate_I_0'></div></div>
@@ -147,15 +141,14 @@ HTML("
   </td>
   </tr>
 </table>
-      
 </div>
 ")
 ```
-
+</div>
+<div style='border: none; margin-top: -70px; padding: none;'>
 **3. Check the result:**
-<div id='ket0'></div>
-
-
+<div id='ket-res-state-basis-gate'></div>
+</div>
 <br>
 <br>
 
@@ -684,7 +677,7 @@ var stateBasis = new Vue({
   },
   methods: {
     changeRadio: function () {
-      updateOneState();
+      updateOneStateAndGate();
     },
   }
 });
@@ -712,7 +705,7 @@ var comboboxGate = new Vue({
       this.showMatrix = selectedOption.gateName;
     },
     updateValue() {
-      updateOneState();
+      updateOneStateAndGate();
     }
   }
 })
@@ -729,7 +722,7 @@ var circuitHis = [];
 Circuit.qubits(1).saveTo(circuitHis);
 
 var oneState = new Vue({
-  el: '#ket0',
+  el: '#ket-state-basis',
   template: "<ket-viewer :vector='vector' :dark-mode='false'/>",
   components: {
     KetViewer,
@@ -741,7 +734,20 @@ var oneState = new Vue({
   }
 })
 
-updateOneState = function() {
+var oneStateAndGate = new Vue({
+  el: '#ket-res-state-basis-gate',
+  template: "<ket-viewer :vector='vector' :dark-mode='false'/>",
+  components: {
+    KetViewer,
+  },
+  data() {
+    return { 
+      vector: circuitHis[0].vector,
+    }
+  }
+})
+
+updateOneStateAndGate = function() {
   
   var alpha;
   var beta;
@@ -775,13 +781,14 @@ updateOneState = function() {
   
   circuitHis = [];
   circ = new Circuit(
-    Vector.fromArray(
-      [alpha, beta], 
-      [Dimension.qubit()],
-    ),
-    1, 
-    [0]
-  );
+      Vector.fromArray(
+        [alpha, beta], 
+        [Dimension.qubit()],
+      ),
+      1, 
+      [0]
+    ).saveTo(circuitHis);
+  
   switch(comboboxGate.$data.value.gateName) {
     case 'X':
       circ.X(0).saveTo(circuitHis);
@@ -809,6 +816,7 @@ updateOneState = function() {
   }
   
   oneState.$data.vector = circuitHis[0].vector;
+  oneStateAndGate.$data.vector = circuitHis[1].vector;
   
 }
 
