@@ -49,7 +49,7 @@ $$|0\rangle = \begin{bmatrix}
 0\\
 1
 \end{bmatrix}$$
-In general, a qubit can be any superposition of $|0\rangle$ and $|1\rangle$ - that is
+In general, a qubit can be any [superposition](https://quantumatlas.umd.edu/entry/superposition) of $|0\rangle$ and $|1\rangle$ - that is
 
 $$|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$$
 
