@@ -41,3 +41,7 @@ vignettes/*.pdf
 # R Markdown Distill compiled files
 *_site/
 /_site/
+
+# System files
+.DS_Store
+
