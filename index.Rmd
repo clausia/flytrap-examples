@@ -52,7 +52,7 @@ $$|0\rangle = \begin{bmatrix}
 1\\
 0
 \end{bmatrix}
-\; \; \; , \; \; \;
+\hspace{1cm}
 |1\rangle = \begin{bmatrix}
 0\\
 1
@@ -65,9 +65,9 @@ where $\alpha$ and $\beta$ are [complex numbers](https://www.3blue1brown.com/vid
 
 For example:
 
-$$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \; \; \; \; \; , \; \; \; \; \; |-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}$$
+$$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \hspace{1cm} |-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}$$
 
-$$|R\rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \; \; \; \; \; , \; \; \; \; \; |L\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
+$$|\!\circlearrowleft \rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \hspace{1cm} |\!\circlearrowright\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
 
 
 If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be told without complex numbers. Second, complex numbers are fun on their own.
@@ -95,9 +95,9 @@ HTML("
 
     <p-radio class=\"p-switch p-fill state_m\" name=\"switch1\" color=\"success\" value=\"st_m\" v-model=\"picked\" @change=\"changeRadio\">|&minus;&rangle;</p-radio>
 
-    <p-radio class=\"p-switch p-fill state_r\" name=\"switch1\" color=\"success\" value=\"st_r\" v-model=\"picked\" @change=\"changeRadio\">|R&rangle;</p-radio>
+    <p-radio class=\"p-switch p-fill state_r\" name=\"switch1\" color=\"success\" value=\"st_r\" v-model=\"picked\" @change=\"changeRadio\">|⟲&rangle;</p-radio>
 
-    <p-radio class=\"p-switch p-fill state_l\" name=\"switch1\" color=\"success\" value=\"st_l\" v-model=\"picked\" @change=\"changeRadio\">|L&rangle;</p-radio>
+    <p-radio class=\"p-switch p-fill state_l\" name=\"switch1\" color=\"success\" value=\"st_l\" v-model=\"picked\" @change=\"changeRadio\">|⟳&rangle;</p-radio>
     
   </div>
   
