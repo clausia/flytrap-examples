@@ -73,7 +73,7 @@ $$|\!\circlearrowleft \rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \hspace{1cm}
 If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be told without complex numbers. Second, complex numbers are fun on their own.
 
 
-## Gates
+## Quantum gates
 
 Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
 How do they work? Let us pick a state and a quantum gate!
@@ -228,7 +228,7 @@ $$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; 
 
 If you want to avoid complex values, use $\phi=0$ or $\phi=\pi$.
 
-Observe how the state changes according to the applied gates. In BraKetVue, we use colors to denote phase of complex numbers, see [@DomainColoring20], Chapter 3 from [@Migdal14], and [@Qubism20] from QuTip.
+Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20] [@Migdal14] and [@Qubism20] from an implementation for [QuTiP](http://qutip.org/).
 
 <br>
 <br>
