@@ -27,9 +27,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r echo=FALSE, message=FALSE, results='asis'}
 cat(
+  "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
   "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'>",
   "<link rel='stylesheet' href='https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css'>",
-  "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
   "<script src='https://unpkg.com/quantum-tensors@0.4.14/dist/quantum-tensors.min.js'></script>",
   "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>",
   "<script src='https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js'></script>",
