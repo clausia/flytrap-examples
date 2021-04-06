@@ -1,16 +1,21 @@
 ---
 title: "Quantum logic gates for a single qubit, interactively"
 description: |
-  Interactive visualization of different quantum gates applied to a qubit
+  Drag and drop quantum gates to see how they act on a qubit.
 author:
   - name: Claudia Zendejas-Morales
     url: http://claudiazm.xyz
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumflytrap.com
   - name: Piotr Migdał 
     url: https://p.migdal.pl
     affiliation: Quantum Flytrap
-    affiliation_url: https://quantumgame.io
+    affiliation_url: https://quantumflytrap.com
 date: "`r Sys.Date()`"
-output: distill::distill_article
+output:
+  distill::distill_article:
+    toc: true
+    toc_float: true
 bibliography: refs.bib
 ---
 
@@ -46,7 +51,7 @@ $$|0\rangle = \begin{bmatrix}
 1\\
 0
 \end{bmatrix}
-\; \; \; , \; \; \;
+\hspace{1cm}
 |1\rangle = \begin{bmatrix}
 0\\
 1
@@ -59,15 +64,15 @@ where $\alpha$ and $\beta$ are [complex numbers](https://www.3blue1brown.com/vid
 
 For example:
 
-$$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \; \; \; \; \; , \; \; \; \; \; |-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}$$
+$$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \hspace{1cm} |-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}$$
 
-$$|R\rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \; \; \; \; \; , \; \; \; \; \; |L\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
+$$|\!\circlearrowleft \rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \hspace{1cm} |\!\circlearrowright\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
 
 
 If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be told without complex numbers. Second, complex numbers are fun on their own.
 
 
-## Gates
+## Quantum gates
 
 Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
 How do they work? Let us pick a state and a quantum gate!
@@ -152,7 +157,7 @@ $$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; 
 
 If you want to avoid complex values, use $\phi=0$ or $\phi=\pi$.
 
-Observe how the state changes according to the applied gates. In BraKetVue, we use colors to denote phase of complex numbers, see [@DomainColoring14], Chapter 3 from [@Migdal14], and [@Qubism14] from QuTip.
+Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20] [@Migdal14] and [@Qubism20] from an implementation for [QuTiP](http://qutip.org/).
 
 <br>
 <br>
@@ -638,9 +643,9 @@ var stateBasis = new Vue({
   
       <p-radio class="p-switch p-fill state_m" name="switch1" color="success" value="st_m" v-model="picked" @change="changeRadio">|&minus;&rangle;</p-radio>
   
-      <p-radio class="p-switch p-fill state_r" name="switch1" color="success" value="st_r" v-model="picked" @change="changeRadio">|R&rangle;</p-radio>
+      <p-radio class="p-switch p-fill state_r" name="switch1" color="success" value="st_r" v-model="picked" @change="changeRadio">|⟲&rangle;</p-radio>
   
-      <p-radio class="p-switch p-fill state_l" name="switch1" color="success" value="st_l" v-model="picked" @change="changeRadio">|L&rangle;</p-radio>
+      <p-radio class="p-switch p-fill state_l" name="switch1" color="success" value="st_l" v-model="picked" @change="changeRadio">|⟳&rangle;</p-radio>
       
     </div>
   `,
