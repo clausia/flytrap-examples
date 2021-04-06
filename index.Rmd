@@ -93,41 +93,41 @@ So, what are the most typical gates?
 <table align='center' class='matrices'>
   <tr>
     <td align='center'>
-      I Gate (Identity)
+      I (Id, 𝟙, identity)
       <div id='gate_I'></div>
     </td>
     <td align='center'>
-      X Gate (Pauli X)
+      X (Pauli-X, NOT)
       <div id='gate_X'></div>
     </td>
   </tr>
   <tr>
     <td align='center'>
-      Y Gate (Pauli Y)
+      Y (Pauli-Y)
       <div id='gate_Y'></div>
     </td>
     <td align='center'>
-      Z Gate (Pauli Z)
+      Z (Pauli-Z, 1/2 phase shiift)
       <div id='gate_Z'></div>
     </td>
   </tr>
   <tr>
     <td align='center'>
-      H Gate (Hadamard)
+      H (Hadamard gate)
       <div id='gate_H'></div>
     </td>
     <td align='center'>
-      S Gate (Phase shift)
+      S (1/4 phase shift)
       <div id='gate_S'></div>
     </td>
   </tr>
   <tr>
     <td align='center'>
-      T Gate (Phase shift)
+      T (1/8 phase shift)
       <div id='gate_T'></div>
     </td>
     <td align='center'>
-      &radic;X Gate (Square root of X)
+      &radic;X (square root of NOT)
       <div id='gate_sqrtX'></div>
     </td>
   </tr>
@@ -276,7 +276,7 @@ function addKetList(name, gate, cirq) {
   	  return {
         stepsQuantumComputing: [
           { value: 'Initial state', vector: circuitHistory[0].vector },
-          { value: 'After apply '+gate+' gate', vector: circuitHistory[cirq].vector },
+          { value: gate + ' gate', vector: circuitHistory[cirq].vector },
         ],
   	  }
     }
@@ -332,9 +332,9 @@ new Vue({
 	  return {
       stepsQuantumComputing: [
         { value: 'Initial state', vector: circuitHistoryBig[0].vector },
-        { value: 'Apply Z gate', vector: circuitHistoryBig[1].vector },
-        { value: 'Apply H gate', vector: circuitHistoryBig[2].vector },
-        { value: 'Apply X gate', vector: circuitHistoryBig[3].vector },
+        { value: 'Z gate', vector: circuitHistoryBig[1].vector },
+        { value: 'H gate', vector: circuitHistoryBig[2].vector },
+        { value: 'X gate', vector: circuitHistoryBig[3].vector },
       ],
 	  }
   }
@@ -537,8 +537,8 @@ var klv = new Vue({
     return {
       stepsQuantumComputing: [
         { value: 'Initial state', vector: circuitHistoryBig2[0].vector },
-        { value: 'Apply H gate', vector: circuitHistoryBig2[1].vector },
-        { value: 'Apply X gate', vector: circuitHistoryBig2[2].vector },
+        { value: 'H gate', vector: circuitHistoryBig2[1].vector },
+        { value: 'X gate', vector: circuitHistoryBig2[2].vector },
       ],
     }
   }
@@ -601,7 +601,7 @@ updateGates = function() {
   for(i = 1; i < circuitHistoryBig2.length; i++) {
     var namegate = gates[gates.length - i]?.name;
     klv.$data.stepsQuantumComputing.push({ 
-      value: 'Apply ' + namegate + ' gate ', 
+      value: namegate + ' gate ', 
       vector: circuitHistoryBig2[i].vector });
   }
 }
