@@ -223,7 +223,7 @@ $$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; 
 
 If you want to avoid complex values, use $\phi=0$ or $\phi=\pi$.
 
-Observe how the state changes according to the applied gates. In BraKetVue, we use colors to denote phase of complex numbers, see [@DomainColoring20], Chapter 3 from [@Migdal14], and [@Qubism20] from QuTip.
+Observe how the state changes according to the applied gates. In BraKetVue, we use colors to denote phase of complex numbers, see [@DomainColoring14], Chapter 3 from [@Migdal14], and [@Qubism14] from QuTip.
 
 <br>
 <br>
