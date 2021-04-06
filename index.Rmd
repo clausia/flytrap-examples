@@ -16,13 +16,12 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
+creative_commons: CC BY
 bibliography: refs.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(distill)
-library(rmarkdown)
 ```
 
 ```{r echo=FALSE, message=FALSE, results='asis'}
@@ -40,12 +39,11 @@ cat(
 )
 ```
 
-Quantum computers use quantum physics to perform computation. They use phenomena such as superposition and entanglement that make it possible to use more powerful algorithms than in classical computing. In classical computing, we use the electric signal as the carrier of information. In quantum, we use various implementations, including the polarization of light, the spin of ions, and the states of superconductors.
-
+Quantum computers use quantum physics to perform computation. They use phenomena such as superposition and entanglement that make it possible to use more powerful algorithms than in classical computing [@Nielsen00]. In classical computing, we use the electric signal as the carrier of information. In quantum, we use various implementations, including the polarization of light, the spin of ions, and the states of superconductors.
 
 ## Qubit
 
-In classical computing, the basic unit is a bit - 0 or 1. In quantum computing, the basic unit is a qubit. Instead of just two values, we have a vector with two components. In this article, we explore what is a single qubit, and what are the quantum computing operations: 
+In classical computing, the basic unit is a bit - 0 or 1. In quantum computing, the basic unit is a qubit. Instead of just two values, we have a vector with two components. In this article, we explore what a single qubit is, and what are the quantum computing operations: 
 
 $$|0\rangle = \begin{bmatrix}
 1\\
@@ -60,107 +58,98 @@ In general, a qubit can be any [superposition](https://quantumatlas.umd.edu/entr
 
 $$|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$$
 
-where $\alpha$ and $\beta$ are [complex numbers](https://www.3blue1brown.com/videos-blog/complex-number-fundamentals-lockdown-math-ep-3)
-
-For example:
+where $\alpha$ and $\beta$ are [complex numbers](https://www.3blue1brown.com/videos-blog/complex-number-fundamentals-lockdown-math-ep-3), that is numbers $z = x + i y$, were $x$ and $y$ are real numbers and $i$ is an imaginary unit $i^2=-1$.
+Here are a few common states:
 
 $$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \hspace{1cm} |-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}$$
 
 $$|\!\circlearrowleft \rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \hspace{1cm} |\!\circlearrowright\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
 
 
-If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be told without complex numbers. Second, complex numbers are fun on their own.
+If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be described without complex numbers. Second, complex numbers are importnt and fun on their own. 
 
 
-## Quantum gates
+## Operations on a qubit
 
 Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
 How do they work? Let us pick a state and a quantum gate!
 
-**1. Pick a state:**
+### 1. Pick a state
 
 <div id='states-basis'></div>
 
 <div id='ket-state-basis'></div>
 
-<div style='border: none; margin: 0px; padding: none;'>
-**2. Pick a gate:**
+
+### 2. Pick a gate
 <div id='gate_combo'></div>
-</div>
 
-<div style='border: none; margin-top: -70px; padding: none;'>
-**3. Check the result:**
+### 3. Check the result
 <div id='ket-res-state-basis-gate'></div>
-</div>
-<br>
-<br>
 
-Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post you will be able to compose gates. 
+## Quantum gates
+
+Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post, you will be able to compose gates. 
 So, what are the most typical gates?  
 
 <table align='center' class='matrices'>
   <tr>
     <td align='center'>
-      I Gate (Identity)
+      I (Id, 𝟙, identity)
       <div id='gate_I'></div>
     </td>
     <td align='center'>
-      X Gate (Pauli X)
+      X (Pauli-X, NOT)
       <div id='gate_X'></div>
     </td>
   </tr>
   <tr>
     <td align='center'>
-      Y Gate (Pauli Y)
+      Y (Pauli-Y)
       <div id='gate_Y'></div>
     </td>
     <td align='center'>
-      Z Gate (Pauli Z)
+      Z (Pauli-Z, 1/2 phase shiift)
       <div id='gate_Z'></div>
     </td>
   </tr>
   <tr>
     <td align='center'>
-      H Gate (Hadamard)
+      H (Hadamard gate)
       <div id='gate_H'></div>
     </td>
     <td align='center'>
-      S Gate (Phase shift)
+      S (1/4 phase shift)
       <div id='gate_S'></div>
     </td>
   </tr>
   <tr>
     <td align='center'>
-      T Gate (Phase shift)
+      T (1/8 phase shift)
       <div id='gate_T'></div>
     </td>
     <td align='center'>
-      &radic;X Gate (Square root of X)
+      &radic;X (square root of NOT)
       <div id='gate_sqrtX'></div>
     </td>
   </tr>
 </table>
-  
-<br>
 
 ## Quantum circuits
 
-Quantum gates can be composed. In a conventional matrix notation, we read from right to left. That is, $X \;H \; Z \; |0\rangle$ means that we start with state $|0\rangle$, then apply $Z$ gate, then $H$, then $X$. It is a historic notation that is going to stay here.
+Quantum gates can be composed. In a conventional matrix notation, we read from right to left. That is, $X \;H \; Z \; |0\rangle$ means that we start with state $|0\rangle$, then apply $Z$ gate, then $H$, then $X$. I
+It is a historic notation that is going to stay here. While in quantum circuits, we use a typical left to right notation, for the sake of this visualization, we use the matrix notation.
 
-You can interact with various sequences of gates, in the section below. Simply drag the gate you want to apply to the selected gates area. To delete a gate from that area, drag it to the trash area.
-
-Remember, in this visualization we are using a gate application order from left to right.
-
+You can interact with various sequences of gates in the section below. Drag the gate you want to apply to the selected gate area. To delete a gate from that area, drag it to the trash area.
 You can pick any input state from the gauges. It uses a general parametrization of:
 
-$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
+$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
 
-If you want to avoid complex values, use $\phi=0$ or $\phi=\pi$.
+If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values_)
 
-Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20] [@Migdal14] and [@Qubism20] from an implementation for [QuTiP](http://qutip.org/).
+Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20; @Migdal14] and [@Qubism20] for an implementation for [QuTiP](http://qutip.org/).
 
-<br>
-<br>
+### Pick any state and compose a circuit
 
 <div id='state'>
 
@@ -223,17 +212,11 @@ Observe how the state changes according to the applied gates. In BraKetVue, we u
 <div id='dnd'></div>
 <div id='ketlist6'></div>
 
-<br>
-<br>
-
 ## Remarks
 
-This post is a part of the quantum computing series by Quantum Flytrap. It uses [Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The source to this post is in [here](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
+This post is a part of the quantum computing series by [Quantum Flytrap](https://quantumflytrap.com/). It uses [Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The s[ource to this post is iere](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
 
-<br>
-
-Stay tuned for our next posts!
-
+Stay tuned for our next posts! The easiest way to do so is to [follow our Twitter account](https://twitter.com/quantumgameio).
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
@@ -295,7 +278,7 @@ function addKetList(name, gate, cirq) {
   	  return {
         stepsQuantumComputing: [
           { value: 'Initial state', vector: circuitHistory[0].vector },
-          { value: 'After apply '+gate+' gate', vector: circuitHistory[cirq].vector },
+          { value: gate + ' gate', vector: circuitHistory[cirq].vector },
         ],
   	  }
     }
@@ -351,9 +334,9 @@ new Vue({
 	  return {
       stepsQuantumComputing: [
         { value: 'Initial state', vector: circuitHistoryBig[0].vector },
-        { value: 'Apply Z gate', vector: circuitHistoryBig[1].vector },
-        { value: 'Apply H gate', vector: circuitHistoryBig[2].vector },
-        { value: 'Apply X gate', vector: circuitHistoryBig[3].vector },
+        { value: 'Z gate', vector: circuitHistoryBig[1].vector },
+        { value: 'H gate', vector: circuitHistoryBig[2].vector },
+        { value: 'X gate', vector: circuitHistoryBig[3].vector },
       ],
 	  }
   }
@@ -385,8 +368,6 @@ var dnd = new Vue({
         </draggable>
       </fieldset>
     </div>
-    
-    <br><br>
     
     <table class=table-circuit>
       <tr>
@@ -558,8 +539,8 @@ var klv = new Vue({
     return {
       stepsQuantumComputing: [
         { value: 'Initial state', vector: circuitHistoryBig2[0].vector },
-        { value: 'Apply H gate', vector: circuitHistoryBig2[1].vector },
-        { value: 'Apply X gate', vector: circuitHistoryBig2[2].vector },
+        { value: 'H gate', vector: circuitHistoryBig2[1].vector },
+        { value: 'X gate', vector: circuitHistoryBig2[2].vector },
       ],
     }
   }
@@ -622,7 +603,7 @@ updateGates = function() {
   for(i = 1; i < circuitHistoryBig2.length; i++) {
     var namegate = gates[gates.length - i]?.name;
     klv.$data.stepsQuantumComputing.push({ 
-      value: 'Apply ' + namegate + ' gate ', 
+      value: namegate + ' gate ', 
       vector: circuitHistoryBig2[i].vector });
   }
 }
@@ -633,7 +614,7 @@ Vue.use(PrettyCheckbox);
 var stateBasis = new Vue({
   el: '#states-basis',
   template: `
-    <div style='font-family: MathJax_Main;'>
+    <div style='font-family: MathJax_Main; display: flex'>
   
       <p-radio class="p-switch p-fill state_0" name="switch1" color="success" value="st_0" v-model="picked" @change="changeRadio">|0&rangle;</p-radio>
   
@@ -967,46 +948,8 @@ div .box-trash {
   font-family: Asana Math;
 }
 
-.pretty.p-switch.p-fill.state_0 input:checked~.state.p-success:before {
-    background-color: #ff0055!important;
-}
-.pretty.p-switch.state_0 input:checked~.state.p-success:before {
-    border-color: #ff0055;
-}
-  
-.pretty.p-switch.p-fill.state_1 input:checked~.state.p-success:before {
-    background-color: #5c00d3!important;
-}
-.pretty.p-switch.state_1 input:checked~.state.p-success:before {
-    border-color: #5c00d3;
-}
-  
-.pretty.p-switch.p-fill.state_p input:checked~.state.p-success:before {
-    background-color: #0071dd!important;
-}
-.pretty.p-switch.state_p input:checked~.state.p-success:before {
-    border-color: #0071dd;
-}
-
-.pretty.p-switch.p-fill.state_m input:checked~.state.p-success:before {
-    background-color: rgb(97, 219, 239)!important;
-}
-.pretty.p-switch.state_m input:checked~.state.p-success:before {
-    border-color: rgb(97, 219, 239);
-}
-
-.pretty.p-switch.p-fill.state_r input:checked~.state.p-success:before {
-    background-color: rgb(119, 216, 7)!important;
-}
-.pretty.p-switch.state_r input:checked~.state.p-success:before {
-    border-color: rgb(119, 216, 7);
-}
-
-.pretty.p-switch.p-fill.state_l input:checked~.state.p-success:before {
-    background-color: rgb(97, 170, 181)!important;
-}
-.pretty.p-switch.state_l input:checked~.state.p-success:before {
-    border-color: rgb(97, 170, 181);
+.pretty.p-switch {
+    margin-right: auto;
 }
 
 .multiselect__option--highlight {
@@ -1019,6 +962,23 @@ div .box-trash {
   color: black;
 }
 
+d-article .ket-list table th {
+  border-bottom: none;
+}
 
+d-article .ket-list table td {
+  border-bottom: 0px;
+}
+
+d-article .ket-list table {
+  border-collapse: collapse;
+  margin-bottom: 0rem;
+  border-bottom: none;
+}
+
+.quantum-state-viewer.ket .ket-component-bright {
+  border-width: 0px;
+  border-style: none;
+}
 ```
 
