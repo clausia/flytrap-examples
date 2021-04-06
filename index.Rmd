@@ -16,13 +16,12 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
+creative_commons: CC BY
 bibliography: refs.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(distill)
-library(rmarkdown)
 ```
 
 ```{r echo=FALSE, message=FALSE, results='asis'}
