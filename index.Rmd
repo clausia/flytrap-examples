@@ -143,7 +143,7 @@ It is a historic notation that is going to stay here. While in quantum circuits,
 You can interact with various sequences of gates in the section below. Drag the gate you want to apply to the selected gate area. To delete a gate from that area, drag it to the trash area.
 You can pick any input state from the gauges. It uses a general parametrization of:
 
-$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
+$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
 
 If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values_)
 
