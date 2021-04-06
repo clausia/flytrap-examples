@@ -961,5 +961,24 @@ div .box-trash {
   background: rgba(0,0,0,0.1);
   color: black;
 }
+
+d-article .ket-list table th {
+  border-bottom: none;
+}
+
+d-article .ket-list table td {
+  border-bottom: 0px;
+}
+
+d-article .ket-list table {
+  border-collapse: collapse;
+  margin-bottom: 0rem;
+  border-bottom: none;
+}
+
+.quantum-state-viewer.ket .ket-component-bright {
+  border-width: 0px;
+  border-style: none;
+}
 ```
 
