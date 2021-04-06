@@ -39,7 +39,7 @@ cat(
 )
 ```
 
-Quantum computers use quantum physics to perform computation. They use phenomena such as superposition and entanglement that make it possible to use more powerful algorithms than in classical computing. In classical computing, we use the electric signal as the carrier of information. In quantum, we use various implementations, including the polarization of light, the spin of ions, and the states of superconductors.
+Quantum computers use quantum physics to perform computation. They use phenomena such as superposition and entanglement that make it possible to use more powerful algorithms than in classical computing [@Nielsen00]. In classical computing, we use the electric signal as the carrier of information. In quantum, we use various implementations, including the polarization of light, the spin of ions, and the states of superconductors.
 
 
 ## Qubit
@@ -156,7 +156,7 @@ $$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; 
 
 If you want to avoid complex values, use $\phi=0$ or $\phi=\pi$.
 
-Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20] [@Migdal14] and [@Qubism20] from an implementation for [QuTiP](http://qutip.org/).
+Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20; @Migdal14] and [@Qubism20] for an implementation for [QuTiP](http://qutip.org/).
 
 <br>
 <br>
