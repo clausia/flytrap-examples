@@ -42,6 +42,11 @@ vignettes/*.pdf
 *_site/
 /_site/
 
+# R Mardkown single site builds
+*_files/
+/*.html
+
+
 # System files
 .DS_Store
 
