@@ -23,7 +23,6 @@ bibliography: refs.bib
 knitr::opts_chunk$set(echo = FALSE)
 library(distill)
 library(rmarkdown)
-library(shiny)
 ```
 
 ```{r echo=FALSE, message=FALSE, results='asis'}
@@ -80,81 +79,15 @@ How do they work? Let us pick a state and a quantum gate!
 
 **1. Pick a state:**
 
+<div id='states-basis'></div>
 
-```{r}
-HTML("
-<div id='states-basis'>
-
-  <div style='font-family: MathJax_Main;'>
-
-    <p-radio class=\"p-switch p-fill state_0\" name=\"switch1\" color=\"success\" value=\"st_0\" v-model=\"picked\" @change=\"changeRadio\">|0&rangle;</p-radio>
-
-    <p-radio class=\"p-switch p-fill state_1\" name=\"switch1\" color=\"success\" value=\"st_1\" v-model=\"picked\" @change=\"changeRadio\">|1&rangle;</p-radio>
-
-    <p-radio class=\"p-switch p-fill state_p\" name=\"switch1\" color=\"success\" value=\"st_p\" v-model=\"picked\" @change=\"changeRadio\">|&plus;&rangle;</p-radio>
-
-    <p-radio class=\"p-switch p-fill state_m\" name=\"switch1\" color=\"success\" value=\"st_m\" v-model=\"picked\" @change=\"changeRadio\">|&minus;&rangle;</p-radio>
-
-    <p-radio class=\"p-switch p-fill state_r\" name=\"switch1\" color=\"success\" value=\"st_r\" v-model=\"picked\" @change=\"changeRadio\">|⟲&rangle;</p-radio>
-
-    <p-radio class=\"p-switch p-fill state_l\" name=\"switch1\" color=\"success\" value=\"st_l\" v-model=\"picked\" @change=\"changeRadio\">|⟳&rangle;</p-radio>
-    
-  </div>
-  
-</div>
-")
-```
 <div id='ket-state-basis'></div>
 
 <div style='border: none; margin: 0px; padding: none;'>
 **2. Pick a gate:**
-```{r}
-HTML("
-<div id='gate_combo'>
-<table align='center' style='border: none; margin: none; padding: none;'>
-  <tr>
-  <td width='300px' style='min-width: 165px;'>
-  <multiselect 
-    v-model='value' 
-    placeholder='Choose a gate' 
-    label='gateDesc' 
-    track-by='gateName' 
-    :options='options' 
-    :option-height='50'
-    :show-labels='false'
-    @select='selectCombo'
-    @input='updateValue'>
-  <template 
-    slot='singleLabel' 
-    slot-scope='props'>
-    <div :class='props.option.gateVis'></div>
-    {{ props.option.gateDesc }}
-  </template>
-  <template 
-    slot='option'
-    slot-scope='props'>
-    <div :class='props.option.gateVis'></div>
-    {{ props.option.gateDesc }}
-  </template>
-  </multiselect>
-  </td>
-  <td width='30px'></td>
-  <td>
-    <div v-show='showMatrix == \"I\"'><div id='gate_I_0'></div></div>
-    <div v-show='showMatrix == \"X\"'><div id='gate_X_0'></div></div>
-    <div v-show='showMatrix == \"Y\"'><div id='gate_Y_0'></div></div>
-    <div v-show='showMatrix == \"Z\"'><div id='gate_Z_0'></div></div>
-    <div v-show='showMatrix == \"H\"'><div id='gate_H_0'></div></div>
-    <div v-show='showMatrix == \"S\"'><div id='gate_S_0'></div></div>
-    <div v-show='showMatrix == \"T\"'><div id='gate_T_0'></div></div>
-    <div v-show='showMatrix == \"sqrtX\"'><div id='gate_sqrtX_0'></div></div>
-  </td>
-  </tr>
-</table>
+<div id='gate_combo'></div>
 </div>
-")
-```
-</div>
+
 <div style='border: none; margin-top: -70px; padding: none;'>
 **3. Check the result:**
 <div id='ket-res-state-basis-gate'></div>
@@ -165,53 +98,49 @@ HTML("
 Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post you will be able to compose gates. 
 So, what are the most typical gates?  
 
-```{r}
-HTML("
-  <table align='center' class='matrices'>
-    <tr>
-      <td align='center'>
-        I Gate (Identity)
-        <div id='gate_I'></div>
-      </td>
-      <td align='center'>
-        X Gate (Pauli X)
-        <div id='gate_X'></div>
-      </td>
-    </tr>
-    <tr>
-      <td align='center'>
-        Y Gate (Pauli Y)
-        <div id='gate_Y'></div>
-      </td>
-      <td align='center'>
-        Z Gate (Pauli Z)
-        <div id='gate_Z'></div>
-      </td>
-    </tr>
-    <tr>
-      <td align='center'>
-        H Gate (Hadamard)
-        <div id='gate_H'></div>
-      </td>
-      <td align='center'>
-        S Gate (Phase shift)
-        <div id='gate_S'></div>
-      </td>
-    </tr>
-    <tr>
-      <td align='center'>
-        T Gate (Phase shift)
-        <div id='gate_T'></div>
-      </td>
-      <td align='center'>
-        &radic;X Gate (Square root of X)
-        <div id='gate_sqrtX'></div>
-      </td>
-    </tr>
-  </table>
-")
-```
-
+<table align='center' class='matrices'>
+  <tr>
+    <td align='center'>
+      I Gate (Identity)
+      <div id='gate_I'></div>
+    </td>
+    <td align='center'>
+      X Gate (Pauli X)
+      <div id='gate_X'></div>
+    </td>
+  </tr>
+  <tr>
+    <td align='center'>
+      Y Gate (Pauli Y)
+      <div id='gate_Y'></div>
+    </td>
+    <td align='center'>
+      Z Gate (Pauli Z)
+      <div id='gate_Z'></div>
+    </td>
+  </tr>
+  <tr>
+    <td align='center'>
+      H Gate (Hadamard)
+      <div id='gate_H'></div>
+    </td>
+    <td align='center'>
+      S Gate (Phase shift)
+      <div id='gate_S'></div>
+    </td>
+  </tr>
+  <tr>
+    <td align='center'>
+      T Gate (Phase shift)
+      <div id='gate_T'></div>
+    </td>
+    <td align='center'>
+      &radic;X Gate (Square root of X)
+      <div id='gate_sqrtX'></div>
+    </td>
+  </tr>
+</table>
+  
 <br>
 
 ## Quantum circuits
@@ -703,6 +632,23 @@ Vue.use(PrettyCheckbox);
 
 var stateBasis = new Vue({
   el: '#states-basis',
+  template: `
+    <div style='font-family: MathJax_Main;'>
+  
+      <p-radio class="p-switch p-fill state_0" name="switch1" color="success" value="st_0" v-model="picked" @change="changeRadio">|0&rangle;</p-radio>
+  
+      <p-radio class="p-switch p-fill state_1" name="switch1" color="success" value="st_1" v-model="picked" @change="changeRadio">|1&rangle;</p-radio>
+  
+      <p-radio class="p-switch p-fill state_p" name="switch1" color="success" value="st_p" v-model="picked" @change="changeRadio">|&plus;&rangle;</p-radio>
+  
+      <p-radio class="p-switch p-fill state_m" name="switch1" color="success" value="st_m" v-model="picked" @change="changeRadio">|&minus;&rangle;</p-radio>
+  
+      <p-radio class="p-switch p-fill state_r" name="switch1" color="success" value="st_r" v-model="picked" @change="changeRadio">|⟲&rangle;</p-radio>
+  
+      <p-radio class="p-switch p-fill state_l" name="switch1" color="success" value="st_l" v-model="picked" @change="changeRadio">|⟳&rangle;</p-radio>
+      
+    </div>
+  `,
   data: {
     picked: "st_0",
   },
@@ -715,6 +661,48 @@ var stateBasis = new Vue({
 
 var comboboxGate = new Vue({
   el: '#gate_combo',
+  template: `
+    <table align='center' style='border: none; margin: none; padding: none;'>
+      <tr>
+      <td width='300px' style='min-width: 165px;'>
+      <multiselect 
+        v-model='value' 
+        placeholder='Choose a gate' 
+        label='gateDesc' 
+        track-by='gateName' 
+        :options='options' 
+        :option-height='50'
+        :show-labels='false'
+        @select='selectCombo'
+        @input='updateValue'>
+      <template 
+        slot='singleLabel' 
+        slot-scope='props'>
+        <div :class='props.option.gateVis'></div>
+        {{ props.option.gateDesc }}
+      </template>
+      <template 
+        slot='option'
+        slot-scope='props'>
+        <div :class='props.option.gateVis'></div>
+        {{ props.option.gateDesc }}
+      </template>
+      </multiselect>
+      </td>
+      <td width='30px'></td>
+      <td>
+        <div v-show='showMatrix == "I"'><div id='gate_I_0'></div></div>
+        <div v-show='showMatrix == "X"'><div id='gate_X_0'></div></div>
+        <div v-show='showMatrix == "Y"'><div id='gate_Y_0'></div></div>
+        <div v-show='showMatrix == "Z"'><div id='gate_Z_0'></div></div>
+        <div v-show='showMatrix == "H"'><div id='gate_H_0'></div></div>
+        <div v-show='showMatrix == "S"'><div id='gate_S_0'></div></div>
+        <div v-show='showMatrix == "T"'><div id='gate_T_0'></div></div>
+        <div v-show='showMatrix == "sqrtX"'><div id='gate_sqrtX_0'></div></div>
+      </td>
+      </tr>
+    </table>
+  `,
   components: {
   	Multiselect: window.VueMultiselect.default
 	},
