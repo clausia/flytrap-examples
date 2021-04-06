@@ -612,7 +612,7 @@ Vue.use(PrettyCheckbox);
 var stateBasis = new Vue({
   el: '#states-basis',
   template: `
-    <div style='font-family: MathJax_Main;'>
+    <div style='font-family: MathJax_Main; display: flex'>
   
       <p-radio class="p-switch p-fill state_0" name="switch1" color="success" value="st_0" v-model="picked" @change="changeRadio">|0&rangle;</p-radio>
   
@@ -946,46 +946,8 @@ div .box-trash {
   font-family: Asana Math;
 }
 
-.pretty.p-switch.p-fill.state_0 input:checked~.state.p-success:before {
-    background-color: #ff0055!important;
-}
-.pretty.p-switch.state_0 input:checked~.state.p-success:before {
-    border-color: #ff0055;
-}
-  
-.pretty.p-switch.p-fill.state_1 input:checked~.state.p-success:before {
-    background-color: #5c00d3!important;
-}
-.pretty.p-switch.state_1 input:checked~.state.p-success:before {
-    border-color: #5c00d3;
-}
-  
-.pretty.p-switch.p-fill.state_p input:checked~.state.p-success:before {
-    background-color: #0071dd!important;
-}
-.pretty.p-switch.state_p input:checked~.state.p-success:before {
-    border-color: #0071dd;
-}
-
-.pretty.p-switch.p-fill.state_m input:checked~.state.p-success:before {
-    background-color: rgb(97, 219, 239)!important;
-}
-.pretty.p-switch.state_m input:checked~.state.p-success:before {
-    border-color: rgb(97, 219, 239);
-}
-
-.pretty.p-switch.p-fill.state_r input:checked~.state.p-success:before {
-    background-color: rgb(119, 216, 7)!important;
-}
-.pretty.p-switch.state_r input:checked~.state.p-success:before {
-    border-color: rgb(119, 216, 7);
-}
-
-.pretty.p-switch.p-fill.state_l input:checked~.state.p-success:before {
-    background-color: rgb(97, 170, 181)!important;
-}
-.pretty.p-switch.state_l input:checked~.state.p-success:before {
-    border-color: rgb(97, 170, 181);
+.pretty.p-switch {
+    margin-right: auto;
 }
 
 .multiselect__option--highlight {
