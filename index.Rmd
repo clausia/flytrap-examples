@@ -43,7 +43,7 @@ Quantum computers use quantum physics to perform computation. They use phenomena
 
 ## Qubit
 
-In classical computing, the basic unit is a bit - 0 or 1. In quantum computing, the basic unit is a qubit. Instead of just two values, we have a vector with two components. In this article, we explore what is a single qubit, and what are the quantum computing operations: 
+In classical computing, the basic unit is a bit - 0 or 1. In quantum computing, the basic unit is a qubit. Instead of just two values, we have a vector with two components. In this article, we explore what a single qubit is, and what are the quantum computing operations: 
 
 $$|0\rangle = \begin{bmatrix}
 1\\
@@ -59,17 +59,17 @@ In general, a qubit can be any [superposition](https://quantumatlas.umd.edu/entr
 $$|\psi\rangle=\alpha|0\rangle +\beta|1\rangle$$
 
 where $\alpha$ and $\beta$ are [complex numbers](https://www.3blue1brown.com/videos-blog/complex-number-fundamentals-lockdown-math-ep-3), that is numbers $z = x + i y$, were $x$ and $y$ are real numbers and $i$ is an imaginary unit $i^2=-1$.
-For example:
+Here are a few common states:
 
 $$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \hspace{1cm} |-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}$$
 
 $$|\!\circlearrowleft \rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \hspace{1cm} |\!\circlearrowright\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
 
 
-If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be told without complex numbers. Second, complex numbers are fun on their own.
+If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be described without complex numbers. Second, complex numbers are importnt and fun on their own. 
 
 
-## Quantum gates
+## Operations on a qubit
 
 Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
 How do they work? Let us pick a state and a quantum gate!
@@ -87,7 +87,9 @@ How do they work? Let us pick a state and a quantum gate!
 ### 3. Check the result
 <div id='ket-res-state-basis-gate'></div>
 
-Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post you will be able to compose gates. 
+## Quantum gates
+
+Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post, you will be able to compose gates. 
 So, what are the most typical gates?  
 
 <table align='center' class='matrices'>
@@ -135,15 +137,15 @@ So, what are the most typical gates?
 
 ## Quantum circuits
 
-Quantum gates can be composed. In a conventional matrix notation, we read from right to left. That is, $X \;H \; Z \; |0\rangle$ means that we start with state $|0\rangle$, then apply $Z$ gate, then $H$, then $X$. It is a historic notation that is going to stay here. While in quantum circuits we use a typical left to right notation, for the sake of this visualizaiton we use the matrix notation.
+Quantum gates can be composed. In a conventional matrix notation, we read from right to left. That is, $X \;H \; Z \; |0\rangle$ means that we start with state $|0\rangle$, then apply $Z$ gate, then $H$, then $X$. I
+It is a historic notation that is going to stay here. While in quantum circuits, we use a typical left to right notation, for the sake of this visualization, we use the matrix notation.
 
-You can interact with various sequences of gates, in the section below. Simply drag the gate you want to apply to the selected gates area. To delete a gate from that area, drag it to the trash area.
-
+You can interact with various sequences of gates in the section below. Drag the gate you want to apply to the selected gate area. To delete a gate from that area, drag it to the trash area.
 You can pick any input state from the gauges. It uses a general parametrization of:
 
-$$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
+$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
 
-If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values_.
+If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values_)
 
 Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20; @Migdal14] and [@Qubism20] for an implementation for [QuTiP](http://qutip.org/).
 
@@ -212,7 +214,7 @@ Observe how the state changes according to the applied gates. In BraKetVue, we u
 
 ## Remarks
 
-This post is a part of the quantum computing series by [Quantum Flytrap](https://quantumflytrap.com/). It uses [Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The source to this post is in [here](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
+This post is a part of the quantum computing series by [Quantum Flytrap](https://quantumflytrap.com/). It uses [Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The s[ource to this post is iere](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
 
 Stay tuned for our next posts! The easiest way to do so is to [follow our Twitter account](https://twitter.com/quantumgameio).
 
