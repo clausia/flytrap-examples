@@ -93,48 +93,40 @@ How do they work? Let us pick a state and a quantum gate!
 Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post, you will be able to compose gates. 
 So, what are the most typical gates?  
 
-<table align='center' class='matrices'>
-  <tr>
-    <td align='center'>
-      I (Id, 𝟙, identity)
-      <div id='gate_I'></div>
-    </td>
-    <td align='center'>
-      X (Pauli-X, NOT)
-      <div id='gate_X'></div>
-    </td>
-  </tr>
-  <tr>
-    <td align='center'>
-      Y (Pauli-Y)
-      <div id='gate_Y'></div>
-    </td>
-    <td align='center'>
-      Z (Pauli-Z, 1/2 phase shift)
-      <div id='gate_Z'></div>
-    </td>
-  </tr>
-  <tr>
-    <td align='center'>
-      H (Hadamard gate)
-      <div id='gate_H'></div>
-    </td>
-    <td align='center'>
-      S (1/4 phase shift)
-      <div id='gate_S'></div>
-    </td>
-  </tr>
-  <tr>
-    <td align='center'>
-      T (1/8 phase shift)
-      <div id='gate_T'></div>
-    </td>
-    <td align='center'>
-      &radic;X (square root of NOT)
-      <div id='gate_sqrtX'></div>
-    </td>
-  </tr>
-</table>
+<div style='text-align: center;'>
+<div align='center' class='matrices'>
+  I (Id, 𝟙, identity)
+  <div id='gate_I'></div>
+</div>
+<div align='center' class='matrices'>
+  X (Pauli-X, NOT)
+  <div id='gate_X'></div>
+</div>
+<div align='center' class='matrices'>
+  Y (Pauli-Y)
+  <div id='gate_Y'></div>
+</div>
+<div align='center' class='matrices'>
+  Z (Pauli-Z, 1/2 phase shiift)
+  <div id='gate_Z'></div>
+</div>
+<div align='center' class='matrices'>
+  H (Hadamard gate)
+  <div id='gate_H'></div>
+</div>
+<div align='center' class='matrices'>
+  S (1/4 phase shift)
+  <div id='gate_S'></div>
+</div>
+<div align='center' class='matrices'>
+  T (1/8 phase shift)
+  <div id='gate_T'></div>
+</div>
+<div align='center' class='matrices'>
+  &radic;X (square root of NOT)
+  <div id='gate_sqrtX'></div>
+</div>
+</div>
 
 ## Quantum circuits
 
@@ -836,10 +828,13 @@ updateOneStateAndGate = function() {
   margin: auto;
 }
 
-.matrices td {
-  border: 10px solid #ffffff;
+.matrices {
+  display: inline-block;
+  text-align: center;
   background-color: rgba(0,0,0,0.03);
-  padding: 3px 3px 3px 3px;
+  padding: 5px 5px 0px 0px;
+  margin: 10px 8px 0px 0px;
+  border: 0px 0px 0px 0px;
   font-size: 16px;
   font-weight: bold;
 }
