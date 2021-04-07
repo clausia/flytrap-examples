@@ -221,7 +221,6 @@ Stay tuned for our next posts! The easiest way to do so is to [follow our Twitte
 
 
 
-
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const { Circuit, Gates, Vector, Cx, Dimension, Operator } = QuantumTensors;
@@ -835,12 +834,6 @@ updateOneStateAndGate = function() {
 ```{css, echo=FALSE}
 .matrix-viewer {
   margin: auto;
-}
-
-.gate_title {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: left;
 }
 
 .matrices td {
