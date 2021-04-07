@@ -28,15 +28,15 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r echo=FALSE, message=FALSE, results='asis'}
 cat(
   "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
-  "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'>",
-  "<link rel='stylesheet' href='https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css'>",
   "<script src='https://unpkg.com/quantum-tensors@0.4.14/dist/quantum-tensors.min.js'></script>",
   "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>",
   "<script src='https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js'></script>",
   "<script src='https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js'></script>",
   "<script src='https://cdn.jsdelivr.net/npm/vue-round-slider@1.0.1/dist/vue-roundslider.min.js'></script>",
   "<script src='https://cdn.jsdelivr.net/npm/pretty-checkbox-vue@1.1/dist/pretty-checkbox-vue.min.js'></script>",
-  "<script src='https://unpkg.com/vue-multiselect@2.1.0'></script>"
+  "<script src='https://unpkg.com/vue-multiselect@2.1.0'></script>",
+  "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'>",
+  "<link rel='stylesheet' href='https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css'>"
 )
 ```
 
@@ -110,7 +110,7 @@ So, what are the most typical gates?
       <div id='gate_Y'></div>
     </td>
     <td align='center'>
-      Z (Pauli-Z, 1/2 phase shiift)
+      Z (Pauli-Z, 1/2 phase shift)
       <div id='gate_Z'></div>
     </td>
   </tr>
@@ -218,6 +218,9 @@ Observe how the state changes according to the applied gates. In BraKetVue, we u
 This post is a part of the quantum computing series by [Quantum Flytrap](https://quantumflytrap.com/). We write it using [Distill for R Markdown](https://rstudio.github.io/distill/) - a style based on the [Distill](https://distill.pub/) journal. This article uses [our Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The [source to this post is iere](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
 
 Stay tuned for our next posts! The easiest way to do so is to [follow our Twitter account](https://twitter.com/quantumgameio).
+
+
+
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
