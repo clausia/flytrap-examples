@@ -138,7 +138,7 @@ You can pick any input state from the gauges. It uses a general parametrization 
 
 $$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
 
-If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values_)
+If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values).
 
 Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20; @Migdal14] and [@Qubism20] for an implementation for [QuTiP](http://qutip.org/).
 
