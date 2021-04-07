@@ -93,7 +93,7 @@ How do they work? Let us pick a state and a quantum gate!
 Only identity ($I$) and negation ($X$) are the same in classical and quantum computing. All other gates are specific to quantum computing. For example, Hadamard gate ($H$), while having only real numbers, is enough to show the difference between $|+\rangle$ and $|-\rangle$ states (check it!). Another interesting gate is the square root of negation ($\sqrt{X}$ or $\sqrt{NOT}$). If we apply it twice, we get a negation. Don't worry - later in this post, you will be able to compose gates. 
 So, what are the most typical gates?  
 
-<div style='text-align: center;'>
+<div style='text-align: center; overflow-x: auto;'>
 <div align='center' class='matrices'>
   I (Id, 𝟙, identity)
   <div id='gate_I'></div>
