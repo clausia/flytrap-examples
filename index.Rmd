@@ -12,8 +12,8 @@ author:
     affiliation: Quantum Flytrap
     affiliation_url: https://quantumflytrap.com
 date: "`r Sys.Date()`"
-base_url: https://quantumflytrap.com/blog/2021/quantum-interactively
-preview: quantum-interactively-preview.png
+base_url: https://quantumflytrap.com/blog/2021/qubit-interactively
+preview: qubit-interactively-preview.png
 output:
   distill::distill_article:
     toc: true
