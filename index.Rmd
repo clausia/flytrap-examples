@@ -975,12 +975,18 @@ div .box-trash {
     width: 407px;
     height: 155px;
   }
+  div .box-trash {
+    width: 407px;
+  }
 }
 
 @media only screen and (max-width: 460px) {
   div .box-available {
     width: 353px;
     height: 155px;
+  }
+  div .box-trash {
+    width: 353px;
   }
 }
 
@@ -989,12 +995,18 @@ div .box-trash {
     width: 296px;
     height: 155px;
   }
+  div .box-trash {
+    width: 296px;
+  }
 }
 
 @media only screen and (max-width: 360px) {
   div .box-available {
     width: 242px;
     height: 155px;
+  }
+  div .box-trash {
+    width: 242px;
   }
 }
 
