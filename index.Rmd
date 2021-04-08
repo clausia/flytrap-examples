@@ -159,7 +159,7 @@ Observe how the state changes according to the applied gates. In BraKetVue, we u
 
 ## Remarks
 
-This post is a part of the quantum computing series by [Quantum Flytrap](https://quantumflytrap.com/). We write it using [Distill for R Markdown](https://rstudio.github.io/distill/) - a style based on the [Distill](https://distill.pub/) journal. This article uses [our Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The [source to this post is iere](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
+This post is a part of the quantum computing series by [Quantum Flytrap](https://quantumflytrap.com/). We write it using [Distill for R Markdown](https://rstudio.github.io/distill/) - a style based on the [Distill](https://distill.pub/) journal. This article uses [our Quantum Tensors](https://github.com/Quantum-Game/quantum-tensors) library for computing quantum operations, and [BraKetVue](https://github.com/Quantum-Game/bra-ket-vue) for quantum state and operator visualization. These libraries are open source (MIT), as well as this post (CC-BY). The [source to this post is here](https://github.com/clausia/flytrap-examples). We believe in an open, contributive culture.
 
 Stay tuned for our next posts! The easiest way to do so is to [follow our Twitter account](https://twitter.com/quantumgameio).
 
@@ -430,7 +430,7 @@ var dnd = new Vue({
               <legend class="legend-text">Selected gates</legend>
               <draggable
                 class="row dragArea"
-                :list="selectedGates"
+                :list="selectedGates" 
                 group="1qGates"
                 @change="setGates"
                 chosen-class="chosen"
