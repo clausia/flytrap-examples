@@ -970,6 +970,12 @@ div .box-trash {
   }
 }
 
+@media only screen and (max-width: 330px) {
+  .state-sliders { 
+    font-size: 17px; 
+  }
+}
+
 @media only screen and (max-width: 500px) {
   div .box-available {
     width: 407px;
