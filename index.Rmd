@@ -440,7 +440,7 @@ var dnd = new Vue({
             </fieldset>
           </div>
         </td>
-        <td width="40px">
+        <td width="40px" style="vertical-align: bottom; padding-bottom: 30px;">
           <span style="font-family: MathJax_Main; font-size:30px;">|&#x03C8;&rangle;</span>
         </td>
       </tr>
@@ -932,8 +932,14 @@ div .box-trash {
   background-color: rgb(255,255,255);
 }
 
-.table-circuit{
+.table-circuit {
   width: 100%;
+  padding: 0px;
+  border: 0px;
+  margin: 0px;
+}
+
+.table-circuit td {
   padding: 0px;
   border: 0px;
   margin: 0px;
