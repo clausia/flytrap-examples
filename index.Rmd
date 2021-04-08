@@ -285,55 +285,52 @@ updateGates = function() {}
 var stateSlider = new Vue({
   el: "#state",
   template: `
-  <div>
+  <div style="text-align: center">
   
-    <table align="center" style="border:none;">
-      <tr>
-        <td>
-          <!-- Vue Round Slider -->
-          <round-slider
-            class="theta"
-            v-model="thetaVal"
-            start-angle="0"
-            end-angle="180"
-            line-cap="round"
-            radius="80"
-            width="10"
-            animation="false"
-            handle-size="22"
-            handle-shape="round"
-            min="0"
-            max="1"
-            step="0.01"
-            range-color="#ff0055"
-            circle-shape="full"
-            v-bind:tooltip-format="formatTheta"
-            v-bind:value-change="changeAngles">
-          </round-slider>
-        </td>
-        <td>
-          <round-slider
-            class="phi"
-            v-model="phiVal"
-            start-angle="0"
-            end-angle="360"
-            line-cap="round"
-            radius="80"
-            width="10"
-            animation="false"
-            handle-size="22"
-            handle-shape="round"
-            min="0"
-            max="2"
-            step="0.01"
-            range-color="#5c00d3"
-            circle-shape="full"
-            v-bind:tooltip-format="formatPhi"
-            v-bind:value-change="changeAngles">
-          </round-slider>
-        </td>
-      </tr>
-    </table>
+    <div class="round-slider">
+      <!-- Vue Round Slider -->
+      <round-slider
+       class="theta"
+       v-model="thetaVal"
+       start-angle="0"
+       end-angle="180"
+       line-cap="round"
+       radius="80"
+       width="10"
+       animation="false"
+       handle-size="22"
+       handle-shape="round"
+       min="0"
+       max="1"
+       step="0.01"
+       range-color="#ff0055"
+       circle-shape="full"
+       v-bind:tooltip-format="formatTheta"
+       v-bind:value-change="changeAngles">
+      </round-slider>
+    </div>
+    <div class="round-slider">
+      <!-- Vue Round Slider -->
+      <round-slider
+       class="phi"
+       v-model="phiVal"
+       start-angle="0"
+       end-angle="360"
+       line-cap="round"
+       radius="80"
+       width="10"
+       animation="false"
+       handle-size="22"
+       handle-shape="round"
+       min="0"
+       max="2"
+       step="0.01"
+       range-color="#5c00d3"
+       circle-shape="full"
+       v-bind:tooltip-format="formatPhi"
+       v-bind:value-change="changeAngles">
+      </round-slider>
+    </div>
     <p align="center">
       <div style="text-align: center; font-family: Asana Math; font-size:20px;">
         |&#x03C8;&rangle; = {{state_a}} |0&#x27E9; + ( {{state_b}} ) |1&#x27E9;
@@ -950,6 +947,14 @@ div .box-trash {
 .round-slider-font {
   font-weight: 500;
   font-family: Asana Math;
+}
+
+.round-slider {
+  display: inline-block;
+  text-align: center;
+  padding: 5px 5px 0px 0px;
+  margin: 0px 10px 0px 0px;
+  border: 0px 0px 0px 0px;
 }
 
 .pretty.p-switch {
