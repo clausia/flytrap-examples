@@ -970,6 +970,34 @@ div .box-trash {
   }
 }
 
+@media only screen and (max-width: 500px) {
+  div .box-available {
+    width: 407px;
+    height: 155px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  div .box-available {
+    width: 353px;
+    height: 155px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  div .box-available {
+    width: 296px;
+    height: 155px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  div .box-available {
+    width: 242px;
+    height: 155px;
+  }
+}
+
 .pretty.p-switch {
     margin-right: auto;
 }
