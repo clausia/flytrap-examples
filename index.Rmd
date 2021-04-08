@@ -12,6 +12,8 @@ author:
     affiliation: Quantum Flytrap
     affiliation_url: https://quantumflytrap.com
 date: "`r Sys.Date()`"
+base_url: https://quantumflytrap.com/blog/2021/qubit-interactively
+preview: qubit-interactively-preview.png
 output:
   distill::distill_article:
     toc: true
@@ -72,8 +74,15 @@ If complex numbers are new to you - don’t worry. First, many interesting quant
 
 ## Operations on a qubit
 
+
 Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
-How do they work? Let us pick a state and a quantum gate!
+How do they work? These are $2 \times 2$ matrices, changing the state via [matrix-vector multiplication](https://cse.buffalo.edu/~erdem/cse331/support/matrix-vect/)
+
+$$|\psi_{new}\rangle = M  |\psi\rangle$$
+or showing all complex parametrs:
+$$\begin{bmatrix} \alpha_{new} \\ \beta_{new} \end{bmatrix} = \begin{bmatrix} m_{00} & m_{01}\\ m_{01} & m_{11} \end{bmatrix} \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$$
+
+Let us pick a state and a quantum gate!
 
 ### 1. Pick a state
 
@@ -138,7 +147,7 @@ You can pick any input state from the gauges. It uses a general parametrization 
 
 $$|\psi\rangle = \cos\left(\tfrac{\theta}{2}\right) \; |0\rangle + e^{i\phi} \; \sin\left(\tfrac{\theta}{2}\right) \; |1\rangle$$
 
-If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values_)
+If you want to avoid complex values, use $\phi=0$ (for positive values) or $\phi=\pi$ (for negative values).
 
 Observe how the state changes according to the applied gates. In BraKetVue, we use [colors to denote phase of complex numbers](https://en.wikipedia.org/wiki/Domain_coloring)[@DomainColoring20; @Migdal14] and [@Qubism20] for an implementation for [QuTiP](http://qutip.org/).
 
