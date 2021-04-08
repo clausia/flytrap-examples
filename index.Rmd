@@ -332,7 +332,7 @@ var stateSlider = new Vue({
       </round-slider>
     </div>
     <p align="center">
-      <div style="text-align: center; font-family: Asana Math; font-size:20px;">
+      <div class="state-sliders">
         |&#x03C8;&rangle; = {{state_a}} |0&#x27E9; + ( {{state_b}} ) |1&#x27E9;
       </div>
     </p>
@@ -949,12 +949,25 @@ div .box-trash {
   font-family: Asana Math;
 }
 
+
 .round-slider {
   display: inline-block;
   text-align: center;
   padding: 5px 5px 0px 0px;
   margin: 0px 10px 0px 0px;
   border: 0px 0px 0px 0px;
+}
+
+.state-sliders {
+  text-align: center; 
+  font-family: Asana Math; 
+  font-size:20px;
+}
+
+@media only screen and (max-width: 360px) {
+  .state-sliders { 
+    font-size: 18px; 
+  }
 }
 
 .pretty.p-switch {
