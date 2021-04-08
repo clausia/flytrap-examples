@@ -74,8 +74,15 @@ If complex numbers are new to you - don’t worry. First, many interesting quant
 
 ## Operations on a qubit
 
+
 Instead of [classic logic gates](https://en.wikipedia.org/wiki/Logic_gate), we use [quantum logic gates](link to https://en.wikipedia.org/wiki/Quantum_logic_gate). 
-How do they work? Let us pick a state and a quantum gate!
+How do they work? These are $2 \times 2$ matrices, changing the state via [matrix-vector multiplication](https://cse.buffalo.edu/~erdem/cse331/support/matrix-vect/)
+
+$$|\psi_{new}\rangle = M  |\psi\rangle$$
+or showing all complex parametrs:
+$$\begin{bmatrix} \alpha_{new} \\ \beta_{new} \end{bmatrix} = \begin{bmatrix} m_{00} & m_{01}\\ m_{01} & m_{11} \end{bmatrix} \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$$
+
+Let us pick a state and a quantum gate!
 
 ### 1. Pick a state
 
