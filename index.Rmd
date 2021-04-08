@@ -413,11 +413,11 @@ var dnd = new Vue({
       </fieldset>
     </div>
     
-    <table class=table-circuit>
+    <table class="table-circuit">
       <tr>
         <td>
           <div>
-            <fieldset class="box-selected">
+            <fieldset id="box-selected-gates" class="box-selected">
               <legend class="legend-text">Selected gates</legend>
               <draggable
                 class="row dragArea"
@@ -490,12 +490,17 @@ var dnd = new Vue({
   },
   methods: {
     deleteItem(index) {
-      //this.selectedGates.splice(index, 1);
-      //this.setGates();
       this.hideTrash();
     },
     setGates() {
       this.hideTrash();
+      
+      //update selected box height as needed
+      gates_per_row = Math.floor( ( $('#box-selected-gates').css('width').slice(0,-2) - 10 ) / 53 );
+      extra_rows = Math.ceil(this.selectedGates.length == 0 ? 1 : this.selectedGates.length / gates_per_row)-1;
+      new_height = 100 + 55*extra_rows;
+      $('#box-selected-gates').css('height', new_height + 'px');
+      
       updateGates();
     }, 
     showTrashArea() {
