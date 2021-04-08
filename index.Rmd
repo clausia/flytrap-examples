@@ -144,64 +144,7 @@ Observe how the state changes according to the applied gates. In BraKetVue, we u
 
 ### Pick any state and compose a circuit
 
-<div id='state'>
-
-  <table align="center" style="border:none;">
-    <tr>
-      <td>
-        <!-- Vue Round Slider -->
-        <round-slider
-          class="theta"
-          v-model="thetaVal"
-          start-angle="0"
-          end-angle="180"
-          line-cap="round"
-          radius="80"
-          width="10"
-          animation="false"
-          handle-size="22"
-          handle-shape="round"
-          min="0"
-          max="1"
-          step="0.01"
-          range-color="#ff0055"
-          circle-shape="full"
-          v-bind:tooltip-format="formatTheta"
-          v-bind:value-change="changeAngles">
-        </round-slider>
-        <!-- === -->
-      </td>
-      <td>
-        <round-slider
-          class="phi"
-          v-model="phiVal"
-          start-angle="0"
-          end-angle="360"
-          line-cap="round"
-          radius="80"
-          width="10"
-          animation="false"
-          handle-size="22"
-          handle-shape="round"
-          min="0"
-          max="2"
-          step="0.01"
-          range-color="#5c00d3"
-          circle-shape="full"
-          v-bind:tooltip-format="formatPhi"
-          v-bind:value-change="changeAngles">
-        </round-slider>
-      </td>
-    </tr>
-  </table>
-
-<p align='center'>
-<span style='font-family: Asana Math; font-size:20px;'>
-  |&#x03C8;&rangle; = {{state_a}} |0&#x27E9;<!-- ⟩ --> + ( {{state_b}} ) |1&#x27E9;<!-- ⟩ -->
-</span>
-</p>
-
-</div>
+<div id='state'></div>
 <div id='dnd'></div>
 <div id='ketlist6'></div>
 
@@ -339,6 +282,115 @@ new Vue({
 
 updateGates = function() {}
 
+var stateSlider = new Vue({
+  el: "#state",
+  template: `
+  <div>
+  
+    <table align="center" style="border:none;">
+      <tr>
+        <td>
+          <!-- Vue Round Slider -->
+          <round-slider
+            class="theta"
+            v-model="thetaVal"
+            start-angle="0"
+            end-angle="180"
+            line-cap="round"
+            radius="80"
+            width="10"
+            animation="false"
+            handle-size="22"
+            handle-shape="round"
+            min="0"
+            max="1"
+            step="0.01"
+            range-color="#ff0055"
+            circle-shape="full"
+            v-bind:tooltip-format="formatTheta"
+            v-bind:value-change="changeAngles">
+          </round-slider>
+        </td>
+        <td>
+          <round-slider
+            class="phi"
+            v-model="phiVal"
+            start-angle="0"
+            end-angle="360"
+            line-cap="round"
+            radius="80"
+            width="10"
+            animation="false"
+            handle-size="22"
+            handle-shape="round"
+            min="0"
+            max="2"
+            step="0.01"
+            range-color="#5c00d3"
+            circle-shape="full"
+            v-bind:tooltip-format="formatPhi"
+            v-bind:value-change="changeAngles">
+          </round-slider>
+        </td>
+      </tr>
+    </table>
+    <p align="center">
+      <div style="text-align: center; font-family: Asana Math; font-size:20px;">
+        |&#x03C8;&rangle; = {{state_a}} |0&#x27E9; + ( {{state_b}} ) |1&#x27E9;
+      </div>
+    </p>
+    
+  </div>
+  `,
+  data: {
+    thetaVal: 0.5,
+    phiVal: 1.0,
+    alpha: 0.707,
+    beta_r: -0.707,
+    beta_i: 0,
+  },
+  methods: {
+    formatTheta() {
+      return "<span class='round-slider-font'>&theta; = " + this.thetaVal + " &pi;</span>";
+    },
+    formatPhi() {
+      return "<span class='round-slider-font'>&phi; = " + this.phiVal + " &pi;</span>";
+    },
+    changeAngles() {
+      let cos_theta_2 = Math.cos(this.thetaVal*Math.PI / 2);
+      let sin_theta_2 = Math.sin(this.thetaVal*Math.PI / 2);
+      let cos_phi = Math.cos(this.phiVal*Math.PI);
+      let sin_phi = Math.sin(this.phiVal*Math.PI);
+      let b_r = cos_phi * sin_theta_2;
+      let b_i = sin_phi * sin_theta_2;
+      
+      this.alpha = cos_theta_2;
+      this.beta_r = b_r ;
+      this.beta_i = b_i;
+      
+      updateGates();
+      
+    },
+  },
+  computed: {
+  	state_a() {
+      let a = Math.round(this.alpha * 1000) / 1000;
+    	return a !== 0 ? a : '0';
+    },
+    state_b() {
+      let b_r = Math.round(this.beta_r * 1000) / 1000;
+      let b_i = Math.round(this.beta_i * 1000) / 1000;
+      if (b_r === 0 && b_i === 0) return '0';
+      let sgn = ' + '; 
+      if (b_i < 0) { 
+        sgn = ' - '; 
+        b_i = -b_i;
+      }
+    	return (b_r !== 0 ? b_r : '') + (b_i !== 0 ? sgn + b_i + ' i' : '');
+    },
+  },
+});
+
 var dnd = new Vue({
   el: '#dnd',
   template: `
@@ -456,57 +508,6 @@ var dnd = new Vue({
       this.showTrash = false;
     }
   }
-});
-
-var stateSlider = new Vue({
-  el: "#state",
-  data: {
-    thetaVal: 0.5,
-    phiVal: 1.0,
-    alpha: 0.707,
-    beta_r: -0.707,
-    beta_i: 0,
-  },
-  methods: {
-    formatTheta() {
-      return "<span class='round-slider-font'>&theta; = " + this.thetaVal + " &pi;</span>";
-    },
-    formatPhi() {
-      return "<span class='round-slider-font'>&phi; = " + this.phiVal + " &pi;</span>";
-    },
-    changeAngles() {
-      let cos_theta_2 = Math.cos(this.thetaVal*Math.PI / 2);
-      let sin_theta_2 = Math.sin(this.thetaVal*Math.PI / 2);
-      let cos_phi = Math.cos(this.phiVal*Math.PI);
-      let sin_phi = Math.sin(this.phiVal*Math.PI);
-      let b_r = cos_phi * sin_theta_2;
-      let b_i = sin_phi * sin_theta_2;
-      
-      this.alpha = cos_theta_2;
-      this.beta_r = b_r ;
-      this.beta_i = b_i;
-      
-      updateGates();
-      
-    },
-  },
-  computed: {
-  	state_a() {
-      let a = Math.round(this.alpha * 1000) / 1000;
-    	return a !== 0 ? a : '0';
-    },
-    state_b() {
-      let b_r = Math.round(this.beta_r * 1000) / 1000;
-      let b_i = Math.round(this.beta_i * 1000) / 1000;
-      if (b_r === 0 && b_i === 0) return '0';
-      let sgn = ' + '; 
-      if (b_i < 0) { 
-        sgn = ' - '; 
-        b_i = -b_i;
-      }
-    	return (b_r !== 0 ? b_r : '') + (b_i !== 0 ? sgn + b_i + ' i' : '');
-    },
-  },
 });
 
 
