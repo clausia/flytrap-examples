@@ -622,23 +622,30 @@ var stateBasis = new Vue({
   el: '#states-basis',
   template: `
     <div style='font-family: MathJax_Main; display: flex'>
-  
-      <p-radio class="p-switch p-fill state_0" name="switch1" color="success" value="st_0" v-model="picked" @change="changeRadio">|0&rangle;</p-radio>
-  
-      <p-radio class="p-switch p-fill state_1" name="switch1" color="success" value="st_1" v-model="picked" @change="changeRadio">|1&rangle;</p-radio>
-  
-      <p-radio class="p-switch p-fill state_p" name="switch1" color="success" value="st_p" v-model="picked" @change="changeRadio">|&plus;&rangle;</p-radio>
-  
-      <p-radio class="p-switch p-fill state_m" name="switch1" color="success" value="st_m" v-model="picked" @change="changeRadio">|&minus;&rangle;</p-radio>
-  
-      <p-radio class="p-switch p-fill state_r" name="switch1" color="success" value="st_r" v-model="picked" @change="changeRadio">|⟲&rangle;</p-radio>
-  
-      <p-radio class="p-switch p-fill state_l" name="switch1" color="success" value="st_l" v-model="picked" @change="changeRadio">|⟳&rangle;</p-radio>
+    
+      <p-radio 
+        v-for="(state) in states"
+        class="p-switch p-fill" 
+        name="switch1" 
+        color="success" 
+        :value="state.value" 
+        v-model="picked" 
+        @change="changeRadio">
+          <div v-html="state.text"></div>
+       </p-radio>
       
     </div>
   `,
   data: {
     picked: "st_0",
+    states: [
+      { text: "|0&rangle;", value: "st_0" },
+      { text: "|1&rangle;", value: "st_1" },
+      { text: "|&plus;&rangle;", value: "st_p" },
+      { text: "|&minus;&rangle;", value: "st_m" },
+      { text: "|⟲&rangle;", value: "st_r" },
+      { text: "|⟳&rangle;", value: "st_l" },
+    ],
   },
   methods: {
     changeRadio: function () {
