@@ -657,7 +657,7 @@ var stateBasis = new Vue({
 var comboboxGate = new Vue({
   el: '#gate_combo',
   template: `
-  <div align="center" style="border:0; margin: 0; padding: 0; overflow-x: auto;">
+  <div align="center" style="border:0; margin: 0; padding: 0;">
   
     <div style="width:300px;" class="pick-gate">
       <multiselect 
@@ -668,6 +668,7 @@ var comboboxGate = new Vue({
              :options="options" 
              :option-height="50"
              :show-labels="false"
+             :allow-empty="false"
              @select="selectCombo"
              @input="updateValue">
         
