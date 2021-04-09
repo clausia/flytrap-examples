@@ -690,14 +690,11 @@ var comboboxGate = new Vue({
     <div style="width:30px;" class="pick-gate">
     </div>
     <div class="pick-gate">
-      <div v-show='showMatrix == "I"'><div id='gate_I_0'></div></div>
-      <div v-show='showMatrix == "X"'><div id='gate_X_0'></div></div>
-      <div v-show='showMatrix == "Y"'><div id='gate_Y_0'></div></div>
-      <div v-show='showMatrix == "Z"'><div id='gate_Z_0'></div></div>
-      <div v-show='showMatrix == "H"'><div id='gate_H_0'></div></div>
-      <div v-show='showMatrix == "S"'><div id='gate_S_0'></div></div>
-      <div v-show='showMatrix == "T"'><div id='gate_T_0'></div></div>
-      <div v-show='showMatrix == "sqrtX"'><div id='gate_sqrtX_0'></div></div>
+      <div 
+        v-for="gate in options" 
+        v-show="showMatrix == gate.gateName">
+          <div v-bind:id="gate.divId"></div>
+      </div>
     </div>
   </div>
   `,
@@ -706,16 +703,16 @@ var comboboxGate = new Vue({
 	},
   data: {
     options: [
-      { gateDesc: "Identity", gateVis: "gate-class i-class", gateName: "I" },
-      { gateDesc: "Pauli X", gateVis: "gate-class x-class", gateName: "X" },
-      { gateDesc: "Pauli Y", gateVis: "gate-class y-class", gateName: "Y" },
-      { gateDesc: "Pauli Z", gateVis: "gate-class z-class", gateName: "Z" },
-      { gateDesc: "Hadamard", gateVis: "gate-class h-class", gateName: "H" },
-      { gateDesc: "Phase S", gateVis: "gate-class s-class", gateName: "S" },
-      { gateDesc: "Phase T", gateVis: "gate-class t-class", gateName: "T" },
-      { gateDesc: "Sqrt X", gateVis: "gate-class sqrtx-class", gateName: "sqrtX" },
+      { gateDesc: "Identity", gateVis: "gate-class i-class", gateName: "I", divId: "gate_I_0" },
+      { gateDesc: "Pauli X", gateVis: "gate-class x-class", gateName: "X", divId: "gate_X_0" },
+      { gateDesc: "Pauli Y", gateVis: "gate-class y-class", gateName: "Y", divId: "gate_Y_0" },
+      { gateDesc: "Pauli Z", gateVis: "gate-class z-class", gateName: "Z", divId: "gate_Z_0" },
+      { gateDesc: "Hadamard", gateVis: "gate-class h-class", gateName: "H", divId: "gate_H_0" },
+      { gateDesc: "Phase S", gateVis: "gate-class s-class", gateName: "S", divId: "gate_S_0" },
+      { gateDesc: "Phase T", gateVis: "gate-class t-class", gateName: "T", divId: "gate_T_0" },
+      { gateDesc: "Sqrt X", gateVis: "gate-class sqrtx-class", gateName: "sqrtX", divId: "gate_sqrtX_0" },
     ],
-    value: { gateDesc: "Identity", gateVis: "gate-class i-class", gateName: "I" },
+    value: { gateDesc: "Identity", gateVis: "gate-class i-class", gateName: "I", divId: "gate_I_0" },
     showMatrix: "I",
   },
   methods: {
