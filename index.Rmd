@@ -69,7 +69,7 @@ $$|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}} \hspace{1cm} |-\rangle=\frac{|0
 $$|\!\circlearrowleft \rangle=\frac{|0\rangle+i|1\rangle}{\sqrt{2}} \hspace{1cm} |\!\circlearrowright\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt{2}}$$
 
 
-If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be described without complex numbers. Second, complex numbers are importnt and fun on their own. 
+If complex numbers are new to you - don’t worry. First, many interesting quantum states, operators, and phenomena can be described without complex numbers. Second, complex numbers are important and fun on their own. 
 
 
 ## Operations on a qubit
