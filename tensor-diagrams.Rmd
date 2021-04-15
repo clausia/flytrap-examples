@@ -1,0 +1,194 @@
+---
+title: "Tensor Diagrams"
+description: |
+  Description of Tensor Diagrams.
+author:
+  - name: Claudia Zendejas-Morales
+    url: http://claudiazm.xyz
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumflytrap.com
+  - name: Piotr Migdał 
+    url: https://p.migdal.pl
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumflytrap.com
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    self_contained: false
+creative_commons: CC BY
+bibliography: refs.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, message=FALSE, results='asis'}
+cat(
+  "<script src='https://d3js.org/d3.v4.min.js'></script>"
+)
+```
+
+### Introduction
+
+This is a proof of concept (POC) of the OnMouseOver event for the Tensor Diagrams, when this event happens the corresponding element in equation change its color in order to visualize the correlation.
+
+
+### Multidimenstional arrays
+
+Multidimenstional arrays are the basic building blocks for any deep neural network, and many other models in statistics and machine learning. However, even for relatively simple operations the notation becomes monstrous:
+
+<h2>
+<div id="text" style="text-align: center;">
+$\sum_i\sum_j$<span id="v_x">$x_i$</span><span id="M_A">$A_{ij}$</span><span id="M_B">$B_{jk}$</span>
+</div>
+</h2>
+
+### Tensor Diagrams
+
+We present it as a convenient notation for matrix summation, nothing less more more. In this notation, the described equation becomes:
+
+<svg width="600" height="150"></svg>
+
+
+You can hover your mouse over an element to see who is who in this diagram.
+
+
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+// by Piotr Migdał, https://p.migdal.pl/
+// inspiration from http://tensornetwork.org/diagrams/
+
+const tensors = [
+	{x: 0, y: 0, name: "x"},
+  {x: 1, y: 0, name: "A"},
+  {x: 2, y: 0, name: "B"},
+];
+
+const contractions = [
+	{source: tensors[0], target: tensors[1]},
+  {source: tensors[1], target: tensors[2]},
+  {source: tensors[2], target: "right", name: "k"},
+];
+
+const shifts = {
+	up: [0, -0.75],
+  down: [0, 0.75],
+  left: [-0.75, 0],
+  right: [0.75, 0]
+};
+
+contractions.forEach((d) => {
+	if (typeof d.target === 'string') {
+    const dv = shifts[d.target];
+    d.target = {
+    	x: d.source.x + dv[0],
+      y: d.source.y + dv[1]
+    };
+    d.labelPosition = {
+    	x: d.source.x + 1.4 * dv[0],
+      y: d.source.y + 1.4 * dv[1]
+    };
+  }
+});
+
+const xScale = d3.scaleLinear()
+  .domain([0, 8])
+  .range([100, 500]);
+ 
+const yScale = d3.scaleLinear()
+  .domain([0, 8])
+  .range([100, 500]);
+  
+const lineFunction = d3.line()
+  .x((d) => xScale(d.x))
+  .y((d) => yScale(d.y));
+  
+//const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+const colorScale = d3.scaleOrdinal()
+  .range(["#763E9B", "#00882B", "#C82505", "#EEEEEE", "#0165C0"]);
+
+const svg = d3.select("svg");
+
+svg.selectAll(".contraction")
+	.data(contractions)
+  .enter().append("path")
+  .attr("class", "contraction")
+  .attr("d", (d) => lineFunction([d.source, d.target]));
+
+svg.selectAll(".tensor")
+	.data(tensors)
+  .enter().append("circle")
+  .attr("class", "tensor")
+  .attr("r", 10)
+  .attr("cx", (d) => xScale(d.x))
+  .attr("cy", (d) => yScale(d.y))
+  .style("fill", (d) => colorScale(d.name))
+  .on("mouseover", handleMouseOver)
+  .on("mouseout", handleMouseOut);
+    
+svg.selectAll(".tensor-label")
+	.data(tensors)
+  .enter().append("text")
+  .attr("class", "tensor-label")
+  .attr("x", (d) => xScale(d.x))
+  .attr("y", (d) => yScale(d.y - 0.4))
+  .text((d) => d.name);
+    
+svg.selectAll(".contraction-label")
+	.data(contractions.filter((d) => !!d.labelPosition))
+  .enter().append("text")
+  .attr("class", "contraction-label")
+  .attr("x", (d) => xScale(d.labelPosition.x))
+  .attr("y", (d) => yScale(d.labelPosition.y))
+  .text((d) => d.name);
+
+
+function handleMouseOver(d, i) {  // Add interactivity
+  if(d.name == 'x') {
+    $('#v_x').css('color', '#763E9B');
+  } else if (d.name == 'A') {
+    $('#M_A').css('color', '#00882B');
+  } else if (d.name == 'B') {
+    $('#M_B').css('color', '#C82505');
+  }
+}
+
+function handleMouseOut(d, i) {  // Add interactivity
+  if(d.name == 'x') {
+    $('#v_x').css('color', 'black');
+  } else if (d.name == 'A') {
+    $('#M_A').css('color', 'black');
+  } else if (d.name == 'B') {
+    $('#M_B').css('color', 'black');
+  }
+}
+```
+
+
+```{css, echo=FALSE}
+.tensor {
+  stroke-width: 3px;
+  stroke: black;
+}
+
+.contraction {
+  stroke-width: 3px;
+  stroke: black;
+}
+
+.tensor-label {
+  font: italic 1.2em "Fira Sans", serif;
+  fill: black;
+  text-anchor: middle;
+}
+
+.contraction-label {
+  font: italic 1.2em "Fira Sans", serif;
+  fill: black;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+```
