@@ -40,17 +40,26 @@ This is a proof of concept (POC) of the OnMouseOver event for the Tensor Diagram
 
 Multidimenstional arrays are the basic building blocks for any deep neural network, and many other models in statistics and machine learning. However, even for relatively simple operations the notation becomes monstrous:
 
-<h2>
-<div id="text" style="text-align: center;">
-$\sum_i\sum_j$<span id="v_x">$x_i$</span><span id="M_A">$A_{ij}$</span><span id="M_B">$B_{jk}$</span>
+<div id="text" class="equation">
+<div class="eq-elem">$$\sum_{ij}$$</div>
+<div class="eq-elem">$$x_i$$</div>
+<div class="eq-elem">$$A_{ij}$$</div>
+<div class="eq-elem">$$B_{jk}$$</div>
 </div>
-</h2>
 
 ### Tensor Diagrams
 
 We present it as a convenient notation for matrix summation, nothing less more more. In this notation, the described equation becomes:
 
-<svg width="600" height="150"></svg>
+<div id="text" class="equation">
+<div class="eq-diagram">
+<svg width="220" height="115"></svg>
+</div>
+<div class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{ij}$$</div>
+<div id="v_x" class="eq-elem" style="color: #763E9B">$$x_i$$</div>
+<div id="M_A" class="eq-elem" style="color: #00882B">$$A_{ij}$$</div>
+<div id="M_B" class="eq-elem" style="color: #C82505">$$B_{jk}$$</div>
+</div>
 
 
 You can hover your mouse over an element to see who is who in this diagram.
@@ -96,17 +105,16 @@ contractions.forEach((d) => {
 
 const xScale = d3.scaleLinear()
   .domain([0, 8])
-  .range([100, 500]);
+  .range([20, 500]);
  
 const yScale = d3.scaleLinear()
   .domain([0, 8])
-  .range([100, 500]);
+  .range([60, 500]);
   
 const lineFunction = d3.line()
   .x((d) => xScale(d.x))
   .y((d) => yScale(d.y));
-  
-//const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
 const colorScale = d3.scaleOrdinal()
   .range(["#763E9B", "#00882B", "#C82505", "#EEEEEE", "#0165C0"]);
 
@@ -125,7 +133,7 @@ svg.selectAll(".tensor")
   .attr("r", 10)
   .attr("cx", (d) => xScale(d.x))
   .attr("cy", (d) => yScale(d.y))
-  .style("fill", (d) => colorScale(d.name))
+  .style("fill", (d) => colorScale(d.x)) /*d.name*/
   .on("mouseover", handleMouseOver)
   .on("mouseout", handleMouseOut);
     
@@ -148,21 +156,21 @@ svg.selectAll(".contraction-label")
 
 function handleMouseOver(d, i) {  // Add interactivity
   if(d.name == 'x') {
-    $('#v_x').css('color', '#763E9B');
+    $('#v_x').addClass('realistic-marker-highlight');
   } else if (d.name == 'A') {
-    $('#M_A').css('color', '#00882B');
+    $('#M_A').addClass('circle-sketch-highlight');
   } else if (d.name == 'B') {
-    $('#M_B').css('color', '#C82505');
+    $('#M_B').addClass('border-highlight');
   }
 }
 
 function handleMouseOut(d, i) {  // Add interactivity
   if(d.name == 'x') {
-    $('#v_x').css('color', 'black');
+    $('#v_x').removeClass('realistic-marker-highlight');
   } else if (d.name == 'A') {
-    $('#M_A').css('color', 'black');
+    $('#M_A').removeClass('circle-sketch-highlight');
   } else if (d.name == 'B') {
-    $('#M_B').css('color', 'black');
+    $('#M_B').removeClass('border-highlight');
   }
 }
 ```
@@ -190,5 +198,97 @@ function handleMouseOut(d, i) {  // Add interactivity
   fill: black;
   text-anchor: middle;
   dominant-baseline: central;
+}
+
+
+.equation {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.eq-elem {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 27px;
+}
+
+.eq-diagram {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.realistic-marker-highlight {
+  position: relative;
+}
+
+.realistic-marker-highlight:after {
+  content: "";
+  background-color: #ff6db7;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cfilter id='marker-shape'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.15 0' numOctaves='1' result='warp' /%3E%3CfeDisplacementMap xChannelSelector='G' yChannelSelector='R' scale='30' in='SourceGraphic' in2='warp' /%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E#marker-shape");
+  left: -0.25em;
+  top: 0.1em;
+  padding: 0 0.25em;
+}
+
+.circle-sketch-highlight {
+  position: relative;
+}
+
+.circle-sketch-highlight:before {
+  content: "";
+  z-index: -1;
+  left: -0.5em;
+  top: -0.1em;
+  border-width: 2px;
+  border-style: solid;
+  border-color: red;
+  position: absolute;
+  border-right-color: transparent;
+  width: 100%;
+  height: 100%;
+  transform: rotate(2deg);
+  opacity: 0.7;
+  border-radius: 50%;
+  padding: 0.1em 0.25em;
+}
+
+.circle-sketch-highlight:after {
+  content: "";
+  z-index: -1;
+  left: -0.5em;
+  top: 0.1em;
+  padding: 0.1em 0.25em;
+  border-width: 2px;
+  border-style: solid;
+  border-color: red;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-1deg);
+  opacity: 0.7;
+  border-radius: 50%;
+}
+
+.border-highlight {
+  position: relative;
+}
+
+.border-highlight:after {
+  content: "";
+  z-index: -1;
+  border: 2px dashed red;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  left: -0.25em;
+  top: 0em;
+  padding: 0.0 0.25em;
 }
 ```
