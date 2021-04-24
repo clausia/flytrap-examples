@@ -57,7 +57,7 @@ We present it as a convenient notation for matrix summation, nothing less more m
 <div id="firstcontainer" class="eq-diagram">
 <!--<svg width="220" height="115"></svg>-->
 </div>
-<div class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{ij}$$</div>
+<div class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{ij}$$</div>
 <div id="v_x" class="eq-elem">$$x_i$$</div>
 <div id="M_A" class="eq-elem">$$A_{ij}$$</div>
 <div id="M_B" class="eq-elem">$$B_{jk}$$</div>
@@ -72,8 +72,8 @@ const tensors = [
 ];
 
 const contractions = [
-	{ source: 0, target: 1 },
-  { source: 1, target: 2 },
+	{ source: 0, target: 1 , name: "i" },
+  { source: 1, target: 2 , name: "j" },
   { source: 2, target: "right", name: "k" },
 ];
 
@@ -90,10 +90,10 @@ Multiply two matrices
 
 <div id="text" class="equation">
 <div id="einsum1" class="eq-diagram"></div>
-<div id="einsum1_c_j" class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{k}$$</div>
+<div id="einsum1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
 <div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
-<div id="einsum1_eq" class="eq-elem">$$=$$</div>
+<div id="einsum1_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
 <div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
 </div>
@@ -112,5 +112,32 @@ const contractions_einsum1 = [
 ];
 
 drawDiagram(tensors_einsum1, contractions_einsum1, "einsum1", 220, 115);
+
+```
+
+Dot product of two vectors
+
+<div id="text" class="equation">
+<div id="einsum2" class="eq-diagram"></div>
+<div id="einsum2_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{i}$$</div>
+<div id="einsum2_a_i" class="eq-elem">$$a_{i}$$</div>
+<div id="einsum2_b_i" class="eq-elem">$$b_{i}$$</div>
+<div id="einsum2_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsum2_a_i" class="eq-elem">$$a_{i}$$</div>
+<div id="einsum2_b_i" class="eq-elem">$$b_{i}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsum2 = [
+  { x: 0, y: 0, name: "a", idEqPart: "einsum2_a_i" },
+  { x: 1, y: 0, name: "b", idEqPart: "einsum2_b_i" },
+];
+
+const contractions_einsum2 = [
+  { source: 0, target: 1, name: "i" },
+];
+
+drawDiagram(tensors_einsum2, contractions_einsum2, "einsum2", 100, 115);
 
 ```
