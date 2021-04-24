@@ -28,8 +28,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r echo=FALSE, message=FALSE, results='asis'}
 cat(
   "<script src='https://d3js.org/d3.v6.min.js'></script>",
-  "<script src='tensorDiagram.js'></script>
-  <link rel='stylesheet' href='tensorDiagram.css'>"
+  "<script src='tensorDiagram.js'></script>",
+  "<link rel='stylesheet' href='tensorDiagram.css'>"
 )
 ```
 
