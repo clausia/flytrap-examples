@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r echo=FALSE, message=FALSE, results='asis'}
 cat(
-  "<script src='https://d3js.org/d3.v4.min.js'></script>"
+  "<script src='https://d3js.org/d3.v6.min.js'></script>"
 )
 ```
 
