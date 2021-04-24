@@ -86,7 +86,8 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
     .append("text")
     .attr("class", "tensor-label")
     .attr("x", (d) => d.labPos === "left" ? xScale(d.x - 0.5) : xScale(d.x))
-    .attr("y", (d) => d.labPos === "left" ? yScale(d.y + 0.1) : yScale(d.y - 0.4))
+    /*.attr("y", (d) => d.labPos === "left" ? yScale(d.y + 0.1) : yScale(d.y - 0.4))*/
+    .attr("y", (d) => d.labPos === "left" ? yScale(d.y - 0.4) : yScale(d.y - 0.4))
     .text((d) => d.name);
 
   svg.selectAll(".contraction-label")

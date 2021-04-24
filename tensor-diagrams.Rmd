@@ -187,7 +187,7 @@ Order-4 tensor and project vectors in the 3rd dimension
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsum4 = [
-  { x: 1, y: 0, name: "T", idEqPart: "einsum4_T_ntkm" },
+  { x: 1, y: 0, name: "T", idEqPart: "einsum4_T_ntkm", labPos: "left" },
   { x: 2, y: 0, name: "W", idEqPart: "einsum4_W_kq" },
 ];
 
@@ -199,6 +199,6 @@ const contractions_einsum4 = [
   { source: 1, target: "right", name: "q" },
 ];
 
-drawDiagram(tensors_einsum4, contractions_einsum4, "einsum4", 220, 160);
+drawDiagram(tensors_einsum4, contractions_einsum4, "einsum4", 220, 140);
 
 ```
