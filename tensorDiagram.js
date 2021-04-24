@@ -3,19 +3,6 @@
 // inspiration from http://tensornetwork.org/diagrams/
 
 
-const tensors = [
-	{ x: 0, y: 0, name: "x", idEqPart: "v_x" },
-  { x: 1, y: 0, name: "A", idEqPart: "M_A" },
-  { x: 2, y: 0, name: "B", idEqPart: "M_B" },
-];
-
-const contractions = [
-	{ source: 0, target: 1 },
-  { source: 1, target: 2 },
-  { source: 2, target: "right", name: "k" },
-];
-
-drawDiagram(tensors, contractions, "firstcontainer", 220, 115);
 
 function drawDiagram(tensors, contractions, idContainer, widthContainer, heightContainer) {
 
@@ -59,11 +46,11 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
 
   const xScale = d3.scaleLinear()
     .domain([0, 8])
-    .range([20, 450]);
+    .range([20, 500]);
 
   const yScale = d3.scaleLinear()
     .domain([0, 8])
-    .range([60, 450]);
+    .range([60, 500]);
 
   const lineFunction = d3.line()
     .x((d) => xScale(d.x))

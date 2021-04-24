@@ -58,269 +58,30 @@ We present it as a convenient notation for matrix summation, nothing less more m
 <!--<svg width="220" height="115"></svg>-->
 </div>
 <div class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{ij}$$</div>
-<div id="v_x" class="eq-elem" style="color: #763E9B">$$x_i$$</div>
-<div id="M_A" class="eq-elem" style="color: #00882B">$$A_{ij}$$</div>
-<div id="M_B" class="eq-elem" style="color: #C82505">$$B_{jk}$$</div>
-</div>
-
-
-You can hover your mouse over an element to see who is who in this diagram.
-
-
-<div id="text" class="equation">
-```{r echo=FALSE, fig.height=1}
-library(r2d3)
-s <- '
-{
-  "tensors": [
-  	{ "x": 0, "y": 0, "name": "x" },
-    { "x": 1, "y": 0, "name": "A" },
-    { "x": 2, "y": 0, "name": "B" }
-  ],
-  "contractions": [
-    { "source": 0, "target": 1 },
-    { "source": 1, "target": 2 },
-    { "source": 2, "target": "right", "name": "k" }
-  ]
-}
-'
-data <- jsonlite::parse_json(s)
-r2d3(data = data, script = "tensorDiagram.js", css = "tensorDiagram.css", elementId = "second")
-```
-<div class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{ij}$$</div>
-<div id="v_x" class="eq-elem" style="color: #763E9B">$$x_i$$</div>
-<div id="M_A" class="eq-elem" style="color: #00882B">$$A_{ij}$$</div>
-<div id="M_B" class="eq-elem" style="color: #C82505">$$B_{jk}$$</div>
+<div id="v_x" class="eq-elem">$$x_i$$</div>
+<div id="M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="M_B" class="eq-elem">$$B_{jk}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-$('#second').addClass('eq-diagram');
-
-// by Piotr Migdał, https://p.migdal.pl/
-// inspiration from http://tensornetwork.org/diagrams/
-
 const tensors = [
-	{x: 0, y: 0, name: "x"},
-  {x: 1, y: 0, name: "A"},
-  {x: 2, y: 0, name: "B"},
+	{ x: 0, y: 0, name: "x", idEqPart: "v_x" },
+  { x: 1, y: 0, name: "A", idEqPart: "M_A" },
+  { x: 2, y: 0, name: "B", idEqPart: "M_B" },
 ];
 
 const contractions = [
-	{source: tensors[0], target: tensors[1]},
-  {source: tensors[1], target: tensors[2]},
-  {source: tensors[2], target: "right", name: "k"},
+	{ source: 0, target: 1 },
+  { source: 1, target: 2 },
+  { source: 2, target: "right", name: "k" },
 ];
 
-const shifts = {
-	up: [0, -0.75],
-  down: [0, 0.75],
-  left: [-0.75, 0],
-  right: [0.75, 0]
-};
+drawDiagram(tensors, contractions, "firstcontainer", 220, 115);
 
-contractions.forEach((d) => {
-	if (typeof d.target === 'string') {
-    const dv = shifts[d.target];
-    d.target = {
-    	x: d.source.x + dv[0],
-      y: d.source.y + dv[1]
-    };
-    d.labelPosition = {
-    	x: d.source.x + 1.4 * dv[0],
-      y: d.source.y + 1.4 * dv[1]
-    };
-  }
-});
-
-const xScale = d3.scaleLinear()
-  .domain([0, 8])
-  .range([20, 500]);
- 
-const yScale = d3.scaleLinear()
-  .domain([0, 8])
-  .range([60, 500]);
-  
-const lineFunction = d3.line()
-  .x((d) => xScale(d.x))
-  .y((d) => yScale(d.y));
-
-const colorScale = d3.scaleOrdinal()
-  .range(["#763E9B", "#00882B", "#C82505", "#EEEEEE", "#0165C0"]);
-
-const svg = d3.select("#firstcontainer")
-              .append("svg")
-              .attr("width", 220)
-              .attr("height", 115);
-
-svg.selectAll(".contraction")
-	.data(contractions)
-  .enter().append("path")
-  .attr("class", "contraction")
-  .attr("d", (d) => lineFunction([d.source, d.target]));
-
-svg.selectAll(".tensor")
-	.data(tensors)
-  .enter().append("circle")
-  .attr("class", "tensor")
-  .attr("r", 10)
-  .attr("cx", (d) => xScale(d.x))
-  .attr("cy", (d) => yScale(d.y))
-  .style("fill", (d) => colorScale(d.x)) /*d.name*/
-  .on("mouseover", handleMouseOver)
-  .on("mouseout", handleMouseOut);
-    
-svg.selectAll(".tensor-label")
-	.data(tensors)
-  .enter().append("text")
-  .attr("class", "tensor-label")
-  .attr("x", (d) => xScale(d.x))
-  .attr("y", (d) => yScale(d.y - 0.4))
-  .text((d) => d.name);
-    
-svg.selectAll(".contraction-label")
-	.data(contractions.filter((d) => !!d.labelPosition))
-  .enter().append("text")
-  .attr("class", "contraction-label")
-  .attr("x", (d) => xScale(d.labelPosition.x))
-  .attr("y", (d) => yScale(d.labelPosition.y))
-  .text((d) => d.name);
-
-
-function handleMouseOver(d, i) {  // Add interactivity
-  if(d.name == 'x') {
-    $('#v_x').addClass('realistic-marker-highlight');
-  } else if (d.name == 'A') {
-    $('#M_A').addClass('circle-sketch-highlight');
-  } else if (d.name == 'B') {
-    $('#M_B').addClass('border-highlight');
-  }
-}
-
-function handleMouseOut(d, i) {  // Add interactivity
-  if(d.name == 'x') {
-    $('#v_x').removeClass('realistic-marker-highlight');
-  } else if (d.name == 'A') {
-    $('#M_A').removeClass('circle-sketch-highlight');
-  } else if (d.name == 'B') {
-    $('#M_B').removeClass('border-highlight');
-  }
-}
 ```
 
-
-```{css, echo=FALSE}
-.tensor {
-  stroke-width: 3px;
-  stroke: black;
-}
-
-.contraction {
-  stroke-width: 3px;
-  stroke: black;
-}
-
-.tensor-label {
-  font: italic 1.2em "Fira Sans", serif;
-  fill: black;
-  text-anchor: middle;
-}
-
-.contraction-label {
-  font: italic 1.2em "Fira Sans", serif;
-  fill: black;
-  text-anchor: middle;
-  dominant-baseline: central;
-}
+You can hover your mouse over an element to see who is who in this diagram.
 
 
-.equation {
-  text-align: center;
-  vertical-align: middle;
-}
 
-.eq-elem {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 27px;
-}
-
-.eq-diagram {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.realistic-marker-highlight {
-  position: relative;
-}
-
-.realistic-marker-highlight:after {
-  content: "";
-  background-color: rgba(0,0,0,0.1); /*#FFFFC2;*/ /*#ff6db7;*/
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: -1;
-  left: -0.25em;
-  top: 0.1em;
-  padding: 0 0.25em;
-}
-
-.circle-sketch-highlight {
-  position: relative;
-}
-
-.circle-sketch-highlight:before {
-  content: "";
-  z-index: -1;
-  left: -0.5em;
-  top: -0.1em;
-  border-width: 2px;
-  border-style: solid;
-  border-color: red;
-  position: absolute;
-  border-right-color: transparent;
-  width: 100%;
-  height: 100%;
-  transform: rotate(2deg);
-  opacity: 0.7;
-  border-radius: 50%;
-  padding: 0.1em 0.25em;
-}
-
-.circle-sketch-highlight:after {
-  content: "";
-  z-index: -1;
-  left: -0.5em;
-  top: 0.1em;
-  padding: 0.1em 0.25em;
-  border-width: 2px;
-  border-style: solid;
-  border-color: red;
-  border-left-color: transparent;
-  border-top-color: transparent;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform: rotate(-1deg);
-  opacity: 0.7;
-  border-radius: 50%;
-}
-
-.border-highlight {
-  position: relative;
-}
-
-.border-highlight:after {
-  content: "";
-  z-index: -1;
-  border: 2px dashed red;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: -1;
-  left: -0.25em;
-  top: 0em;
-  padding: 0.0 0.25em;
-}
-```
