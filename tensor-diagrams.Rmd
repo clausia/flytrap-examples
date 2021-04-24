@@ -90,7 +90,7 @@ Multiply two matrices
 
 <div id="text" class="equation">
 <div id="einsum1" class="eq-diagram"></div>
-<div id="einsum1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
+<div id="einsum1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{ik}$$</div>
 <div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
 <div id="einsum1_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
@@ -169,5 +169,36 @@ const contractions_einsum3 = [
 ];
 
 drawDiagram(tensors_einsum3, contractions_einsum3, "einsum3", 220, 130);
+
+```
+
+Order-4 tensor and project vectors in the 3rd dimension
+
+<div id="text" class="equation">
+<div id="einsum4" class="eq-diagram"></div>
+<div id="einsum4_C_mqn" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{tk}$$</div>
+<div id="einsum4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
+<div id="einsum4_W_kq" class="eq-elem">$$W_{kq}$$</div>
+<div id="einsum4_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsum4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
+<div id="einsum4_W_kq" class="eq-elem">$$W_{kq}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsum4 = [
+  { x: 1, y: 0, name: "T", idEqPart: "einsum4_T_ntkm" },
+  { x: 2, y: 0, name: "W", idEqPart: "einsum4_W_kq" },
+];
+
+const contractions_einsum4 = [
+	{ source: 0, target: "left", name: "n" },
+	{ source: 0, target: "down", name: "t" },
+  { source: 0, target: 1, name: "k" },
+  { source: 0, target: "up", name: "m" },
+  { source: 1, target: "right", name: "q" },
+];
+
+drawDiagram(tensors_einsum4, contractions_einsum4, "einsum4", 220, 160);
 
 ```
