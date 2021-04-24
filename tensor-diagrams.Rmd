@@ -119,7 +119,7 @@ Dot product of two vectors
 
 <div id="text" class="equation">
 <div id="einsum2" class="eq-diagram"></div>
-<div id="einsum2_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{i}$$</div>
+<div id="einsum2_c" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{i}$$</div>
 <div id="einsum2_a_i" class="eq-elem">$$a_{i}$$</div>
 <div id="einsum2_b_i" class="eq-elem">$$b_{i}$$</div>
 <div id="einsum2_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
@@ -139,5 +139,35 @@ const contractions_einsum2 = [
 ];
 
 drawDiagram(tensors_einsum2, contractions_einsum2, "einsum2", 100, 115);
+
+```
+
+Applying a transformation to a vector
+
+<div id="text" class="equation">
+<div id="einsum3" class="eq-diagram"></div>
+<div id="einsum3_C_ntq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
+<div id="einsum3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
+<div id="einsum3_W_kq" class="eq-elem">$$W_{kq}$$</div>
+<div id="einsum3_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsum3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
+<div id="einsum3_W_kq" class="eq-elem">$$W_{kq}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsum3 = [
+  { x: 1, y: 0, name: "T", idEqPart: "einsum3_T_ntk" },
+  { x: 2, y: 0, name: "W", idEqPart: "einsum3_W_kq" },
+];
+
+const contractions_einsum3 = [
+	{ source: 0, target: "left", name: "n" },
+	{ source: 0, target: "down", name: "t" },
+  { source: 0, target: 1, name: "k" },
+  { source: 1, target: "right", name: "q" },
+];
+
+drawDiagram(tensors_einsum3, contractions_einsum3, "einsum3", 220, 130);
 
 ```
