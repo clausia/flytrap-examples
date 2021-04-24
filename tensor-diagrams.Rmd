@@ -84,4 +84,33 @@ drawDiagram(tensors, contractions, "firstcontainer", 220, 115);
 You can hover your mouse over an element to see who is who in this diagram.
 
 
+### Formulae from EINSUM IS ALL YOU NEED
 
+Multiply two matrices
+
+<div id="text" class="equation">
+<div id="einsum1" class="eq-diagram"></div>
+<div id="einsum1_c_j" class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{k}$$</div>
+<div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
+<div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
+<div id="einsum1_eq" class="eq-elem">$$=$$</div>
+<div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
+<div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsum1 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsum1_M_A" },
+  { x: 2, y: 0, name: "B", idEqPart: "einsum1_M_B" },
+];
+
+const contractions_einsum1 = [
+	{ source: 0, target: "left", name: "i" },
+  { source: 0, target: 1, name: "k" },
+  { source: 1, target: "right", name: "j" },
+];
+
+drawDiagram(tensors_einsum1, contractions_einsum1, "einsum1", 220, 115);
+
+```

@@ -41,7 +41,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
   });
   
   tensors.forEach((d) => {
-    d3.select('#' + d.idEqPart).style("color", colorScale(d.name));
+    d3.selectAll('#' + d.idEqPart).style("color", colorScale(d.name));
   });
 
   const xScale = d3.scaleLinear()
@@ -77,8 +77,8 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
     .attr("cx", (d) => xScale(d.x))
     .attr("cy", (d) => yScale(d.y))
     .style("fill", (d) => colorScale(d.name))
-    .on("mouseover", (event, d) => d3.select('#' + d.idEqPart).classed('circle-sketch-highlight', true))
-    .on("mouseout", (event, d) => d3.select('#' + d.idEqPart).classed('circle-sketch-highlight', false));
+    .on("mouseover", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', true))
+    .on("mouseout", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', false));
 
   svg.selectAll(".tensor-label")
     .data(tensors)
