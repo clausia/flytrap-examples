@@ -52,8 +52,8 @@ Multidimenstional arrays are the basic building blocks for any deep neural netwo
 We present it as a convenient notation for matrix summation, nothing less more more. In this notation, the described equation becomes:
 
 <div id="text" class="equation">
-<div class="eq-diagram">
-<svg width="220" height="115"></svg>
+<div id="firstcontainer" class="eq-diagram">
+<!--<svg width="220" height="115"></svg>-->
 </div>
 <div class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{ij}$$</div>
 <div id="v_x" class="eq-elem" style="color: #763E9B">$$x_i$$</div>
@@ -65,8 +65,36 @@ We present it as a convenient notation for matrix summation, nothing less more m
 You can hover your mouse over an element to see who is who in this diagram.
 
 
+<div id="text" class="equation">
+```{r echo=FALSE, fig.height=1}
+library(r2d3)
+s <- '
+{
+  "tensors": [
+  	{ "x": 0, "y": 0, "name": "x" },
+    { "x": 1, "y": 0, "name": "A" },
+    { "x": 2, "y": 0, "name": "B" }
+  ],
+  "contractions": [
+    { "source": 0, "target": 1 },
+    { "source": 1, "target": 2 },
+    { "source": 2, "target": "right", "name": "k" }
+  ]
+}
+'
+data <- jsonlite::parse_json(s)
+r2d3(data = data, script = "tensorDiagram.js", css = "tensorDiagram.css", elementId = "second")
+```
+<div class="eq-elem">$$\hspace{1cm}=\hspace{1cm}\sum_{ij}$$</div>
+<div id="v_x" class="eq-elem" style="color: #763E9B">$$x_i$$</div>
+<div id="M_A" class="eq-elem" style="color: #00882B">$$A_{ij}$$</div>
+<div id="M_B" class="eq-elem" style="color: #C82505">$$B_{jk}$$</div>
+</div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
+
+$('#second').addClass('eq-diagram');
+
 // by Piotr Migdał, https://p.migdal.pl/
 // inspiration from http://tensornetwork.org/diagrams/
 
@@ -118,7 +146,10 @@ const lineFunction = d3.line()
 const colorScale = d3.scaleOrdinal()
   .range(["#763E9B", "#00882B", "#C82505", "#EEEEEE", "#0165C0"]);
 
-const svg = d3.select("svg");
+const svg = d3.select("#firstcontainer")
+              .append("svg")
+              .attr("width", 220)
+              .attr("height", 115);
 
 svg.selectAll(".contraction")
 	.data(contractions)

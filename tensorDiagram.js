@@ -1,11 +1,6 @@
 // r2d3 supports:
 // svg, data
 
-console.log('data is:', data);
-console.log('svg is:', svg);
-console.log('data.tensors is:', data.tensors);
-console.log('data.contractions is:', data.contractions);
-
 
 // usuned, just an example
 const tensors = [
@@ -25,10 +20,9 @@ const contractions = [
 // drawDiagram(svg, tensors, contractions)
 drawDiagram(svg, data.tensors, data.contractions)
 
-function drawDiagram(svg, tensors, contractions) {
-
-  console.log('data is:', data);
-  console.log('svg is:', svg);
+function drawDiagram(div, tensors, contractions) {
+  
+  const svg = div.attr("class", "eq-diagram");//.append("svg");
 
   // add source/target by id or name
   contractions.forEach((d) => {
