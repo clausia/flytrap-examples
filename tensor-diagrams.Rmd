@@ -202,3 +202,40 @@ const contractions_einsumindl4 = [
 drawDiagram(tensors_einsumindl4, contractions_einsumindl4, "einsumindl4", 220, 140);
 
 ```
+
+Matrix transpose
+
+<div id="text" class="equation">
+<div id="einsumindl5_1" class="eq-diagram"></div>
+<div id="einsumindl5_eq1" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl5_2" class="eq-diagram"></div>
+<div id="einsumindl5_right" class="eq-elem">$$\hspace{0.5cm}\rightarrow\hspace{0.5cm}$$</div>
+<div id="einsumindl5_B_ji" class="eq-elem">$$B_{ji}$$</div>
+<div id="einsumindl5_eq2" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl5_A_ij" class="eq-elem">$$A_{ij}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsumindl5_1 = [
+  { x: 1, y: 0, name: "B", idEqPart: "einsumindl5_B_ji" },
+];
+
+const contractions_einsumindl5_1 = [
+	{ source: 0, target: "left", name: "j" },
+  { source: 0, target: "right", name: "i" },
+];
+
+const tensors_einsumindl5_2 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl5_A_ij" },
+];
+
+const contractions_einsumindl5_2 = [
+	{ source: 0, target: "left", name: "i" },
+  { source: 0, target: "right", name: "j" },
+];
+
+drawDiagram(tensors_einsumindl5_1, contractions_einsumindl5_1, "einsumindl5_1", 160, 115);
+drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 160, 115);
+
+```
