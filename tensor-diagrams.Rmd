@@ -88,7 +88,7 @@ You can hover your mouse over an element to see who is who in this diagram.
 
 #### Einsum notation
 
-Multiply two matrices
+Multiply two matrices followed by calculating the sum of each column resulting in a vector
 
 <div id="text" class="equation">
 <div id="einsumindl1" class="eq-diagram"></div>
