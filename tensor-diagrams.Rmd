@@ -270,7 +270,7 @@ const contractions_einsumindl6 = [
   { source: 0, target: "right", name: "j" },
 ];
 
-drawDiagram(tensors_einsumindl6, contractions_einsumindl6, "einsumindl6", 160, 120, 2);
+drawDiagram(tensors_einsumindl6, contractions_einsumindl6, "einsumindl6", 160, 120);
 
 ```
 
@@ -296,6 +296,32 @@ const contractions_einsumindl7 = [
   { source: 0, target: "right", name: "j" },
 ];
 
-drawDiagram(tensors_einsumindl7, contractions_einsumindl7, "einsumindl7", 160, 120, 2);
+drawDiagram(tensors_einsumindl7, contractions_einsumindl7, "einsumindl7", 160, 120, 1);
+
+```
+
+Row sum
+
+<div id="text" class="equation">
+<div id="einsumindl8" class="eq-diagram"></div>
+<div id="einsumindl8_sum_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{j}$$</div>
+<div id="einsumindl8_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl8_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl8_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl8_b_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b_{i}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsumindl8 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl8_M_A" },
+];
+
+const contractions_einsumindl8 = [
+	{ source: 0, target: "left", name: "i" },
+  { source: 0, target: "right", name: "j" },
+];
+
+drawDiagram(tensors_einsumindl8, contractions_einsumindl8, "einsumindl8", 160, 120, 2);
 
 ```
