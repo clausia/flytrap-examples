@@ -86,6 +86,8 @@ You can hover your mouse over an element to see who is who in this diagram.
 
 ### Formulae from EINSUM IS ALL YOU NEED
 
+#### Einsum notation
+
 Multiply two matrices
 
 <div id="text" class="equation">
@@ -202,6 +204,8 @@ const contractions_einsumindl4 = [
 drawDiagram(tensors_einsumindl4, contractions_einsumindl4, "einsumindl4", 220, 140);
 
 ```
+
+#### All you need: einsum in ...
 
 Matrix transpose
 
