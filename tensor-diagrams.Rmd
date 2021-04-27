@@ -530,3 +530,72 @@ const contractions_einsumindl15 = [
 drawDiagram(tensors_einsumindl15, contractions_einsumindl15, "einsumindl15", 220, 130);
 
 ```
+
+Tensor contraction
+
+<div id="text" class="equation">
+<div id="einsumindl16" class="eq-diagram"></div>
+<div id="einsumindl16_sum_qr" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{qr}$$</div>
+<div id="einsumindl16_A_pqrs" class="eq-elem">$$A_{pqrs}$$</div>
+<div id="einsumindl16_B_tuqvr" class="eq-elem">$$B_{tuqvr}$$</div>
+<div id="einsumindl16_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl16_A_pqrs" class="eq-elem">$${A^{ps}}_{qr}$$</div>
+<div id="einsumindl16_B_tuqvr" class="eq-elem">$${B^{qr}}_{tuv}$$</div>
+<div id="einsumindl16_C_pstuv" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{pstuv}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsumindl16 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl16_A_pqrs", labPos: "leftup" },
+  { x: 2, y: 0, name: "B", idEqPart: "einsumindl16_B_tuqvr", labPos: "leftup" },
+];
+
+const contractions_einsumindl16 = [
+	{ source: 0, target: "left", name: "p" },
+	{ source: 0, target: "up", name: "s" },
+  { source: 0, target: 1, name: "q" },
+  { source: 0, target: 1, name: "r" },
+  { source: 1, target: "down", name: "t" },
+  { source: 1, target: "right", name: "u" },
+  { source: 1, target: "up", name: "v" },
+];
+
+drawDiagram(tensors_einsumindl16, contractions_einsumindl16, "einsumindl16", 220, 140);
+
+```
+
+Bilinear transformation
+
+<div id="text" class="equation">
+<div id="einsumindl17" class="eq-diagram"></div>
+<div id="einsumindl17_sum_qr" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{kl}$$</div>
+<div id="einsumindl17_A_ik" class="eq-elem">$$A_{ik}$$</div>
+<div id="einsumindl17_B_jkl" class="eq-elem">$$B_{jkl}$$</div>
+<div id="einsumindl17_C_il" class="eq-elem">$$C_{il}$$</div>
+<div id="einsumindl17_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl17_A_ik" class="eq-elem">$${A^{i}}_{k}$$</div>
+<div id="einsumindl17_B_jkl" class="eq-elem">$${B^{k}}_{jl}$$</div>
+<div id="einsumindl17_C_il" class="eq-elem">$$C^{il}$$</div>
+<div id="einsumindl17_D_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}D_{ij}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsumindl17 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl17_A_ik" },
+  { x: 2, y: 0, name: "B", idEqPart: "einsumindl17_B_jkl" },
+  { x: 3, y: 0, name: "C", idEqPart: "einsumindl17_C_il" },
+];
+
+const contractions_einsumindl17 = [
+	{ source: 0, target: "left", name: "i" },
+  { source: 0, target: 1, name: "k" },
+  { source: 1, target: "down", name: "j" },
+  { source: 1, target: 2, name: "l" },
+  { source: 2, target: "right", name: "i" },
+];
+
+drawDiagram(tensors_einsumindl17, contractions_einsumindl17, "einsumindl17", 270, 130);
+
+```
