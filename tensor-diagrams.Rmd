@@ -90,12 +90,12 @@ Multiply two matrices
 
 <div id="text" class="equation">
 <div id="einsum1" class="eq-diagram"></div>
-<div id="einsum1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{ik}$$</div>
+<div id="einsum1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
 <div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
 <div id="einsum1_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
-<div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
-<div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
+<div id="einsum1_M_A" class="eq-elem">$${A^{i}}_{k}$$</div>
+<div id="einsum1_M_B" class="eq-elem">$${B^{k}}_{j}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -124,7 +124,7 @@ Dot product of two vectors
 <div id="einsum2_b_i" class="eq-elem">$$b_{i}$$</div>
 <div id="einsum2_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
 <div id="einsum2_a_i" class="eq-elem">$$a_{i}$$</div>
-<div id="einsum2_b_i" class="eq-elem">$$b_{i}$$</div>
+<div id="einsum2_b_i" class="eq-elem">$$b^{i}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -150,8 +150,8 @@ Applying a transformation to a vector
 <div id="einsum3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
 <div id="einsum3_W_kq" class="eq-elem">$$W_{kq}$$</div>
 <div id="einsum3_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
-<div id="einsum3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
-<div id="einsum3_W_kq" class="eq-elem">$$W_{kq}$$</div>
+<div id="einsum3_T_ntk" class="eq-elem">$${T^{nt}}_{k}$$</div>
+<div id="einsum3_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -176,12 +176,12 @@ Order-4 tensor and project vectors in the 3rd dimension
 
 <div id="text" class="equation">
 <div id="einsum4" class="eq-diagram"></div>
-<div id="einsum4_C_mqn" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{tk}$$</div>
+<div id="einsum4_C_mqn" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
 <div id="einsum4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
 <div id="einsum4_W_kq" class="eq-elem">$$W_{kq}$$</div>
 <div id="einsum4_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
-<div id="einsum4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
-<div id="einsum4_W_kq" class="eq-elem">$$W_{kq}$$</div>
+<div id="einsum4_T_ntkm" class="eq-elem">$${T^{ntm}}_{k}$$</div>
+<div id="einsum4_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
