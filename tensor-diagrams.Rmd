@@ -57,7 +57,7 @@ We present it as a convenient notation for matrix summation, nothing less more m
 <div id="firstcontainer" class="eq-diagram">
 <!--<svg width="220" height="115"></svg>-->
 </div>
-<div class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{ij}$$</div>
+<div class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ij}$$</div>
 <div id="v_x" class="eq-elem">$$x_i$$</div>
 <div id="M_A" class="eq-elem">$$A_{ij}$$</div>
 <div id="M_B" class="eq-elem">$$B_{jk}$$</div>
@@ -92,13 +92,13 @@ Multiply two matrices
 
 <div id="text" class="equation">
 <div id="einsumindl1" class="eq-diagram"></div>
-<div id="einsumindl1_sum_ik" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{ik}$$</div>
+<div id="einsumindl1_sum_ik" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ik}$$</div>
 <div id="einsumindl1_M_A" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsumindl1_M_B" class="eq-elem">$$B_{kj}$$</div>
-<div id="einsumindl1_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl1_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl1_M_A" class="eq-elem">$${A^{i}}_{k}$$</div>
 <div id="einsumindl1_M_B" class="eq-elem">$${B^{k}}_{j}$$</div>
-<div id="einsumindl1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}c_{j}$$</div>
+<div id="einsumindl1_c_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c_{j}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -122,13 +122,13 @@ Dot product of two vectors
 
 <div id="text" class="equation">
 <div id="einsumindl2" class="eq-diagram"></div>
-<div id="einsumindl2_sum_i" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{i}$$</div>
+<div id="einsumindl2_sum_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{i}$$</div>
 <div id="einsumindl2_a_i" class="eq-elem">$$a_{i}$$</div>
 <div id="einsumindl2_b_i" class="eq-elem">$$b_{i}$$</div>
-<div id="einsumindl2_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl2_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl2_a_i" class="eq-elem">$$a_{i}$$</div>
 <div id="einsumindl2_b_i" class="eq-elem">$$b^{i}$$</div>
-<div id="einsumindl2_c" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}c$$</div>
+<div id="einsumindl2_c" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -150,13 +150,13 @@ Applying a transformation to vectors in a higher-order tensor
 
 <div id="text" class="equation">
 <div id="einsumindl3" class="eq-diagram"></div>
-<div id="einsumindl3_sum_k" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
+<div id="einsumindl3_sum_k" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{k}$$</div>
 <div id="einsumindl3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
 <div id="einsumindl3_W_kq" class="eq-elem">$$W_{kq}$$</div>
-<div id="einsumindl3_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl3_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl3_T_ntk" class="eq-elem">$${T^{nt}}_{k}$$</div>
 <div id="einsumindl3_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
-<div id="einsumindl3_C_ntq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}C_{ntq}$$</div>
+<div id="einsumindl3_C_ntq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{ntq}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -181,13 +181,13 @@ Order-4 tensor and project vectors in the 3rd dimension
 
 <div id="text" class="equation">
 <div id="einsumindl4" class="eq-diagram"></div>
-<div id="einsumindl4_sum_tk" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{tk}$$</div>
+<div id="einsumindl4_sum_tk" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{tk}$$</div>
 <div id="einsumindl4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
 <div id="einsumindl4_W_kq" class="eq-elem">$$W_{kq}$$</div>
-<div id="einsumindl4_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl4_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl4_T_ntkm" class="eq-elem">$${T^{ntm}}_{k}$$</div>
 <div id="einsumindl4_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
-<div id="einsumindl4_C_mqn" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}C_{mqn}$$</div>
+<div id="einsumindl4_C_mqn" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{mqn}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -215,11 +215,11 @@ Matrix transpose
 
 <div id="text" class="equation">
 <div id="einsumindl5_1" class="eq-diagram"></div>
-<div id="einsumindl5_eq1" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl5_eq1" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl5_2" class="eq-diagram"></div>
-<div id="einsumindl5_right" class="eq-elem">$$\hspace{0.5cm}\rightarrow\hspace{0.5cm}$$</div>
+<div id="einsumindl5_right" class="eq-elem">$$\hspace{0.3cm}\rightarrow\hspace{0.3cm}$$</div>
 <div id="einsumindl5_B_ji" class="eq-elem">$$B_{ji}$$</div>
-<div id="einsumindl5_eq2" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl5_eq2" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl5_A_ij" class="eq-elem">$$A_{ij}$$</div>
 </div>
 
@@ -252,11 +252,11 @@ Sum
 
 <div id="text" class="equation">
 <div id="einsumindl6" class="eq-diagram"></div>
-<div id="einsumindl6_sum_ij" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{ij}$$</div>
+<div id="einsumindl6_sum_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ij}$$</div>
 <div id="einsumindl6_M_A" class="eq-elem">$$A_{ij}$$</div>
-<div id="einsumindl6_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl6_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl6_M_A" class="eq-elem">$$A_{ij}$$</div>
-<div id="einsumindl6_b" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}b$$</div>
+<div id="einsumindl6_b" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -278,11 +278,11 @@ Column sum
 
 <div id="text" class="equation">
 <div id="einsumindl7" class="eq-diagram"></div>
-<div id="einsumindl7_sum_i" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{i}$$</div>
+<div id="einsumindl7_sum_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{i}$$</div>
 <div id="einsumindl7_M_A" class="eq-elem">$$A_{ij}$$</div>
-<div id="einsumindl7_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl7_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl7_M_A" class="eq-elem">$$A_{ij}$$</div>
-<div id="einsumindl7_b_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}b_{j}$$</div>
+<div id="einsumindl7_b_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b_{j}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
