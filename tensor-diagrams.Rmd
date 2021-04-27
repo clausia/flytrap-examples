@@ -243,3 +243,28 @@ drawDiagram(tensors_einsumindl5_1, contractions_einsumindl5_1, "einsumindl5_1", 
 drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 160, 110, 2);
 
 ```
+
+Sum
+
+<div id="text" class="equation">
+<div id="einsumindl6" class="eq-diagram"></div>
+<div id="einsumindl6_b" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{ij}$$</div>
+<div id="einsumindl6_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl6_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl6_M_A" class="eq-elem">$$A_{ij}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsumindl6 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl6_M_A" },
+];
+
+const contractions_einsumindl6 = [
+	{ source: 0, target: "left", name: "i" },
+  { source: 0, target: "right", name: "j" },
+];
+
+drawDiagram(tensors_einsumindl6, contractions_einsumindl6, "einsumindl6", 160, 120, 2);
+
+```
