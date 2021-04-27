@@ -24,7 +24,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
   };
   
   const colorScale = d3.scaleOrdinal()
-    .range(["#763E9B", "#00882B", "#C82505", "#EEEEEE", "#0165C0"].slice(startColorIndex));
+    .range(["#763E9B", "#00882B", "#C82505", "#0165C0", "#EEEEEE"].slice(startColorIndex));
 
   contractions.forEach((d) => {
     if (typeof d.target === "string") {

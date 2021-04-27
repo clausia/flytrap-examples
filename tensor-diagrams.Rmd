@@ -439,6 +439,36 @@ const contractions_einsumindl12 = [
   { source: 1, target: "right", name: "i" },
 ];
 
-drawDiagram(tensors_einsumindl12, contractions_einsumindl12, "einsumindl12", 220, 120);
+drawDiagram(tensors_einsumindl12, contractions_einsumindl12, "einsumindl12", 220, 120, 1);
+
+```
+
+Hadamard product
+
+<div id="text" class="equation">
+<div id="einsumindl13" class="eq-diagram"></div>
+<div id="einsumindl13_eq1" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl13_A_ij" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl13_B_ij" class="eq-elem">$$B_{ij}$$</div>
+<div id="einsumindl13_eq2" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl13_A_ij" class="eq-elem">$${A^{i}}_{j}$$</div>
+<div id="einsumindl13_B_ij" class="eq-elem">$${B^{j}}_{i}$$</div>
+<div id="einsumindl13_C_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{ij}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsumindl13 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl13_A_ij" },
+  { x: 2, y: 0, name: "B", idEqPart: "einsumindl13_B_ij" },
+];
+
+const contractions_einsumindl13 = [
+	{ source: 0, target: "left", name: "i" },
+  { source: 0, target: 1, name: "j" },
+  { source: 1, target: "right", name: "i" },
+];
+
+drawDiagram(tensors_einsumindl13, contractions_einsumindl13, "einsumindl13", 220, 120, 2);
 
 ```
