@@ -89,109 +89,109 @@ You can hover your mouse over an element to see who is who in this diagram.
 Multiply two matrices
 
 <div id="text" class="equation">
-<div id="einsum1" class="eq-diagram"></div>
-<div id="einsum1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
-<div id="einsum1_M_A" class="eq-elem">$$A_{ik}$$</div>
-<div id="einsum1_M_B" class="eq-elem">$$B_{kj}$$</div>
-<div id="einsum1_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
-<div id="einsum1_M_A" class="eq-elem">$${A^{i}}_{k}$$</div>
-<div id="einsum1_M_B" class="eq-elem">$${B^{k}}_{j}$$</div>
+<div id="einsumindl1" class="eq-diagram"></div>
+<div id="einsumindl1_c_j" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
+<div id="einsumindl1_M_A" class="eq-elem">$$A_{ik}$$</div>
+<div id="einsumindl1_M_B" class="eq-elem">$$B_{kj}$$</div>
+<div id="einsumindl1_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl1_M_A" class="eq-elem">$${A^{i}}_{k}$$</div>
+<div id="einsumindl1_M_B" class="eq-elem">$${B^{k}}_{j}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-const tensors_einsum1 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsum1_M_A" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsum1_M_B" },
+const tensors_einsumindl1 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl1_M_A" },
+  { x: 2, y: 0, name: "B", idEqPart: "einsumindl1_M_B" },
 ];
 
-const contractions_einsum1 = [
+const contractions_einsumindl1 = [
 	{ source: 0, target: "left", name: "i" },
   { source: 0, target: 1, name: "k" },
   { source: 1, target: "right", name: "j" },
 ];
 
-drawDiagram(tensors_einsum1, contractions_einsum1, "einsum1", 220, 115);
+drawDiagram(tensors_einsumindl1, contractions_einsumindl1, "einsumindl1", 220, 115);
 
 ```
 
 Dot product of two vectors
 
 <div id="text" class="equation">
-<div id="einsum2" class="eq-diagram"></div>
-<div id="einsum2_c" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{i}$$</div>
-<div id="einsum2_a_i" class="eq-elem">$$a_{i}$$</div>
-<div id="einsum2_b_i" class="eq-elem">$$b_{i}$$</div>
-<div id="einsum2_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
-<div id="einsum2_a_i" class="eq-elem">$$a_{i}$$</div>
-<div id="einsum2_b_i" class="eq-elem">$$b^{i}$$</div>
+<div id="einsumindl2" class="eq-diagram"></div>
+<div id="einsumindl2_c" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{i}$$</div>
+<div id="einsumindl2_a_i" class="eq-elem">$$a_{i}$$</div>
+<div id="einsumindl2_b_i" class="eq-elem">$$b_{i}$$</div>
+<div id="einsumindl2_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl2_a_i" class="eq-elem">$$a_{i}$$</div>
+<div id="einsumindl2_b_i" class="eq-elem">$$b^{i}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-const tensors_einsum2 = [
-  { x: 0, y: 0, name: "a", idEqPart: "einsum2_a_i" },
-  { x: 1, y: 0, name: "b", idEqPart: "einsum2_b_i" },
+const tensors_einsumindl2 = [
+  { x: 0, y: 0, name: "a", idEqPart: "einsumindl2_a_i" },
+  { x: 1, y: 0, name: "b", idEqPart: "einsumindl2_b_i" },
 ];
 
-const contractions_einsum2 = [
+const contractions_einsumindl2 = [
   { source: 0, target: 1, name: "i" },
 ];
 
-drawDiagram(tensors_einsum2, contractions_einsum2, "einsum2", 100, 115);
+drawDiagram(tensors_einsumindl2, contractions_einsumindl2, "einsumindl2", 100, 115);
 
 ```
 
 Applying a transformation to a vector
 
 <div id="text" class="equation">
-<div id="einsum3" class="eq-diagram"></div>
-<div id="einsum3_C_ntq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
-<div id="einsum3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
-<div id="einsum3_W_kq" class="eq-elem">$$W_{kq}$$</div>
-<div id="einsum3_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
-<div id="einsum3_T_ntk" class="eq-elem">$${T^{nt}}_{k}$$</div>
-<div id="einsum3_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
+<div id="einsumindl3" class="eq-diagram"></div>
+<div id="einsumindl3_C_ntq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
+<div id="einsumindl3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
+<div id="einsumindl3_W_kq" class="eq-elem">$$W_{kq}$$</div>
+<div id="einsumindl3_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl3_T_ntk" class="eq-elem">$${T^{nt}}_{k}$$</div>
+<div id="einsumindl3_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-const tensors_einsum3 = [
-  { x: 1, y: 0, name: "T", idEqPart: "einsum3_T_ntk" },
-  { x: 2, y: 0, name: "W", idEqPart: "einsum3_W_kq" },
+const tensors_einsumindl3 = [
+  { x: 1, y: 0, name: "T", idEqPart: "einsumindl3_T_ntk" },
+  { x: 2, y: 0, name: "W", idEqPart: "einsumindl3_W_kq" },
 ];
 
-const contractions_einsum3 = [
+const contractions_einsumindl3 = [
 	{ source: 0, target: "left", name: "n" },
 	{ source: 0, target: "down", name: "t" },
   { source: 0, target: 1, name: "k" },
   { source: 1, target: "right", name: "q" },
 ];
 
-drawDiagram(tensors_einsum3, contractions_einsum3, "einsum3", 220, 130);
+drawDiagram(tensors_einsumindl3, contractions_einsumindl3, "einsumindl3", 220, 130);
 
 ```
 
 Order-4 tensor and project vectors in the 3rd dimension
 
 <div id="text" class="equation">
-<div id="einsum4" class="eq-diagram"></div>
-<div id="einsum4_C_mqn" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
-<div id="einsum4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
-<div id="einsum4_W_kq" class="eq-elem">$$W_{kq}$$</div>
-<div id="einsum4_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
-<div id="einsum4_T_ntkm" class="eq-elem">$${T^{ntm}}_{k}$$</div>
-<div id="einsum4_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
+<div id="einsumindl4" class="eq-diagram"></div>
+<div id="einsumindl4_C_mqn" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}\sum_{k}$$</div>
+<div id="einsumindl4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
+<div id="einsumindl4_W_kq" class="eq-elem">$$W_{kq}$$</div>
+<div id="einsumindl4_eq" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
+<div id="einsumindl4_T_ntkm" class="eq-elem">$${T^{ntm}}_{k}$$</div>
+<div id="einsumindl4_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-const tensors_einsum4 = [
-  { x: 1, y: 0, name: "T", idEqPart: "einsum4_T_ntkm", labPos: "left" },
-  { x: 2, y: 0, name: "W", idEqPart: "einsum4_W_kq" },
+const tensors_einsumindl4 = [
+  { x: 1, y: 0, name: "T", idEqPart: "einsumindl4_T_ntkm", labPos: "left" },
+  { x: 2, y: 0, name: "W", idEqPart: "einsumindl4_W_kq" },
 ];
 
-const contractions_einsum4 = [
+const contractions_einsumindl4 = [
 	{ source: 0, target: "left", name: "n" },
 	{ source: 0, target: "down", name: "t" },
   { source: 0, target: 1, name: "k" },
@@ -199,6 +199,6 @@ const contractions_einsum4 = [
   { source: 1, target: "right", name: "q" },
 ];
 
-drawDiagram(tensors_einsum4, contractions_einsum4, "einsum4", 220, 140);
+drawDiagram(tensors_einsumindl4, contractions_einsumindl4, "einsumindl4", 220, 140);
 
 ```
