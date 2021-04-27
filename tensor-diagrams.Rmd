@@ -187,7 +187,7 @@ Order-4 tensor and project vectors in the 3rd dimension
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl4 = [
-  { x: 1, y: 0, name: "T", idEqPart: "einsumindl4_T_ntkm", labPos: "left" },
+  { x: 1, y: 0, name: "T", idEqPart: "einsumindl4_T_ntkm", labPos: "leftup" },
   { x: 2, y: 0, name: "W", idEqPart: "einsumindl4_W_kq" },
 ];
 
