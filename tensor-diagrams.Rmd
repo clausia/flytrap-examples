@@ -235,7 +235,7 @@ const contractions_einsumindl5_2 = [
   { source: 0, target: "right", name: "j" },
 ];
 
-drawDiagram(tensors_einsumindl5_1, contractions_einsumindl5_1, "einsumindl5_1", 160, 115);
-drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 160, 115);
+drawDiagram(tensors_einsumindl5_1, contractions_einsumindl5_1, "einsumindl5_1", 160, 115, 1);
+drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 160, 115, 2);
 
 ```

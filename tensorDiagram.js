@@ -4,7 +4,7 @@
 
 
 
-function drawDiagram(tensors, contractions, idContainer, widthContainer, heightContainer) {
+function drawDiagram(tensors, contractions, idContainer, widthContainer, heightContainer, startColorIndex = 0) {
 
   // add source/target by id or name
   contractions.forEach((d) => {
@@ -24,7 +24,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
   };
   
   const colorScale = d3.scaleOrdinal()
-    .range(["#763E9B", "#00882B", "#C82505", "#EEEEEE", "#0165C0"]);
+    .range(["#763E9B", "#00882B", "#C82505", "#EEEEEE", "#0165C0"].slice(startColorIndex));
 
   contractions.forEach((d) => {
     if (typeof d.target === "string") {
