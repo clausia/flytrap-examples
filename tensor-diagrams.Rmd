@@ -93,19 +93,19 @@ Multiply two matrices
 <div id="text" class="equation">
 <div id="einsumindl1" class="eq-diagram"></div>
 <div id="einsumindl1_sum_ik" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ik}$$</div>
-<div id="einsumindl1_M_A" class="eq-elem">$$A_{ik}$$</div>
-<div id="einsumindl1_M_B" class="eq-elem">$$B_{kj}$$</div>
+<div id="einsumindl1_A_ik" class="eq-elem">$$A_{ik}$$</div>
+<div id="einsumindl1_B_kj" class="eq-elem">$$B_{kj}$$</div>
 <div id="einsumindl1_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl1_M_A" class="eq-elem">$${A^{i}}_{k}$$</div>
-<div id="einsumindl1_M_B" class="eq-elem">$${B^{k}}_{j}$$</div>
+<div id="einsumindl1_A_ik" class="eq-elem">$${A^{i}}_{k}$$</div>
+<div id="einsumindl1_B_kj" class="eq-elem">$${B^{k}}_{j}$$</div>
 <div id="einsumindl1_c_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c_{j}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl1 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl1_M_A" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl1_M_B" },
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl1_A_ik" },
+  { x: 2, y: 0, name: "B", idEqPart: "einsumindl1_B_kj" },
 ];
 
 const contractions_einsumindl1 = [
@@ -253,16 +253,16 @@ Sum
 <div id="text" class="equation">
 <div id="einsumindl6" class="eq-diagram"></div>
 <div id="einsumindl6_sum_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ij}$$</div>
-<div id="einsumindl6_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl6_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl6_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl6_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl6_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl6_b" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl6 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl6_M_A" },
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl6_A_ij" },
 ];
 
 const contractions_einsumindl6 = [
@@ -279,16 +279,16 @@ Column sum
 <div id="text" class="equation">
 <div id="einsumindl7" class="eq-diagram"></div>
 <div id="einsumindl7_sum_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{i}$$</div>
-<div id="einsumindl7_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl7_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl7_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl7_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl7_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl7_b_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b_{j}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl7 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl7_M_A" },
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl7_A_ij" },
 ];
 
 const contractions_einsumindl7 = [
@@ -305,16 +305,16 @@ Row sum
 <div id="text" class="equation">
 <div id="einsumindl8" class="eq-diagram"></div>
 <div id="einsumindl8_sum_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{j}$$</div>
-<div id="einsumindl8_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl8_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl8_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl8_M_A" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl8_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl8_b_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b_{i}$$</div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl8 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl8_M_A" },
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl8_A_ij" },
 ];
 
 const contractions_einsumindl8 = [
