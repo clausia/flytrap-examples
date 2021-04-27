@@ -142,7 +142,7 @@ drawDiagram(tensors_einsumindl2, contractions_einsumindl2, "einsumindl2", 100, 1
 
 ```
 
-Applying a transformation to a vector
+Applying a transformation to vectors in a higher-order tensor
 
 <div id="text" class="equation">
 <div id="einsumindl3" class="eq-diagram"></div>
