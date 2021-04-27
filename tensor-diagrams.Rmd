@@ -354,3 +354,33 @@ const contractions_einsumindl9 = [
 drawDiagram(tensors_einsumindl9, contractions_einsumindl9, "einsumindl9", 170, 120);
 
 ```
+
+Matrix-matrix multiplication
+
+<div id="text" class="equation">
+<div id="einsumindl10" class="eq-diagram"></div>
+<div id="einsumindl10_sum_ik" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{k}$$</div>
+<div id="einsumindl10_A_ik" class="eq-elem">$$A_{ik}$$</div>
+<div id="einsumindl10_B_kj" class="eq-elem">$$B_{kj}$$</div>
+<div id="einsumindl10_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl10_A_ik" class="eq-elem">$${A^{i}}_{k}$$</div>
+<div id="einsumindl10_B_kj" class="eq-elem">$${B^{k}}_{j}$$</div>
+<div id="einsumindl10_C_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{ij}$$</div>
+</div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+
+const tensors_einsumindl10 = [
+  { x: 1, y: 0, name: "A", idEqPart: "einsumindl10_A_ik" },
+  { x: 2, y: 0, name: "B", idEqPart: "einsumindl10_B_kj" },
+];
+
+const contractions_einsumindl10 = [
+	{ source: 0, target: "left", name: "i" },
+  { source: 0, target: 1, name: "k" },
+  { source: 1, target: "right", name: "j" },
+];
+
+drawDiagram(tensors_einsumindl10, contractions_einsumindl10, "einsumindl10", 220, 120);
+
+```
