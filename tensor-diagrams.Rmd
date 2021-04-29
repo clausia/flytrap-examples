@@ -255,7 +255,7 @@ Sum
 <div id="einsumindl6_sum_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ij}$$</div>
 <div id="einsumindl6_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl6_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl6_A_ij" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl6_A_ij" class="eq-elem">$${A_{i}}^{j}$$</div>
 <div id="einsumindl6_b" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b$$</div>
 </div>
 
@@ -281,7 +281,7 @@ Column sum
 <div id="einsumindl7_sum_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{i}$$</div>
 <div id="einsumindl7_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl7_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl7_A_ij" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl7_A_ij" class="eq-elem">$${A_{i}}^{j}$$</div>
 <div id="einsumindl7_b_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b_{j}$$</div>
 </div>
 
@@ -307,7 +307,7 @@ Row sum
 <div id="einsumindl8_sum_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{j}$$</div>
 <div id="einsumindl8_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl8_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl8_A_ij" class="eq-elem">$$A_{ij}$$</div>
+<div id="einsumindl8_A_ij" class="eq-elem">$${A_{i}}^{j}$$</div>
 <div id="einsumindl8_b_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}b_{i}$$</div>
 </div>
 
@@ -334,8 +334,8 @@ Matrix-vector multiplication
 <div id="einsumindl9_A_ik" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsumindl9_b_k" class="eq-elem">$$b_{k}$$</div>
 <div id="einsumindl9_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl9_A_ik" class="eq-elem">$${A^{i}}_{k}$$</div>
-<div id="einsumindl9_b_k" class="eq-elem">$$b^{k}$$</div>
+<div id="einsumindl9_A_ik" class="eq-elem">$${A_{i}}^{k}$$</div>
+<div id="einsumindl9_b_k" class="eq-elem">$$b_{k}$$</div>
 <div id="einsumindl9_c_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c_{i}$$</div>
 </div>
 
