@@ -363,8 +363,8 @@ Matrix-matrix multiplication
 <div id="einsumindl10_A_ik" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsumindl10_B_kj" class="eq-elem">$$B_{kj}$$</div>
 <div id="einsumindl10_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl10_A_ik" class="eq-elem">$${A^{i}}_{k}$$</div>
-<div id="einsumindl10_B_kj" class="eq-elem">$${B^{k}}_{j}$$</div>
+<div id="einsumindl10_A_ik" class="eq-elem">$${A_{i}}^{k}$$</div>
+<div id="einsumindl10_B_kj" class="eq-elem">$${B_{k}}^{j}$$</div>
 <div id="einsumindl10_C_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{ij}$$</div>
 </div>
 
@@ -393,8 +393,8 @@ Dot product: Vector
 <div id="einsumindl11_a_i" class="eq-elem">$$a_{i}$$</div>
 <div id="einsumindl11_b_i" class="eq-elem">$$b_{i}$$</div>
 <div id="einsumindl11_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl11_a_i" class="eq-elem">$$a_{i}$$</div>
-<div id="einsumindl11_b_i" class="eq-elem">$$b^{i}$$</div>
+<div id="einsumindl11_a_i" class="eq-elem">$$a^{i}$$</div>
+<div id="einsumindl11_b_i" class="eq-elem">$$b_{i}$$</div>
 <div id="einsumindl11_c" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c$$</div>
 </div>
 
@@ -421,8 +421,8 @@ Dot product: Matrix
 <div id="einsumindl12_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl12_B_ij" class="eq-elem">$$B_{ij}$$</div>
 <div id="einsumindl12_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl12_A_ij" class="eq-elem">$${A^{i}}_{j}$$</div>
-<div id="einsumindl12_B_ij" class="eq-elem">$${B^{j}}_{i}$$</div>
+<div id="einsumindl12_A_ij" class="eq-elem">$${A_{i}}^{j}$$</div>
+<div id="einsumindl12_B_ij" class="eq-elem">$${B_{j}}^{i}$$</div>
 <div id="einsumindl12_c" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c$$</div>
 </div>
 
