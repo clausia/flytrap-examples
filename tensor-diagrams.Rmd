@@ -487,15 +487,16 @@ Outer product
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl14 = [
-  { x: 1, y: 0, name: "C", idEqPart: "einsumindl14_C_ij" },
+  { x: 1, y: 0, name: "a", idEqPart: "einsumindl14_a_i" },
+  { x: 1, y: 1, name: "b", idEqPart: "einsumindl14_b_j" },
 ];
 
 const contractions_einsumindl14 = [
   { source: 0, target: "left", name: "i" },
-  { source: 0, target: "right", name: "j" },
+  { source: 1, target: "right", name: "j" },
 ];
 
-drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 160, 120);
+drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 160, 130);
 
 ```
 
