@@ -520,8 +520,8 @@ Batch matrix multiplication
 <div id="einsumindl15_A_ijk" class="eq-elem">$$A_{ijk}$$</div>
 <div id="einsumindl15_B_ikl" class="eq-elem">$$B_{ikl}$$</div>
 <div id="einsumindl15_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl15_A_ijk" class="eq-elem">$${A^{ij}}_{k}$$</div>
-<div id="einsumindl15_B_ikl" class="eq-elem">$${B^{k}}_{il}$$</div>
+<div id="einsumindl15_A_ijk" class="eq-elem">$${A_{ij}}^{k}$$</div>
+<div id="einsumindl15_B_ikl" class="eq-elem">$${B_{ik}}^{l}$$</div>
 <div id="einsumindl15_C_ijl" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{ijl}$$</div>
 </div>
 
