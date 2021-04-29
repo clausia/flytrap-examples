@@ -482,6 +482,8 @@ Outer product
 <div id="einsumindl14_b_j" class="eq-elem">$$b_{j}$$</div>
 <div id="einsumindl14_eq2" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl14_C_ij" class="eq-elem">$$C_{ij}$$</div>
+<div id="einsumindl14_eq3" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl14_r" class="eq-diagram"></div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
@@ -496,7 +498,17 @@ const contractions_einsumindl14 = [
   { source: 1, target: "right", name: "j" },
 ];
 
+const tensors_einsumindl14_r = [
+  { x: 1, y: 0, name: "C", idEqPart: "einsumindl14_C_ij" },
+];
+
+const contractions_einsumindl14_r = [
+  { source: 0, target: "left", name: "i" },
+  { source: 0, target: "right", name: "j" },
+];
+
 drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 220, 120);
+drawDiagram(tensors_einsumindl14_r, contractions_einsumindl14_r, "einsumindl14_r", 160, 120, 2);
 
 ```
 
