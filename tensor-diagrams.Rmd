@@ -488,7 +488,7 @@ Outer product
 
 const tensors_einsumindl14 = [
   { x: 1, y: 0, name: "a", idEqPart: "einsumindl14_a_i" },
-  { x: 1, y: 1, name: "b", idEqPart: "einsumindl14_b_j" },
+  { x: 2, y: 0, name: "b", idEqPart: "einsumindl14_b_j" },
 ];
 
 const contractions_einsumindl14 = [
@@ -496,7 +496,7 @@ const contractions_einsumindl14 = [
   { source: 1, target: "right", name: "j" },
 ];
 
-drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 160, 130);
+drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 220, 120);
 
 ```
 
