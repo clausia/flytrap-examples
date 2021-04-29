@@ -451,8 +451,8 @@ Hadamard product
 <div id="einsumindl13_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl13_B_ij" class="eq-elem">$$B_{ij}$$</div>
 <div id="einsumindl13_eq2" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl13_A_ij" class="eq-elem">$${A^{i}}_{j}$$</div>
-<div id="einsumindl13_B_ij" class="eq-elem">$${B^{j}}_{i}$$</div>
+<div id="einsumindl13_A_ij" class="eq-elem">$${A_{i}}^{j}$$</div>
+<div id="einsumindl13_B_ij" class="eq-elem">$${B_{i}}^{j}$$</div>
 <div id="einsumindl13_C_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{ij}$$</div>
 </div>
 
