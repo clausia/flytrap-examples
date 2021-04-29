@@ -552,8 +552,8 @@ Tensor contraction
 <div id="einsumindl16_A_pqrs" class="eq-elem">$$A_{pqrs}$$</div>
 <div id="einsumindl16_B_tuqvr" class="eq-elem">$$B_{tuqvr}$$</div>
 <div id="einsumindl16_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl16_A_pqrs" class="eq-elem">$${A^{ps}}_{qr}$$</div>
-<div id="einsumindl16_B_tuqvr" class="eq-elem">$${B^{qr}}_{tuv}$$</div>
+<div id="einsumindl16_A_pqrs" class="eq-elem">$${A_{ps}}^{qr}$$</div>
+<div id="einsumindl16_B_tuqvr" class="eq-elem">$${B_{qr}}^{tuv}$$</div>
 <div id="einsumindl16_C_pstuv" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{pstuv}$$</div>
 </div>
 
@@ -587,9 +587,9 @@ Bilinear transformation
 <div id="einsumindl17_B_jkl" class="eq-elem">$$B_{jkl}$$</div>
 <div id="einsumindl17_C_il" class="eq-elem">$$C_{il}$$</div>
 <div id="einsumindl17_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl17_A_ik" class="eq-elem">$${A^{i}}_{k}$$</div>
-<div id="einsumindl17_B_jkl" class="eq-elem">$${B^{k}}_{jl}$$</div>
-<div id="einsumindl17_C_il" class="eq-elem">$$C^{il}$$</div>
+<div id="einsumindl17_A_ik" class="eq-elem">$${A_{i}}^{k}$$</div>
+<div id="einsumindl17_B_jkl" class="eq-elem">$${B_{jk}}^{l}$$</div>
+<div id="einsumindl17_C_il" class="eq-elem">$$C_{il}$$</div>
 <div id="einsumindl17_D_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}D_{ij}$$</div>
 </div>
 
