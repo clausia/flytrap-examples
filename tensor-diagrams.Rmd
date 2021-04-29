@@ -96,8 +96,8 @@ Multiply two matrices followed by calculating the sum of each column resulting i
 <div id="einsumindl1_A_ik" class="eq-elem">$$A_{ik}$$</div>
 <div id="einsumindl1_B_kj" class="eq-elem">$$B_{kj}$$</div>
 <div id="einsumindl1_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl1_A_ik" class="eq-elem">$${A^{i}}_{k}$$</div>
-<div id="einsumindl1_B_kj" class="eq-elem">$${B^{k}}_{j}$$</div>
+<div id="einsumindl1_A_ik" class="eq-elem">$${A_{i}}^{k}$$</div>
+<div id="einsumindl1_B_kj" class="eq-elem">$${B_{k}}^{j}$$</div>
 <div id="einsumindl1_c_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c_{j}$$</div>
 </div>
 
@@ -126,8 +126,8 @@ Dot product of two vectors
 <div id="einsumindl2_a_i" class="eq-elem">$$a_{i}$$</div>
 <div id="einsumindl2_b_i" class="eq-elem">$$b_{i}$$</div>
 <div id="einsumindl2_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl2_a_i" class="eq-elem">$$a_{i}$$</div>
-<div id="einsumindl2_b_i" class="eq-elem">$$b^{i}$$</div>
+<div id="einsumindl2_a_i" class="eq-elem">$$a^{i}$$</div>
+<div id="einsumindl2_b_i" class="eq-elem">$$b_{i}$$</div>
 <div id="einsumindl2_c" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}c$$</div>
 </div>
 
@@ -154,8 +154,8 @@ Applying a transformation to vectors in a higher-order tensor
 <div id="einsumindl3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
 <div id="einsumindl3_W_kq" class="eq-elem">$$W_{kq}$$</div>
 <div id="einsumindl3_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl3_T_ntk" class="eq-elem">$${T^{nt}}_{k}$$</div>
-<div id="einsumindl3_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
+<div id="einsumindl3_T_ntk" class="eq-elem">$${T_{nt}}^{k}$$</div>
+<div id="einsumindl3_W_kq" class="eq-elem">$${W_{k}}^{q}$$</div>
 <div id="einsumindl3_C_ntq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{ntq}$$</div>
 </div>
 
@@ -185,8 +185,8 @@ Order-4 tensor and project vectors in the 3rd dimension
 <div id="einsumindl4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
 <div id="einsumindl4_W_kq" class="eq-elem">$$W_{kq}$$</div>
 <div id="einsumindl4_eq" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
-<div id="einsumindl4_T_ntkm" class="eq-elem">$${T^{ntm}}_{k}$$</div>
-<div id="einsumindl4_W_kq" class="eq-elem">$${W^{k}}_{q}$$</div>
+<div id="einsumindl4_T_ntkm" class="eq-elem">$${T_{ntm}}^{k}$$</div>
+<div id="einsumindl4_W_kq" class="eq-elem">$${W_{k}}^{q}$$</div>
 <div id="einsumindl4_C_mqn" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}C_{mqn}$$</div>
 </div>
 
