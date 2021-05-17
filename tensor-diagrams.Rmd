@@ -66,15 +66,28 @@ We present it as a convenient notation for matrix summation, nothing less more m
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors = [
-	{ x: 0, y: 0, name: "x", idEqPart: "v_x" },
-  { x: 1, y: 0, name: "A", idEqPart: "M_A" },
-  { x: 2, y: 0, name: "B", idEqPart: "M_B" },
+    { x: 0, y: 0, name: "x", idEqPart: "v_x",
+        indices: [
+            { pos: "right", name: "i" },
+        ]
+    },
+    { x: 1, y: 0, name: "A", idEqPart: "M_A",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "M_B",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "k" }
+        ]
+    },
 ];
 
 const contractions = [
-	{ source: 0, target: 1 , name: "i" },
-  { source: 1, target: 2 , name: "j" },
-  { source: 2, target: "right", name: "k" },
+    { source: 0, target: 1 , name: "i" },
+    { source: 1, target: 2 , name: "j" },
 ];
 
 drawDiagram(tensors, contractions, "firstcontainer", 220, 120);
@@ -103,15 +116,23 @@ Multiply two matrices followed by calculating the sum of each column resulting i
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
-const tensors_einsumindl1 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl1_A_ik" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl1_B_kj" },
+tensors_einsumindl1 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl1_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl1_B_kj",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
 const contractions_einsumindl1 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: 1, name: "k" },
-  { source: 1, target: "right", name: "j" },
+    { source: 0, target: 1, name: "k" },
 ];
 
 drawDiagram(tensors_einsumindl1, contractions_einsumindl1, "einsumindl1", 220, 120);
@@ -134,12 +155,20 @@ Dot product of two vectors
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl2 = [
-  { x: 0, y: 0, name: "a", idEqPart: "einsumindl2_a_i" },
-  { x: 1, y: 0, name: "b", idEqPart: "einsumindl2_b_i" },
+    { x: 0, y: 0, name: "a", idEqPart: "einsumindl2_a_i",
+        indices: [
+            { pos: "right", name: "i" },
+        ]
+    },
+    { x: 1, y: 0, name: "b", idEqPart: "einsumindl2_b_i",
+        indices: [
+            { pos: "left", name: "i" },
+        ]
+    },
 ];
 
 const contractions_einsumindl2 = [
-  { source: 0, target: 1, name: "i" },
+    { source: 0, target: 1, name: "i" },
 ];
 
 drawDiagram(tensors_einsumindl2, contractions_einsumindl2, "einsumindl2", 100, 120);
@@ -162,15 +191,23 @@ Applying a transformation to vectors in a higher-order tensor
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl3 = [
-  { x: 1, y: 0, name: "T", idEqPart: "einsumindl3_T_ntk" },
-  { x: 2, y: 0, name: "W", idEqPart: "einsumindl3_W_kq" },
+    { x: 1, y: 0, name: "T", idEqPart: "einsumindl3_T_ntk",
+        indices: [
+            { pos: "left", name: "n" },
+            { pos: "down", name: "t" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "W", idEqPart: "einsumindl3_W_kq",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "q" }
+        ]
+    },
 ];
 
 const contractions_einsumindl3 = [
-	{ source: 0, target: "left", name: "n" },
-	{ source: 0, target: "down", name: "t" },
-  { source: 0, target: 1, name: "k" },
-  { source: 1, target: "right", name: "q" },
+    { source: 0, target: 1, name: "k" },
 ];
 
 drawDiagram(tensors_einsumindl3, contractions_einsumindl3, "einsumindl3", 220, 130);
@@ -193,16 +230,24 @@ Order-4 tensor and project vectors in the 3rd dimension
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl4 = [
-  { x: 1, y: 0, name: "T", idEqPart: "einsumindl4_T_ntkm", labPos: "leftup" },
-  { x: 2, y: 0, name: "W", idEqPart: "einsumindl4_W_kq" },
+    { x: 1, y: 0, name: "T", idEqPart: "einsumindl4_T_ntkm", labPos: "leftup" ,
+        indices: [
+            { pos: "left", name: "n" },
+            { pos: "down", name: "t" },
+            { pos: "right", name: "k" },
+            { pos: "up", name: "m" }
+        ]
+    },
+    { x: 2, y: 0, name: "W", idEqPart: "einsumindl4_W_kq",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "q" }
+        ]
+    },
 ];
 
 const contractions_einsumindl4 = [
-	{ source: 0, target: "left", name: "n" },
-	{ source: 0, target: "down", name: "t" },
-  { source: 0, target: 1, name: "k" },
-  { source: 0, target: "up", name: "m" },
-  { source: 1, target: "right", name: "q" },
+    { source: 0, target: 1, name: "k" },
 ];
 
 drawDiagram(tensors_einsumindl4, contractions_einsumindl4, "einsumindl4", 220, 140);
@@ -226,22 +271,26 @@ Matrix transpose
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl5_1 = [
-  { x: 1, y: 0, name: "B", idEqPart: "einsumindl5_B_ji" },
+    { x: 1, y: 0, name: "B", idEqPart: "einsumindl5_B_ji",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "i" }
+        ]
+    },
 ];
 
-const contractions_einsumindl5_1 = [
-	{ source: 0, target: "left", name: "j" },
-  { source: 0, target: "right", name: "i" },
-];
+const contractions_einsumindl5_1 = [];
 
 const tensors_einsumindl5_2 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl5_A_ij" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl5_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
-const contractions_einsumindl5_2 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: "right", name: "j" },
-];
+const contractions_einsumindl5_2 = [];
 
 drawDiagram(tensors_einsumindl5_1, contractions_einsumindl5_1, "einsumindl5_1", 160, 110, 1);
 drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 160, 110, 2);
@@ -262,13 +311,15 @@ Sum
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl6 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl6_A_ij" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl6_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
-const contractions_einsumindl6 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: "right", name: "j" },
-];
+const contractions_einsumindl6 = [];
 
 drawDiagram(tensors_einsumindl6, contractions_einsumindl6, "einsumindl6", 160, 120);
 
@@ -288,13 +339,15 @@ Column sum
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl7 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl7_A_ij" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl7_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
-const contractions_einsumindl7 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: "right", name: "j" },
-];
+const contractions_einsumindl7 = [];
 
 drawDiagram(tensors_einsumindl7, contractions_einsumindl7, "einsumindl7", 160, 120, 1);
 
@@ -314,13 +367,15 @@ Row sum
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl8 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl8_A_ij" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl8_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
-const contractions_einsumindl8 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: "right", name: "j" },
-];
+const contractions_einsumindl8 = [];
 
 drawDiagram(tensors_einsumindl8, contractions_einsumindl8, "einsumindl8", 160, 120, 2);
 
@@ -342,13 +397,21 @@ Matrix-vector multiplication
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl9 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl9_A_ik" },
-  { x: 2, y: 0, name: "b", idEqPart: "einsumindl9_b_k" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl9_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "b", idEqPart: "einsumindl9_b_k",
+        indices: [
+            { pos: "left", name: "k" }
+        ]
+    },
 ];
 
 const contractions_einsumindl9 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: 1, name: "k" },
+    { source: 0, target: 1, name: "k" },
 ];
 
 drawDiagram(tensors_einsumindl9, contractions_einsumindl9, "einsumindl9", 170, 120);
@@ -371,14 +434,22 @@ Matrix-matrix multiplication
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl10 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl10_A_ik" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl10_B_kj" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl10_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl10_B_kj",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
 const contractions_einsumindl10 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: 1, name: "k" },
-  { source: 1, target: "right", name: "j" },
+    { source: 0, target: 1, name: "k" },
 ];
 
 drawDiagram(tensors_einsumindl10, contractions_einsumindl10, "einsumindl10", 220, 120);
@@ -401,12 +472,20 @@ Dot product: Vector
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl11 = [
-  { x: 0, y: 0, name: "a", idEqPart: "einsumindl11_a_i" },
-  { x: 1, y: 0, name: "b", idEqPart: "einsumindl11_b_i" },
+    { x: 0, y: 0, name: "a", idEqPart: "einsumindl11_a_i",
+        indices: [
+            { pos: "right", name: "i" }
+        ]
+    },
+    { x: 1, y: 0, name: "b", idEqPart: "einsumindl11_b_i",
+        indices: [
+            { pos: "left", name: "i" }
+        ]
+    },
 ];
 
 const contractions_einsumindl11 = [
-  { source: 0, target: 1, name: "i" },
+    { source: 0, target: 1, name: "i" },
 ];
 
 drawDiagram(tensors_einsumindl11, contractions_einsumindl11, "einsumindl11", 100, 120);
@@ -429,14 +508,23 @@ Dot product: Matrix
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl12 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl12_A_ij" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl12_B_ij" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl12_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl12_B_ij",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "i" }
+        ]
+    },
 ];
 
 const contractions_einsumindl12 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: 1, name: "j" },
-  { source: 1, target: "right", name: "i" },
+    { source: 0, target: 1, name: "j" },
+    //{ source: 1, target: 0, name: "i" }, //not yet working
 ];
 
 drawDiagram(tensors_einsumindl12, contractions_einsumindl12, "einsumindl12", 220, 120);
@@ -459,14 +547,23 @@ Hadamard product
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl13 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl13_A_ij" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl13_B_ij" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl13_A_ij"
+        ,
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl13_B_ij",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "i" }
+        ]
+    },
 ];
 
 const contractions_einsumindl13 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: 1, name: "j" },
-  { source: 1, target: "right", name: "i" },
+    { source: 0, target: 1, name: "j" }, //check this case!!
 ];
 
 drawDiagram(tensors_einsumindl13, contractions_einsumindl13, "einsumindl13", 220, 120);
@@ -490,23 +587,30 @@ Outer product
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl14 = [
-  { x: 1, y: 0, name: "a", idEqPart: "einsumindl14_a_i" },
-  { x: 2, y: 0, name: "b", idEqPart: "einsumindl14_b_j" },
+    { x: 1, y: 0, name: "a", idEqPart: "einsumindl14_a_i",
+        indices: [
+            { pos: "left", name: "i" }
+        ]
+    },
+    { x: 2, y: 0, name: "b", idEqPart: "einsumindl14_b_j",
+        indices: [
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
-const contractions_einsumindl14 = [
-  { source: 0, target: "left", name: "i" },
-  { source: 1, target: "right", name: "j" },
-];
+const contractions_einsumindl14 = [];
 
 const tensors_einsumindl14_r = [
-  { x: 1, y: 0, name: "C", idEqPart: "einsumindl14_C_ij" },
+    { x: 1, y: 0, name: "C", idEqPart: "einsumindl14_C_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
 ];
 
-const contractions_einsumindl14_r = [
-  { source: 0, target: "left", name: "i" },
-  { source: 0, target: "right", name: "j" },
-];
+const contractions_einsumindl14_r = [];
 
 drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 220, 120);
 drawDiagram(tensors_einsumindl14_r, contractions_einsumindl14_r, "einsumindl14_r", 210, 120, 2);
@@ -529,16 +633,24 @@ Batch matrix multiplication
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl15 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl15_A_ijk" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl15_B_ikl" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl15_A_ijk",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "down", name: "j" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl15_B_ikl",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "down", name: "i" },
+            { pos: "right", name: "l" }
+        ]
+    },
 ];
 
 const contractions_einsumindl15 = [
-	{ source: 0, target: "left", name: "i" },
-	{ source: 0, target: "down", name: "j" },
-  { source: 0, target: 1, name: "k" },
-  { source: 1, target: "down", name: "i" },
-  { source: 1, target: "right", name: "l" },
+    { source: 0, target: 1, name: "k" }
 ];
 
 drawDiagram(tensors_einsumindl15, contractions_einsumindl15, "einsumindl15", 220, 130);
@@ -561,18 +673,28 @@ Tensor contraction
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl16 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl16_A_pqrs", labPos: "leftup" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl16_B_tuqvr", labPos: "leftup" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl16_A_pqrs", labPos: "leftup", shape: "rectangle",
+        indices: [
+            { pos: "left", name: "p" },
+            { pos: "right", name: "q" },
+            { pos: "right", name: "r" },
+            { pos: "up", name: "s" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl16_B_tuqvr", labPos: "leftup", //this is also a rectangle, but down index dont work yet
+        indices: [
+            { pos: "left", name: "q" },
+            { pos: "left", name: "r" },
+            { pos: "down", name: "t" },
+            { pos: "right", name: "u" },
+            { pos: "up", name: "v" }
+        ]
+    },
 ];
 
 const contractions_einsumindl16 = [
-	{ source: 0, target: "left", name: "p" },
-	{ source: 0, target: "up", name: "s" },
-  { source: 0, target: 1, name: "q" },
-  { source: 0, target: 1, name: "r" },
-  { source: 1, target: "down", name: "t" },
-  { source: 1, target: "right", name: "u" },
-  { source: 1, target: "up", name: "v" },
+    { source: 0, target: 1, name: "q" },
+    { source: 0, target: 1, name: "r" },  // must be drawn in parallel w/ q
 ];
 
 drawDiagram(tensors_einsumindl16, contractions_einsumindl16, "einsumindl16", 220, 140);
@@ -597,17 +719,30 @@ Bilinear transformation
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl17 = [
-  { x: 1, y: 0, name: "A", idEqPart: "einsumindl17_A_ik" },
-  { x: 2, y: 0, name: "B", idEqPart: "einsumindl17_B_jkl" },
-  { x: 3, y: 0, name: "C", idEqPart: "einsumindl17_C_il" },
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl17_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl17_B_jkl",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "down", name: "j" },
+            { pos: "right", name: "l" }
+        ]
+    },
+    { x: 3, y: 0, name: "C", idEqPart: "einsumindl17_C_il",
+        indices: [
+            { pos: "left", name: "l" },
+            { pos: "right", name: "i" }
+        ]
+    },
 ];
 
 const contractions_einsumindl17 = [
-	{ source: 0, target: "left", name: "i" },
-  { source: 0, target: 1, name: "k" },
-  { source: 1, target: "down", name: "j" },
-  { source: 1, target: 2, name: "l" },
-  { source: 2, target: "right", name: "i" },
+    { source: 0, target: 1, name: "k" },
+    { source: 1, target: 2, name: "l" },
 ];
 
 drawDiagram(tensors_einsumindl17, contractions_einsumindl17, "einsumindl17", 270, 130);
