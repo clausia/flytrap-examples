@@ -3,7 +3,6 @@
 // inspiration from http://tensornetwork.org/diagrams/
 
 
-
 function drawDiagram(tensors, contractions, idContainer, widthContainer, heightContainer, startColorIndex = 0) {
 
     // add source/target by id or name
@@ -72,61 +71,10 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
         .data(tensors)
         .enter()
         .each(function(d, i) {
-            let selected;
-            if( d.shape === undefined ) d.shape = "circle"; //default value
-            if( d.shape === "circle" ) {
-                selected = d3.select(this)
-                    .append("circle")
-                    .attr("r", 10)
-                    .attr("cx", (d) => xScale(d.x))
-                    .attr("cy", (d) => yScale(d.y));
-            } else if( d.shape === "square" ) {
-                selected = d3.select(this)
-                    .append("rect")
-                    .attr("width", 20)
-                    .attr("height", 20)
-                    .attr("x", (d) => xScale(d.x) - 10)
-                    .attr("y", (d) => yScale(d.y) - 10);
-            } else if( d.shape === "triangleUp" ) {
-                selected = d3.select(this)
-                    .append("path")
-                    .attr("d", function(d) {
-                        sx = xScale(d.x) - 10; sy = yScale(d.y) + 10;
-                        return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy-20) + ' z';
-                    });
-            } else if( d.shape === "triangleDown" ) {
-                selected = d3.select(this)
-                    .append("path")
-                    .attr("d", function(d) {
-                        sx = xScale(d.x) - 10; sy = yScale(d.y) - 10;
-                        return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy+20) + ' z';
-                    });
-            } else if( d.shape === "triangleLeft" ) {
-                selected = d3.select(this)
-                    .append("path")
-                    .attr("d", function(d) {
-                        sx = xScale(d.x) - 10; sy = yScale(d.y);
-                        return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy+10) + 'L ' + (sx+20) + ' ' + (sy-10) + ' z';
-                    });
-            } else if( d.shape === "triangleRight" ) {
-                selected = d3.select(this)
-                    .append("path")
-                    .attr("d", function(d) {
-                        sx = xScale(d.x) - 10; sy = yScale(d.y) - 10;
-                        return 'M ' + sx +' '+ sy + ' L ' + (sx) + ' ' + (sy+20) + 'L ' + (sx+20) + ' ' + (sy+10) + ' z';
-                    });
-            } else if( d.shape === "rectangle" ) {
-                selected = d3.select(this).append("rect")
-                    .attr("width", 20)
-                    .attr("height", 60)
-                    .attr("x", (d) => xScale(d.x) - 10)
-                    .attr("y", (d) => yScale(d.y) - 15)
-                    .attr("rx", 7)
-                    .attr("ry", 7);
-                    /*.attr("transform", function(d, i) { return "scale(" + (1 - d / 60) * 20 + ")"; })*/
-            }
-            if(selected)
-                selected.attr("class", "tensor")
+            let selected = d3.select(this);
+            let shape = drawShape(selected, d, xScale, yScale);
+            if(shape)
+                shape.attr("class", "tensor")
                     .style("fill", (d) => colorScale(d.name))
                     .on("mouseover", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', true))
                     .on("mouseout", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', false));
@@ -150,4 +98,62 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
         .attr("y", (d) => yScale(d.labelPosition.y))
         .text((d) => d.name);
 
+}
+
+function drawShape(selected, d, xScale, yScale) {
+    let shape;
+    if( d.shape === undefined ) d.shape = "circle"; //default value
+    if( d.shape === "circle" ) {
+        shape = selected
+            .append("circle")
+            .attr("r", 10)
+            .attr("cx", (d) => xScale(d.x))
+            .attr("cy", (d) => yScale(d.y));
+    } else if( d.shape === "square" ) {
+        shape = selected
+            .append("rect")
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("x", (d) => xScale(d.x) - 10)
+            .attr("y", (d) => yScale(d.y) - 10);
+    } else if( d.shape === "triangleUp" ) {
+        shape = selected
+            .append("path")
+            .attr("d", function(d) {
+                sx = xScale(d.x) - 10; sy = yScale(d.y) + 10;
+                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy-20) + ' z';
+            });
+    } else if( d.shape === "triangleDown" ) {
+        shape = selected
+            .append("path")
+            .attr("d", function(d) {
+                sx = xScale(d.x) - 10; sy = yScale(d.y) - 10;
+                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy+20) + ' z';
+            });
+    } else if( d.shape === "triangleLeft" ) {
+        shape = selected
+            .append("path")
+            .attr("d", function(d) {
+                sx = xScale(d.x) - 10; sy = yScale(d.y);
+                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy+10) + 'L ' + (sx+20) + ' ' + (sy-10) + ' z';
+            });
+    } else if( d.shape === "triangleRight" ) {
+        shape = selected
+            .append("path")
+            .attr("d", function(d) {
+                sx = xScale(d.x) - 10; sy = yScale(d.y) - 10;
+                return 'M ' + sx +' '+ sy + ' L ' + (sx) + ' ' + (sy+20) + 'L ' + (sx+20) + ' ' + (sy+10) + ' z';
+            });
+    } else if( d.shape === "rectangle" ) {
+        shape = selected
+            .append("rect")
+            .attr("width", 20)
+            .attr("height", 60)
+            .attr("x", (d) => xScale(d.x) - 10)
+            .attr("y", (d) => yScale(d.y) - 15)
+            .attr("rx", 7)
+            .attr("ry", 7);
+        /*.attr("transform", function(d, i) { return "scale(" + (1 - d / 60) * 20 + ")"; })*/
+    }
+    return shape;
 }
