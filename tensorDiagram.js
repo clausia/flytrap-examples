@@ -91,11 +91,31 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
         .data(contractions)
         .enter()
         .each(function(d, i) {
+
             already_drawn_contraction.push(d.name);
+
+            let shift_y_per_contraction = 0;
+            if(d.source.shape == "rectangle") {
+                shift_y_per_contraction = contractions
+                                            .slice(0, i)
+                                              .filter((o) =>
+                                                  o.source.name == d.source.name && o.target.name == d.target.name
+                                              ).length;
+            }
+
+            let source = {
+                x: d.source.x,
+                y: d.source.y + shift_y_per_contraction
+            };
+            let target = {
+                x: d.target.x,
+                y: d.target.y + shift_y_per_contraction
+            };
+
             d3.select(this)
                 .append("path")
                 .attr("class", "contraction")
-                .attr("d", (d) => lineFunction([d.source, d.target]));
+                .attr("d", (d) => lineFunction([source, target]));
         });
 
 
@@ -106,22 +126,44 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
         .enter()
         .each(function(d, i) {
 
+            if(d.shape == "rectangle") {
+                // determine the height (in positions) of this rectangular node
+                d.rectHeight = Math.max(d.indices.filter((o) => o.pos == "right").length,
+                                        d.indices.filter((o) => o.pos == "left").length)
+            }
+
             // first draw pending indices (the ones that are not drawn before, not in already_drawn_contraction)
             const indicesToDraw = []
-            d.indices.forEach(function(index){
+            d.indices.forEach(function(index, j){
                 if(!already_drawn_contraction.includes(index.name)) {
+
+                    let shift_y_per_index = 0;
+                    let shift_y_rect_down = 0;
+
+                    if(d.shape == "rectangle") {
+
+                        if(index.pos == "right" || index.pos == "left") {
+                            // check if there is more than one index either left or right
+                            shift_y_per_index = d.indices.slice(0, j).filter((o) => o.pos == index.pos).length;
+                        }
+
+                        if(index.pos == "down") { shift_y_rect_down = d.rectHeight - 1; }
+                    }
+
+                    // get how much an index should move to any cardinal point
                     const dv = shifts[index.pos];
+
                     index.source = {
                         x: d.x,
-                        y: d.y
+                        y: d.y + shift_y_per_index
                     };
                     index.target = {
                         x: d.x + dv[0],
-                        y: d.y + dv[1]
+                        y: d.y + dv[1] + shift_y_per_index + shift_y_rect_down
                     };
                     index.labelPosition = {
                         x: d.x + 1.4 * dv[0],
-                        y: d.y + 1.4 * dv[1]
+                        y: d.y + 1.4 * dv[1] + shift_y_per_index + shift_y_rect_down
                     };
                     indicesToDraw.push(index);
                 }
@@ -140,7 +182,8 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
                         .attr("d", (idx) => lineFunction([idx.source, idx.target]));
 
                     //draw indices names
-                    d3.select(this).append("text")
+                    d3.select(this)
+                        .append("text")
                         .attr("class", "contraction-label")
                         .attr("x", (idx) => xScale(idx.labelPosition.x))
                         .attr("y", (idx) => yScale(idx.labelPosition.y))
@@ -216,15 +259,15 @@ function drawShape(selected, d, xScale, yScale) {
                 return 'M ' + sx +' '+ sy + ' L ' + (sx) + ' ' + (sy+20) + 'L ' + (sx+20) + ' ' + (sy+10) + ' z';
             });
     } else if( d.shape === "rectangle" ) {
+        // the height of the rectangle will depend on the number of indices it has, either on the left or on the right
         shape = selected
             .append("rect")
             .attr("width", 20)
-            .attr("height", 60)
+            .attr("height", (d) => yScale(d.rectHeight - 2) + 15)
             .attr("x", (d) => xScale(d.x) - 10)
-            .attr("y", (d) => yScale(d.y) - 15)
+            .attr("y", (d) => yScale(d.y) - 10)
             .attr("rx", 7)
             .attr("ry", 7);
-        /*.attr("transform", function(d, i) { return "scale(" + (1 - d / 60) * 20 + ")"; })*/
     }
     return shape;
 }

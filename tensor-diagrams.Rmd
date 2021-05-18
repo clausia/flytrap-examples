@@ -673,7 +673,7 @@ Tensor contraction
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl16 = [
-    { x: 1, y: 0, name: "A", idEqPart: "einsumindl16_A_pqrs", labPos: "leftup", shape: "rectangle",
+    { x: 1, y: 1, name: "A", idEqPart: "einsumindl16_A_pqrs", labPos: "leftup", shape: "rectangle",
         indices: [
             { pos: "left", name: "p" },
             { pos: "right", name: "q" },
@@ -681,7 +681,7 @@ const tensors_einsumindl16 = [
             { pos: "up", name: "s" }
         ]
     },
-    { x: 2, y: 0, name: "B", idEqPart: "einsumindl16_B_tuqvr", labPos: "leftup", //this is also a rectangle, but down index dont work yet
+    { x: 2, y: 1, name: "B", idEqPart: "einsumindl16_B_tuqvr", labPos: "leftup", shape: "rectangle",
         indices: [
             { pos: "left", name: "q" },
             { pos: "left", name: "r" },
@@ -697,7 +697,7 @@ const contractions_einsumindl16 = [
     { source: 0, target: 1, name: "r" },  // must be drawn in parallel w/ q
 ];
 
-drawDiagram(tensors_einsumindl16, contractions_einsumindl16, "einsumindl16", 220, 140);
+drawDiagram(tensors_einsumindl16, contractions_einsumindl16, "einsumindl16", 220, 260);
 
 ```
 
