@@ -1,294 +1,783 @@
-// by Piotr Migdał, https://p.migdal.pl/
-// and Claudia Zendejas-Morales, https://claudiazm.xyz/
-// inspiration from http://tensornetwork.org/diagrams/
-
-
-function drawDiagram(tensors, contractions, idContainer, widthContainer, heightContainer, startColorIndex = 0) {
-
-
-    // **********************************************************
-    //                      Definitions
-    // **********************************************************
-
-
-    // define distance and directions for index directions
-    const shifts = {
-        up:    [ 0.00, -0.75],
-        down:  [ 0.00,  0.75],
-        left:  [-0.75,  0.00],
-        right: [ 0.75,  0.00]
-    };
-
-    // define a color scale to assign colors to nodes
-    const colorScale = d3.scaleOrdinal()
-        .range(["#763E9B", "#00882B", "#C82505", "#0165C0", "#EEEEEE"].slice(startColorIndex));
-
-    const xScale = d3.scaleLinear()
-        .domain([0, 8])
-        .range([20, 500]);
-
-    const yScale = d3.scaleLinear()
-        .domain([0, 8])
-        .range([60, 500]);
-
-    const lineFunction = d3.line()
-        .x((d) => xScale(d.x))
-        .y((d) => yScale(d.y));
-
-    const curveFunction = d3.line()
-        .curve(d3.curveBundle);
-
-
-    // **********************************************************
-    //                      Rearrangements
-    // **********************************************************
-
-
-    // add source/target by id or name, also determine the shift according to the position specified
-    contractions.forEach((d) => {
-        if (typeof d.source !== "number" || typeof d.target !== "number") {
-            throw ".:. Source and target in contractions must be numbers"; //cannot continue
-        }
-        if (typeof d.source === "number") {
-            d.source = tensors[d.source]
-        }
-        if (typeof d.target === "number") {
-            d.target = tensors[d.target]
-        }
-    });
-
-
-    // **********************************************************
-    //                    Elements in formula
-    // **********************************************************
-
-
-    // add same color to elements in formula as indicated w/idEqPart parameter
-    tensors.forEach((d) => {
-        d3.selectAll('#' + d.idEqPart).style("color", colorScale(d.name));
-    });
-
-
-    // **********************************************************
-    //                   Container for diagram
-    // **********************************************************
-
-
-    // select the container in which the diagram will be drawn
-    const svg = d3.select("#" + idContainer)
-        .append("svg")
-        .attr("width", widthContainer)
-        .attr("height", heightContainer);
-
-
-    // **********************************************************
-    //                         Drawing
-    // **********************************************************
-
-
-    // draw contractions
-
-    let already_drawn_contraction = []; // remember indexes (indicated as contractions) already drawn
-
-    svg.selectAll(".contraction") // lines and 'loops'
-        .data(contractions)
-        .enter()
-        .each(function(d, i) {
-
-            already_drawn_contraction.push(d.name);
-
-            let shift_y_per_contraction = 0;
-            if(d.source.shape == "rectangle") {
-                shift_y_per_contraction = contractions.slice(0, i)
-                                              .filter((o) =>
-                                                  o.source.name == d.source.name && o.target.name == d.target.name
-                                              ).length;
-            }
-
-            let source = {
-                x: d.source.x,
-                y: d.source.y + shift_y_per_contraction
-            };
-            let target = {
-                x: d.target.x,
-                y: d.target.y + shift_y_per_contraction
-            };
-
-            d3.select(this)
-                .append("path")
-                .attr("class", "contraction")
-                .attr("d", function(d) {
-
-                    const source_pos = d.source.indices.filter((o) => o.name == d.name)[0].pos;
-                    const target_pos = d.target.indices.filter((o) => o.name == d.name)[0].pos;
-
-                    if(source_pos == "right" && target_pos == "left") { // draw a straight line
-                        return lineFunction([source, target]);
-                    }
-
-                    if(source_pos == "left" && target_pos == "right") { // draw a curve line
-                        let dir_y = 1; // d.pos: "up" or nothing
-                        if(d.pos == "down") dir_y = -1;
-                        return curveFunction([[xScale(d.source.x) - 10,       yScale(d.source.y)],
-                                              [xScale(d.source.x - 0.5) - 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.source.x - 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x + 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x + 0.5) + 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.target.x) + 10,       yScale(d.source.y)]]);
-                    }
-                });
-        });
-
-
-    // draw nodes w/indices (loose ends)
-
-    svg.selectAll(".tensor")
-        .data(tensors)
-        .enter()
-        .each(function(d, i) {
-
-            if(d.shape == "rectangle") {
-                // determine the height (in positions) of this rectangular node
-                d.rectHeight = Math.max(d.indices.filter((o) => o.pos == "right").length,
-                                        d.indices.filter((o) => o.pos == "left").length)
-            }
-
-            // first draw pending indices (the ones that are not drawn before, not in already_drawn_contraction)
-            const indicesToDraw = []
-            d.indices.forEach(function(index, j){
-                if(!already_drawn_contraction.includes(index.name)) {
-
-                    let shift_y_per_index = 0;
-                    let shift_y_rect_down = 0;
-
-                    if(d.shape == "rectangle") {
-
-                        if(index.pos == "right" || index.pos == "left") {
-                            // check if there is more than one index either left or right
-                            shift_y_per_index = d.indices.slice(0, j).filter((o) => o.pos == index.pos).length;
-                        }
-
-                        if(index.pos == "down") { shift_y_rect_down = d.rectHeight - 1; }
-                    }
-
-                    // get how much an index should move to any cardinal point
-                    const dv = shifts[index.pos];
-
-                    index.source = {
-                        x: d.x,
-                        y: d.y + shift_y_per_index
-                    };
-                    index.target = {
-                        x: d.x + dv[0],
-                        y: d.y + dv[1] + shift_y_per_index + shift_y_rect_down
-                    };
-                    index.labelPosition = {
-                        x: d.x + 1.4 * dv[0],
-                        y: d.y + 1.4 * dv[1] + shift_y_per_index + shift_y_rect_down
-                    };
-                    indicesToDraw.push(index);
-                }
-            });
-            svg.selectAll("#idx"+d.name) // identify in a particular way the indices of this node
-                .data(indicesToDraw)
-                .enter()
-                .each(function(idx, i) {
-                    //console.log(d);
-
-                    // draw loose ends
-                    d3.select(this)
-                        .append("path")
-                        .attr("class", "contraction")
-                        //.style("stroke", "red")                                       //  <- quitar, solo es pa ver
-                        .attr("d", (idx) => lineFunction([idx.source, idx.target]));
-
-                    //draw indices names
-                    d3.select(this)
-                        .append("text")
-                        .attr("class", "contraction-label")
-                        .attr("x", (idx) => xScale(idx.labelPosition.x))
-                        .attr("y", (idx) => yScale(idx.labelPosition.y))
-                        .text((idx) => idx.name);
-                });
-
-            // second draw nodes
-            let selected = d3.select(this);
-            let shape = drawShape(selected, d, xScale, yScale);
-            if(shape)
-                shape.attr("class", "tensor")
-                    .style("fill", (d) => d.shape === "dot" ? "black" : colorScale(d.name))
-                    .on("mouseover", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', true))
-                    .on("mouseout", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', false));
-
-            // third draw tensor names
-            selected.append("text")
-                .attr("class", "tensor-label")
-                .attr("x", (d) => d.labPos === "left" || d.labPos === "leftup" ? xScale(d.x - 0.5) : xScale(d.x))
-                .attr("y", (d) => d.labPos === "left" ? yScale(d.y + 0.1) : yScale(d.y - 0.4))
-                .text((d) => d.name);
-
-        });
-
-}
-
-function drawShape(selected, d, xScale, yScale) {
-    let shape;
-    if( d.shape === undefined ) d.shape = "circle"; //default value
-    if( d.shape === "circle" || d.shape === "dot" ) {
-        shape = selected
-            .append("circle")
-            .attr("r", d.shape === "dot" ? 6 : 10)
-            .attr("cx", (d) => xScale(d.x))
-            .attr("cy", (d) => yScale(d.y));
-    } else if( d.shape === "square" ) {
-        shape = selected
-            .append("rect")
-            .attr("width", 20)
-            .attr("height", 20)
-            .attr("x", (d) => xScale(d.x) - 10)
-            .attr("y", (d) => yScale(d.y) - 10);
-    } else if( d.shape === "triangleUp" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y) + 10;
-                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy-20) + ' z';
-            });
-    } else if( d.shape === "triangleDown" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y) - 10;
-                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy+20) + ' z';
-            });
-    } else if( d.shape === "triangleLeft" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y);
-                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy+10) + 'L ' + (sx+20) + ' ' + (sy-10) + ' z';
-            });
-    } else if( d.shape === "triangleRight" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y) - 10;
-                return 'M ' + sx +' '+ sy + ' L ' + (sx) + ' ' + (sy+20) + 'L ' + (sx+20) + ' ' + (sy+10) + ' z';
-            });
-    } else if( d.shape === "rectangle" ) {
-        // the height of the rectangle will depend on the number of indices it has, either on the left or on the right
-        shape = selected
-            .append("rect")
-            .attr("width", 20)
-            .attr("height", (d) => yScale(d.rectHeight - 2) + 15)
-            .attr("x", (d) => xScale(d.x) - 10)
-            .attr("y", (d) => yScale(d.y) - 10)
-            .attr("rx", 7)
-            .attr("ry", 7);
+const tensors_ex1 = [
+    { name: "A", shape: "circle", x: 1, y: 0, idEqPart: "M_A_ex1",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
     }
-    return shape;
-}
+];
+
+const contractions_ex1 = [];
+
+/*const contractions_ex1 = [
+    { source: 0, target: "left", name: "i" },
+    { source: 0, target: "right", name: "j" },
+];
+*/
+
+drawDiagram(tensors_ex1, contractions_ex1, "containerCircle", 220, 110, 0);
+
+
+const tensors2_ex1 = [
+    { x: 1, y: 0, name: "B", idEqPart: "M_B_ex1", shape: "square",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "l" }
+        ]
+    },
+];
+const contractions2_ex1 = [];
+
+drawDiagram(tensors2_ex1, contractions2_ex1, "containerSquare", 220, 110, 1);
+
+const tensors3_ex1 = [
+    { x: 1, y: 0, name: "C", idEqPart: "M_C_ex1", shape: "triangleUp",
+        indices: [
+            { pos: "left", name: "m" },
+            { pos: "right", name: "n" }
+        ]
+    },
+];
+const contractions3_ex1 = [];
+
+drawDiagram(tensors3_ex1, contractions3_ex1, "containerTriangleUp", 220, 110, 2);
+
+const tensors4_ex1 = [
+    { x: 1, y: 0, name: "D", idEqPart: "M_D_ex1", shape: "triangleDown",
+        indices: [
+            { pos: "left", name: "p" },
+            { pos: "right", name: "q" }
+        ]
+    },
+];
+const contractions4_ex1 = [];
+
+drawDiagram(tensors4_ex1, contractions4_ex1, "containerTriangleDown", 220, 110, 3);
+
+
+const tensors5_ex1 = [
+    { x: 1, y: 0, name: "E", idEqPart: "M_E_ex1", shape: "triangleLeft",
+        indices: [
+            { pos: "left", name: "r" },
+            { pos: "right", name: "s" }
+        ]
+    },
+];
+const contractions5_ex1 = [];
+
+drawDiagram(tensors5_ex1, contractions5_ex1, "containerTriangleLeft", 220, 110, 0);
+
+const tensors6_ex1 = [
+    { x: 1, y: 0, name: "F", idEqPart: "M_F_ex1", shape: "triangleRight",
+        indices: [
+            { pos: "left", name: "t" },
+            { pos: "right", name: "u" }
+        ]
+    },
+];
+const contractions6_ex1 = [];
+
+drawDiagram(tensors6_ex1, contractions6_ex1, "containerTriangleRight", 220, 110, 1);
+
+const tensors7_ex1 = [
+    { x: 1, y: 0, name: "G", idEqPart: "M_G_ex1", shape: "rectangle",
+        indices: [
+            { pos: "left", name: "v" },
+            { pos: "left", name: "w" },
+            { pos: "right", name: "x" },
+            { pos: "right", name: "y" },
+            { pos: "right", name: "z" }
+        ]
+    },
+];
+const contractions7_ex1 = [];
+
+drawDiagram(tensors7_ex1, contractions7_ex1, "containerRectangle", 220, 200, 2);
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+
+
+const tensors = [
+    { x: 0, y: 0, name: "x", idEqPart: "v_x",
+        indices: [
+            { pos: "right", name: "i" },
+        ]
+    },
+    { x: 1, y: 0, name: "A", idEqPart: "M_A",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "M_B",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "k" }
+        ]
+    },
+];
+
+const contractions = [
+    { source: 0, target: 1 , name: "i" },
+    { source: 1, target: 2 , name: "j" },
+];
+
+drawDiagram(tensors, contractions, "firstcontainer", 220, 120);
+
+
+
+tensors_einsumindl1 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl1_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl1_B_kj",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl1 = [
+    { source: 0, target: 1, name: "k" },
+];
+
+drawDiagram(tensors_einsumindl1, contractions_einsumindl1, "einsumindl1", 220, 120);
+
+
+//--
+
+
+const tensors_einsumindl2 = [
+    { x: 0, y: 0, name: "a", idEqPart: "einsumindl2_a_i",
+        indices: [
+            { pos: "right", name: "i" },
+        ]
+    },
+    { x: 1, y: 0, name: "b", idEqPart: "einsumindl2_b_i",
+        indices: [
+            { pos: "left", name: "i" },
+        ]
+    },
+];
+
+const contractions_einsumindl2 = [
+    { source: 0, target: 1, name: "i" },
+];
+
+drawDiagram(tensors_einsumindl2, contractions_einsumindl2, "einsumindl2", 100, 120);
+
+
+const tensors_einsumindl3 = [
+    { x: 1, y: 0, name: "T", idEqPart: "einsumindl3_T_ntk",
+        indices: [
+            { pos: "left", name: "n" },
+            { pos: "down", name: "t" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "W", idEqPart: "einsumindl3_W_kq",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "q" }
+        ]
+    },
+];
+
+const contractions_einsumindl3 = [
+    { source: 0, target: 1, name: "k" },
+];
+
+drawDiagram(tensors_einsumindl3, contractions_einsumindl3, "einsumindl3", 220, 130);
+
+
+
+const tensors_einsumindl4 = [
+    { x: 1, y: 0, name: "T", idEqPart: "einsumindl4_T_ntkm", labPos: "leftup" ,
+        indices: [
+            { pos: "left", name: "n" },
+            { pos: "down", name: "t" },
+            { pos: "right", name: "k" },
+            { pos: "up", name: "m" }
+        ]
+    },
+    { x: 2, y: 0, name: "W", idEqPart: "einsumindl4_W_kq",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "q" }
+        ]
+    },
+];
+
+const contractions_einsumindl4 = [
+    { source: 0, target: 1, name: "k" },
+];
+
+drawDiagram(tensors_einsumindl4, contractions_einsumindl4, "einsumindl4", 220, 140);
+
+
+
+const tensors_einsumindl5_1 = [
+    { x: 1, y: 0, name: "B", idEqPart: "einsumindl5_B_ji",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "i" }
+        ]
+    },
+];
+
+const contractions_einsumindl5_1 = [];
+
+const tensors_einsumindl5_2 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl5_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl5_2 = [];
+
+drawDiagram(tensors_einsumindl5_1, contractions_einsumindl5_1, "einsumindl5_1", 160, 110, 1);
+drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 160, 110, 2);
+
+
+
+const tensors_einsumindl6 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl6_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl6 = [];
+
+drawDiagram(tensors_einsumindl6, contractions_einsumindl6, "einsumindl6", 160, 120);
+
+
+
+const tensors_einsumindl7 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl7_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl7 = [];
+
+drawDiagram(tensors_einsumindl7, contractions_einsumindl7, "einsumindl7", 160, 120, 1);
+
+
+
+const tensors_einsumindl8 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl8_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl8 = [];
+
+drawDiagram(tensors_einsumindl8, contractions_einsumindl8, "einsumindl8", 160, 120, 2);
+
+
+
+const tensors_einsumindl9 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl9_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "b", idEqPart: "einsumindl9_b_k",
+        indices: [
+            { pos: "left", name: "k" }
+        ]
+    },
+];
+
+const contractions_einsumindl9 = [
+    { source: 0, target: 1, name: "k" },
+];
+
+drawDiagram(tensors_einsumindl9, contractions_einsumindl9, "einsumindl9", 170, 120);
+
+
+
+const tensors_einsumindl10 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl10_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl10_B_kj",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl10 = [
+    { source: 0, target: 1, name: "k" },
+];
+
+drawDiagram(tensors_einsumindl10, contractions_einsumindl10, "einsumindl10", 220, 120);
+
+
+
+
+const tensors_einsumindl11 = [
+    { x: 0, y: 0, name: "a", idEqPart: "einsumindl11_a_i",
+        indices: [
+            { pos: "right", name: "i" }
+        ]
+    },
+    { x: 1, y: 0, name: "b", idEqPart: "einsumindl11_b_i",
+        indices: [
+            { pos: "left", name: "i" }
+        ]
+    },
+];
+
+const contractions_einsumindl11 = [
+    { source: 0, target: 1, name: "i" },
+];
+
+drawDiagram(tensors_einsumindl11, contractions_einsumindl11, "einsumindl11", 100, 120);
+
+
+
+const tensors_einsumindl12 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl12_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl12_B_ij",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "i" }
+        ]
+    },
+];
+
+const contractions_einsumindl12 = [
+    { source: 0, target: 1, name: "i", pos: "down" }, // default is pos: "up"
+    { source: 0, target: 1, name: "j" },
+];
+
+drawDiagram(tensors_einsumindl12, contractions_einsumindl12, "einsumindl12", 220, 120);
+
+
+
+const tensors_einsumindl13 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl13_A_ij"
+        ,
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 3, y: 0, name: "B", idEqPart: "einsumindl13_B_ij",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "i" }
+        ]
+    },
+];
+
+const contractions_einsumindl13 = [ //check this case!!
+    //{ source: 0, target: 1, name: "i" },
+    //{ source: 0, target: 1, name: "j" },
+];
+
+drawDiagram(tensors_einsumindl13, contractions_einsumindl13, "einsumindl13", 240, 120);
+
+
+const tensors_einsumindl14 = [
+    { x: 1, y: 0, name: "a", idEqPart: "einsumindl14_a_i",
+        indices: [
+            { pos: "left", name: "i" }
+        ]
+    },
+    { x: 2, y: 0, name: "b", idEqPart: "einsumindl14_b_j",
+        indices: [
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl14 = [];
+
+const tensors_einsumindl14_r = [
+    { x: 1, y: 0, name: "C", idEqPart: "einsumindl14_C_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_einsumindl14_r = [];
+
+drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 220, 120);
+drawDiagram(tensors_einsumindl14_r, contractions_einsumindl14_r, "einsumindl14_r", 210, 120, 2);
+
+
+
+const tensors_einsumindl15 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl15_A_ijk",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "down", name: "j" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl15_B_ikl",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "down", name: "i" },
+            { pos: "right", name: "l" }
+        ]
+    },
+];
+
+const contractions_einsumindl15 = [
+    { source: 0, target: 1, name: "k" }
+];
+
+drawDiagram(tensors_einsumindl15, contractions_einsumindl15, "einsumindl15", 220, 130);
+
+
+
+const tensors_einsumindl16 = [
+    { x: 1, y: 1, name: "A", idEqPart: "einsumindl16_A_pqrs", labPos: "leftup", shape: "rectangle",
+        indices: [
+            { pos: "left", name: "p" },
+            { pos: "right", name: "q" },
+            { pos: "right", name: "r" },
+            { pos: "up", name: "s" }
+        ]
+    },
+    { x: 2, y: 1, name: "B", idEqPart: "einsumindl16_B_tuqvr", labPos: "leftup", shape: "rectangle",
+        indices: [
+            { pos: "left", name: "q" },
+            { pos: "left", name: "r" },
+            { pos: "down", name: "t" },
+            { pos: "right", name: "u" },
+            { pos: "up", name: "v" }
+        ]
+    },
+];
+
+const contractions_einsumindl16 = [
+    { source: 0, target: 1, name: "q" },
+    { source: 0, target: 1, name: "r" },  // must be drawn in parallel w/ q
+];
+
+drawDiagram(tensors_einsumindl16, contractions_einsumindl16, "einsumindl16", 220, 260);
+
+
+
+const tensors_einsumindl17 = [
+    { x: 1, y: 0, name: "A", idEqPart: "einsumindl17_A_ik",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "einsumindl17_B_jkl",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "down", name: "j" },
+            { pos: "right", name: "l" }
+        ]
+    },
+    { x: 3, y: 0, name: "C", idEqPart: "einsumindl17_C_il",
+        indices: [
+            { pos: "left", name: "l" },
+            { pos: "right", name: "i" }
+        ]
+    },
+];
+
+const contractions_einsumindl17 = [
+    { source: 0, target: 1, name: "k" },
+    { source: 1, target: 2, name: "l" },
+];
+
+drawDiagram(tensors_einsumindl17, contractions_einsumindl17, "einsumindl17", 270, 130);
+
+
+
+//-----------------------------------------------------
+
+
+const tensors_dot = [
+    { name: "A", shape: "dot", x: 1, y: 0, idEqPart: "M_A_dot",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    }
+];
+
+const contractions_dot = [];
+
+
+drawDiagram(tensors_dot, contractions_dot, "containerDot", 220, 110, 0);
+
+
+
+
+const tensors_ex_curve1 = [
+    { x: 1, y: 0, name: "A", idEqPart: "ex_curve1_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "ex_curve1_B_ij",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "i" }
+        ]
+    },
+];
+
+const contractions_ex_curve1 = [
+    { source: 0, target: 1, name: "i", pos: "up" }, // default is pos: "up"
+    { source: 0, target: 1, name: "j" },
+];
+
+drawDiagram(tensors_ex_curve1, contractions_ex_curve1, "container_ex_curve1", 220, 120);
+
+
+
+
+const tensors_ex_curve2 = [
+    { x: 1, y: 0, name: "A", idEqPart: "ex_curve2_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "ex_curve2_B_ij",
+        indices: [
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_ex_curve2 = [
+    { source: 0, target: 1, name: "j" }, // default is pos: "up"
+];
+
+drawDiagram(tensors_ex_curve2, contractions_ex_curve2, "container_ex_curve2", 220, 120);
+
+
+
+const tensors_ex_curve3 = [
+    { x: 1, y: 0, name: "A", idEqPart: "ex_curve3_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "ex_curve3_B_ij",
+        indices: [
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_ex_curve3 = [
+    { source: 0, target: 1, name: "j", pos: "down" }, // default is pos: "up"
+];
+
+drawDiagram(tensors_ex_curve3, contractions_ex_curve3, "container_ex_curve3", 220, 120);
+
+
+
+
+
+
+const tensors_ex_curve4 = [
+    { x: 1, y: 0, name: "A", idEqPart: "ex_curve4_A_ij",
+        indices: [
+            { pos: "left", name: "i" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "ex_curve4_B_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_ex_curve4 = [
+    { source: 0, target: 1, name: "i" }, // default is pos: "up"
+];
+
+drawDiagram(tensors_ex_curve4, contractions_ex_curve4, "container_ex_curve4", 220, 120);
+
+
+
+const tensors_ex_curve5 = [
+    { x: 1, y: 0, name: "A", idEqPart: "ex_curve5_A_ij",
+        indices: [
+            { pos: "left", name: "i" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "ex_curve5_B_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+];
+
+const contractions_ex_curve5 = [
+    { source: 0, target: 1, name: "i", pos:"down" }, // default is pos: "up"
+];
+
+drawDiagram(tensors_ex_curve5, contractions_ex_curve5, "container_ex_curve5", 220, 120);
+
+
+
+
+const tensors_ex_curve6 = [
+    { x: 1, y: 0, name: "A", idEqPart: "ex_curve6_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "ex_curve6_B_ij",
+        indices: [
+            { pos: "left", name: "j" }
+        ]
+    },
+    { x: 3, y: 0, name: "C", idEqPart: "ex_curve6_C_ij",
+        indices: [
+            { pos: "left", name: "i" }
+        ]
+    },
+];
+
+const contractions_ex_curve6 = [
+    { source: 0, target: 1, name: "j"},
+    { source: 0, target: 2, name: "i", pos:"down" }, // default is pos: "up"
+];
+
+drawDiagram(tensors_ex_curve6, contractions_ex_curve6, "container_ex_curve6", 220, 120);
+
+
+
+
+const tensors_ex_curve7 = [
+    { x: 1, y: 0, name: "A", idEqPart: "ex_curve7_A_ij",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "right", name: "j" }
+        ]
+    },
+    { x: 2, y: 0, name: "B", idEqPart: "ex_curve7_B_ij",
+        indices: [
+            { pos: "left", name: "j" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 3, y: 0, name: "C", idEqPart: "ex_curve7_C_ij",
+        indices: [
+            { pos: "right", name: "i" },
+            { pos: "left", name: "k" }
+        ]
+    },
+];
+
+const contractions_ex_curve7 = [
+    { source: 0, target: 1, name: "j"},
+    { source: 1, target: 2, name: "k"},
+    { source: 0, target: 2, name: "i", pos:"down" }, // default is pos: "up"
+];
+
+drawDiagram(tensors_ex_curve7, contractions_ex_curve7, "container_ex_curve7", 240, 120);
+
+
+
+/*const tensors_ex_curve8 = [
+    { x: 0, y: 0, name: "A", idEqPart: "ex_curve8_A_ij",
+        indices: [
+            { pos: "right", name: "i" },
+            { pos: "down", name: "l" }
+        ]
+    },
+    { x: 1, y: 0, name: "B", idEqPart: "ex_curve8_B_ij",
+        indices: [
+            { pos: "right", name: "i" },
+            { pos: "down", name: "j" }
+        ]
+    },
+    { x: 0, y: 1, name: "C", idEqPart: "ex_curve8_C_ij",
+        indices: [
+            { pos: "up", name: "l" },
+            { pos: "right", name: "k" }
+        ]
+    },
+    { x: 1, y: 1, name: "D", idEqPart: "ex_curve8_D_ij",
+        indices: [
+            { pos: "left", name: "k" },
+            { pos: "up", name: "j" },
+            { pos: "right", name: "m" }
+        ]
+    },
+];
+
+const contractions_ex_curve8 = [
+    { source: 0, target: 1, name: "i" },
+    { source: 0, target: 2, name: "l" },
+    { source: 1, target: 3, name: "j" },
+    { source: 2, target: 3, name: "k" },
+];*/
+
+const tensors_ex_curve8 = [
+    { x: 1, y: 1, name: "A", idEqPart: "ex_curve8_A_ij", labPos: "leftup",
+        indices: [
+            { pos: "left", name: "i" },
+            { pos: "down", name: "j" },
+            { pos: "right", name: "k" },
+            { pos: "up", name: "l" }
+        ]
+    },
+    { x: 2, y: 1, name: "B", idEqPart: "ex_curve8_B_ij",
+        indices: [
+            { pos: "right", name: "k" },
+            { pos: "down", name: "m" }
+        ]
+    },
+];
+
+const contractions_ex_curve8 = [
+    { source: 0, target: 1, name: "k" },
+];
+
+drawDiagram(tensors_ex_curve8, contractions_ex_curve8, "container_ex_curve8", 220, 200);
