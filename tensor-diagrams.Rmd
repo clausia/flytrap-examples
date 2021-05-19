@@ -42,7 +42,7 @@ This is a proof of concept (POC) of the OnMouseOver event for the Tensor Diagram
 
 Multidimenstional arrays are the basic building blocks for any deep neural network, and many other models in statistics and machine learning. However, even for relatively simple operations the notation becomes monstrous:
 
-<div id="text" class="equation">
+<div class="equation">
 <div class="eq-elem">$$\sum_{ij}$$</div>
 <div class="eq-elem">$$x_i$$</div>
 <div class="eq-elem">$$A_{ij}$$</div>
@@ -53,7 +53,7 @@ Multidimenstional arrays are the basic building blocks for any deep neural netwo
 
 We present it as a convenient notation for matrix summation, nothing less more more. In this notation, the described equation becomes:
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="firstcontainer" class="eq-diagram">
 <!--<svg width="220" height="115"></svg>-->
 </div>
@@ -103,7 +103,7 @@ You can hover your mouse over an element to see who is who in this diagram.
 
 Multiply two matrices followed by calculating the sum of each column resulting in a vector
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl1" class="eq-diagram"></div>
 <div id="einsumindl1_sum_ik" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ik}$$</div>
 <div id="einsumindl1_A_ik" class="eq-elem">$$A_{ik}$$</div>
@@ -141,7 +141,7 @@ drawDiagram(tensors_einsumindl1, contractions_einsumindl1, "einsumindl1", 220, 1
 
 Dot product of two vectors
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl2" class="eq-diagram"></div>
 <div id="einsumindl2_sum_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{i}$$</div>
 <div id="einsumindl2_a_i" class="eq-elem">$$a_{i}$$</div>
@@ -177,7 +177,7 @@ drawDiagram(tensors_einsumindl2, contractions_einsumindl2, "einsumindl2", 100, 1
 
 Applying a transformation to vectors in a higher-order tensor
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl3" class="eq-diagram"></div>
 <div id="einsumindl3_sum_k" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{k}$$</div>
 <div id="einsumindl3_T_ntk" class="eq-elem">$$T_{ntk}$$</div>
@@ -216,7 +216,7 @@ drawDiagram(tensors_einsumindl3, contractions_einsumindl3, "einsumindl3", 220, 1
 
 Order-4 tensor and project vectors in the 3rd dimension
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl4" class="eq-diagram"></div>
 <div id="einsumindl4_sum_tk" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{tk}$$</div>
 <div id="einsumindl4_T_ntkm" class="eq-elem">$$T_{ntkm}$$</div>
@@ -258,7 +258,7 @@ drawDiagram(tensors_einsumindl4, contractions_einsumindl4, "einsumindl4", 220, 1
 
 Matrix transpose
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl5_1" class="eq-diagram"></div>
 <div id="einsumindl5_eq1" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl5_2" class="eq-diagram"></div>
@@ -299,7 +299,7 @@ drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 
 
 Sum
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl6" class="eq-diagram"></div>
 <div id="einsumindl6_sum_ij" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ij}$$</div>
 <div id="einsumindl6_A_ij" class="eq-elem">$$A_{ij}$$</div>
@@ -327,7 +327,7 @@ drawDiagram(tensors_einsumindl6, contractions_einsumindl6, "einsumindl6", 160, 1
 
 Column sum
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl7" class="eq-diagram"></div>
 <div id="einsumindl7_sum_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{i}$$</div>
 <div id="einsumindl7_A_ij" class="eq-elem">$$A_{ij}$$</div>
@@ -355,7 +355,7 @@ drawDiagram(tensors_einsumindl7, contractions_einsumindl7, "einsumindl7", 160, 1
 
 Row sum
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl8" class="eq-diagram"></div>
 <div id="einsumindl8_sum_j" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{j}$$</div>
 <div id="einsumindl8_A_ij" class="eq-elem">$$A_{ij}$$</div>
@@ -383,7 +383,7 @@ drawDiagram(tensors_einsumindl8, contractions_einsumindl8, "einsumindl8", 160, 1
 
 Matrix-vector multiplication
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl9" class="eq-diagram"></div>
 <div id="einsumindl9_sum_k" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{k}$$</div>
 <div id="einsumindl9_A_ik" class="eq-elem">$$A_{ik}$$</div>
@@ -420,7 +420,7 @@ drawDiagram(tensors_einsumindl9, contractions_einsumindl9, "einsumindl9", 170, 1
 
 Matrix-matrix multiplication
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl10" class="eq-diagram"></div>
 <div id="einsumindl10_sum_ik" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{k}$$</div>
 <div id="einsumindl10_A_ik" class="eq-elem">$$A_{ik}$$</div>
@@ -458,7 +458,7 @@ drawDiagram(tensors_einsumindl10, contractions_einsumindl10, "einsumindl10", 220
 
 Dot product: Vector
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl11" class="eq-diagram"></div>
 <div id="einsumindl11_sum_i" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{i}$$</div>
 <div id="einsumindl11_a_i" class="eq-elem">$$a_{i}$$</div>
@@ -494,7 +494,7 @@ drawDiagram(tensors_einsumindl11, contractions_einsumindl11, "einsumindl11", 100
 
 Dot product: Matrix
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl12" class="eq-diagram"></div>
 <div id="einsumindl12_sum_ik" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{ij}$$</div>
 <div id="einsumindl12_A_ij" class="eq-elem">$$A_{ij}$$</div>
@@ -533,7 +533,7 @@ drawDiagram(tensors_einsumindl12, contractions_einsumindl12, "einsumindl12", 220
 
 Hadamard product
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl13" class="eq-diagram"></div>
 <div id="einsumindl13_eq1" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl13_A_ij" class="eq-elem">$$A_{ij}$$</div>
@@ -572,12 +572,12 @@ drawDiagram(tensors_einsumindl13, contractions_einsumindl13, "einsumindl13", 220
 
 Outer product
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl14" class="eq-diagram"></div>
 <div id="einsumindl14_eq3" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
 <div id="einsumindl14_r" class="eq-diagram"></div>
 </div>
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl14_a_i" class="eq-elem">$$a_{i}$$</div>
 <div id="einsumindl14_b_j" class="eq-elem">$$b_{j}$$</div>
 <div id="einsumindl14_eq2" class="eq-elem">$$\hspace{0.5cm}=\hspace{0.5cm}$$</div>
@@ -619,7 +619,7 @@ drawDiagram(tensors_einsumindl14_r, contractions_einsumindl14_r, "einsumindl14_r
 
 Batch matrix multiplication
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl15" class="eq-diagram"></div>
 <div id="einsumindl15_sum_ik" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{k}$$</div>
 <div id="einsumindl15_A_ijk" class="eq-elem">$$A_{ijk}$$</div>
@@ -659,7 +659,7 @@ drawDiagram(tensors_einsumindl15, contractions_einsumindl15, "einsumindl15", 220
 
 Tensor contraction
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl16" class="eq-diagram"></div>
 <div id="einsumindl16_sum_qr" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{qr}$$</div>
 <div id="einsumindl16_A_pqrs" class="eq-elem">$$A_{pqrs}$$</div>
@@ -703,7 +703,7 @@ drawDiagram(tensors_einsumindl16, contractions_einsumindl16, "einsumindl16", 220
 
 Bilinear transformation
 
-<div id="text" class="equation">
+<div class="equation">
 <div id="einsumindl17" class="eq-diagram"></div>
 <div id="einsumindl17_sum_qr" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}\sum_{kl}$$</div>
 <div id="einsumindl17_A_ik" class="eq-elem">$$A_{ik}$$</div>
