@@ -6,6 +6,7 @@
 .contraction {
   stroke-width: 3px;
   stroke: black;
+  fill: none;
 }
 
 .tensor-label {

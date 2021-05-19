@@ -117,7 +117,6 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
             d3.select(this)
                 .append("path")
                 .attr("class", "contraction")
-                .attr('fill', 'none')
                 .attr("d", function(d) {
 
                     const source_pos = d.source.indices.filter((o) => o.name == d.name)[0].pos;
