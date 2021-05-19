@@ -35,6 +35,9 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
         .x((d) => xScale(d.x))
         .y((d) => yScale(d.y));
 
+    const curveFunction = d3.line()
+        .curve(d3.curveBundle);
+
 
     // **********************************************************
     //                      Rearrangements
@@ -96,8 +99,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
 
             let shift_y_per_contraction = 0;
             if(d.source.shape == "rectangle") {
-                shift_y_per_contraction = contractions
-                                            .slice(0, i)
+                shift_y_per_contraction = contractions.slice(0, i)
                                               .filter((o) =>
                                                   o.source.name == d.source.name && o.target.name == d.target.name
                                               ).length;
@@ -115,7 +117,27 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
             d3.select(this)
                 .append("path")
                 .attr("class", "contraction")
-                .attr("d", (d) => lineFunction([source, target]));
+                .attr('fill', 'none')
+                .attr("d", function(d) {
+
+                    const source_pos = d.source.indices.filter((o) => o.name == d.name)[0].pos;
+                    const target_pos = d.target.indices.filter((o) => o.name == d.name)[0].pos;
+
+                    if(source_pos == "right" && target_pos == "left") { // draw a straight line
+                        return lineFunction([source, target]);
+                    }
+
+                    if(source_pos == "left" && target_pos == "right") { // draw a curve line
+                        let dir_y = 1; // d.pos: "up" or nothing
+                        if(d.pos == "down") dir_y = -1;
+                        return curveFunction([[xScale(d.source.x) - 10,       yScale(d.source.y)],
+                                              [xScale(d.source.x - 0.5) - 10, yScale(d.source.y - dir_y * 0.2)],
+                                              [xScale(d.source.x - 0.7),      yScale(d.source.y - dir_y * 1.05)],
+                                              [xScale(d.target.x + 0.7),      yScale(d.source.y - dir_y * 1.05)],
+                                              [xScale(d.target.x + 0.5) + 10, yScale(d.source.y - dir_y * 0.2)],
+                                              [xScale(d.target.x) + 10,       yScale(d.source.y)]]);
+                    }
+                });
         });
 
 

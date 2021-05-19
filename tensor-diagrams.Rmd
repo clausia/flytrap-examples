@@ -523,8 +523,8 @@ const tensors_einsumindl12 = [
 ];
 
 const contractions_einsumindl12 = [
+    { source: 0, target: 1, name: "i", pos: "down" }, // default is pos: "up"
     { source: 0, target: 1, name: "j" },
-    //{ source: 1, target: 0, name: "i" }, //not yet working
 ];
 
 drawDiagram(tensors_einsumindl12, contractions_einsumindl12, "einsumindl12", 220, 120);
