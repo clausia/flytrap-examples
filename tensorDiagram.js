@@ -216,7 +216,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
             let shape = drawShape(selected, d, xScale, yScale);
             if(shape)
                 shape.attr("class", "tensor")
-                    .style("fill", (d) => colorScale(d.name))
+                    .style("fill", (d) => d.shape === "dot" ? "black" : colorScale(d.name))
                     .on("mouseover", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', true))
                     .on("mouseout", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', false));
 
@@ -234,10 +234,10 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
 function drawShape(selected, d, xScale, yScale) {
     let shape;
     if( d.shape === undefined ) d.shape = "circle"; //default value
-    if( d.shape === "circle" ) {
+    if( d.shape === "circle" || d.shape === "dot" ) {
         shape = selected
             .append("circle")
-            .attr("r", 10)
+            .attr("r", d.shape === "dot" ? 6 : 10)
             .attr("cx", (d) => xScale(d.x))
             .attr("cy", (d) => yScale(d.y));
     } else if( d.shape === "square" ) {
