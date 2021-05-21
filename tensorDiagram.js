@@ -122,13 +122,14 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
                     const source_pos = d.source.indices.filter((o) => o.name == d.name)[0].pos;
                     const target_pos = d.target.indices.filter((o) => o.name == d.name)[0].pos;
 
-                    if(source_pos == "right" && target_pos == "left") { // draw a straight line
+                    if((source_pos == "right" && target_pos == "left") ||
+                       (source_pos == "down" && target_pos == "up")) {    // draw a straight line
 
                         return lineFunction([source, target]); //validate if there are nodes in between
 
-                    } else {                                            // draw a curve line
+                    } else {                                              // draw a curve line
 
-                        let dir_y = 1;     // d.pos: "up" or nothing
+                        let dir_y = 1;     // d.pos: "up" or nothing (up curve is default)
                         let dir_x_out = 1; // source_pos = "right"
                         let dir_x_in = 1;  // target_pos = "right"
 
@@ -137,16 +138,18 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
                         if(target_pos == "left") dir_x_in = -1;
 
                         return curveFunction([
+                            [xScale(d.source.x),                                    yScale(d.source.y)],
                             [xScale(d.source.x) + dir_x_out * 10,                   yScale(d.source.y)],
                             [xScale(d.source.x + dir_x_out * 0.5) + dir_x_out * 10, yScale(d.source.y - dir_y * 0.2)],
                             [xScale(d.source.x + dir_x_out * 0.7),                  yScale(d.source.y - dir_y * 1.05)],
                             [xScale(d.target.x + dir_x_in * 0.7),                   yScale(d.source.y - dir_y * 1.05)],
                             [xScale(d.target.x + dir_x_in * 0.5) + dir_x_in * 10,   yScale(d.source.y - dir_y * 0.2)],
-                            [xScale(d.target.x) + dir_x_in * 10,                    yScale(d.source.y)]
+                            [xScale(d.target.x) + dir_x_in * 10,                    yScale(d.source.y)],
+                            [xScale(d.target.x),                                    yScale(d.source.y)]
                         ]);
 
                     }
-                    
+
                 });
         });
 
