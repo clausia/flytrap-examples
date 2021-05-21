@@ -129,23 +129,44 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
 
                     } else {                                              // draw a curve line
 
-                        let dir_y = 1;     // d.pos: "up" or nothing (up curve is default)
-                        let dir_x_out = 1; // source_pos = "right"
-                        let dir_x_in = 1;  // target_pos = "right"
 
-                        if(d.pos == "down") dir_y = -1;
-                        if(source_pos == "left") dir_x_out = -1;
-                        if(target_pos == "left") dir_x_in = -1;
+                        let dir_x = 0;     // d.pos: "left", "right"
+                        let dir_y = 0;     // d.pos: "up", "down"
+                        let dir_x_out = 0; // source_pos = "right", "left"
+                        let dir_x_in = 0;  // target_pos = "right", "left"
+                        let dir_y_out = 0; // source_pos = "down", "up"
+                        let dir_y_in = 0;  // target_pos = "down", "up
+
+                        if(d.pos == "up") dir_y = 1;
+                        else if(d.pos == "down") dir_y = -1;
+                        else if(d.pos == "left") dir_x = 1;
+                        else if(d.pos == "right") dir_x = -1;
+                        else throw ".:. Position in loop contractions must be specified"; //cannot continue
+
+
+                        if(source_pos == "right") dir_x_out = 1;
+                        else if(source_pos == "left") dir_x_out = -1;
+                        else if(source_pos == "down") dir_y_out = 1;
+                        else if(source_pos == "up") dir_y_out = -1;
+                        else throw ".:. Position in source index must be specified"; //cannot continue
+
+
+                        if(target_pos == "right") dir_x_in = 1;
+                        else if(target_pos == "left") dir_x_in = -1;
+                        else if(target_pos == "down") dir_y_in = 1;
+                        else if(target_pos == "up") dir_y_in = -1;
+                        else throw ".:. Position in target index must be specified"; //cannot continue
+
 
                         return curveFunction([
-                            [xScale(d.source.x),                                    yScale(d.source.y)],
-                            [xScale(d.source.x) + dir_x_out * 10,                   yScale(d.source.y)],
-                            [xScale(d.source.x + dir_x_out * 0.5) + dir_x_out * 10, yScale(d.source.y - dir_y * 0.2)],
-                            [xScale(d.source.x + dir_x_out * 0.7),                  yScale(d.source.y - dir_y * 1.05)],
-                            [xScale(d.target.x + dir_x_in * 0.7),                   yScale(d.source.y - dir_y * 1.05)],
-                            [xScale(d.target.x + dir_x_in * 0.5) + dir_x_in * 10,   yScale(d.source.y - dir_y * 0.2)],
-                            [xScale(d.target.x) + dir_x_in * 10,                    yScale(d.source.y)],
-                            [xScale(d.target.x),                                    yScale(d.source.y)]
+                            [xScale(d.source.x),                                                  yScale(d.source.y)],
+                            [xScale(d.source.x) + dir_x_out * 10,                                 yScale(d.source.y) + dir_y_out * 10],
+                            [xScale(d.source.x - dir_x * 0.2 + dir_x_out * 0.5) + dir_x_out * 10, yScale(d.source.y - dir_y * 0.2 + dir_y_out * 0.5) + dir_y_out * 10],
+                            [xScale(d.source.x - dir_x * 1.05 + dir_x_out * 0.7),                 yScale(d.source.y - dir_y * 1.05 + dir_y_out * 0.7)],
+                            [xScale(d.target.x - dir_x * 1.05 + dir_x_in * 0.7),                  yScale(d.target.y - dir_y * 1.05 + dir_y_in * 0.7)],
+                            [xScale(d.target.x - dir_x * 0.2 + dir_x_in * 0.5) + dir_x_in * 10,   yScale(d.target.y - dir_y * 0.2 + dir_y_in * 0.5) + dir_y_in * 10],
+                            [xScale(d.target.x) + dir_x_in * 10,                                  yScale(d.target.y) + dir_y_in * 10],
+                            [xScale(d.target.x),                                                  yScale(d.target.y)]
                         ]);
 
                     }
