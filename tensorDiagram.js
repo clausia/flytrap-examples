@@ -146,39 +146,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
                         ]);
 
                     }
-
-                    /*if(source_pos == "left" && target_pos == "right") { // draw a curve line
-                        let dir_y = 1; // d.pos: "up" or nothing
-                        if(d.pos == "down") dir_y = -1;
-                        return curveFunction([[xScale(d.source.x) - 10,       yScale(d.source.y)],
-                                              [xScale(d.source.x - 0.5) - 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.source.x - 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x + 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x + 0.5) + 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.target.x) + 10,       yScale(d.source.y)]]);
-                    }
-
-                    if(source_pos == "right" && target_pos == "right") { // draw a 'spiral' line
-                        let dir_y = 1; // d.pos: "up" or nothing
-                        if(d.pos == "down") dir_y = -1;
-                        return curveFunction([[xScale(d.source.x) + 10,       yScale(d.source.y)],
-                                              [xScale(d.source.x + 0.5) + 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.source.x + 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x + 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x + 0.5) + 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.target.x) + 10,       yScale(d.source.y)]]);
-                    }
-
-                    if(source_pos == "left" && target_pos == "left") { // draw a 'spiral' line
-                        let dir_y = 1; // d.pos: "up" or nothing
-                        if(d.pos == "down") dir_y = -1;
-                        return curveFunction([[xScale(d.source.x) - 10,       yScale(d.source.y)],
-                                              [xScale(d.source.x - 0.5) - 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.source.x - 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x - 0.7),      yScale(d.source.y - dir_y * 1.05)],
-                                              [xScale(d.target.x - 0.5) - 10, yScale(d.source.y - dir_y * 0.2)],
-                                              [xScale(d.target.x) - 10,       yScale(d.source.y)]]);
-                    }*/
+                    
                 });
         });
 
