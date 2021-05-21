@@ -495,33 +495,52 @@ Hadamard product
 <div class="equation">
 <div id="einsumindl13" class="eq-diagram"></div>
 <div id="einsumindl13_eq1" class="eq-elem">$$\hspace{0.3cm}=\hspace{0.3cm}$$</div>
+<div id="einsumindl13_X_ij" class="eq-elem"></div>
 <div id="einsumindl13_A_ij" class="eq-elem">$$A_{ij}$$</div>
 <div id="einsumindl13_B_ij" class="eq-elem">$$B_{ij}$$</div>
+<div id="einsumindl13_Y_ij" class="eq-elem"></div>
 </div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 
 const tensors_einsumindl13 = [
-    { x: 1, y: 0, name: "A", idEqPart: "einsumindl13_A_ij"
-        ,
+    { x: 1, y: 1, name: "X", idEqPart: "einsumindl13_X_ij", shape: "dot",
         indices: [
             { pos: "left", name: "i" },
-            { pos: "right", name: "j" }
+            { pos: "right", name: "k" },
+            { pos: "right", name: "m" },
         ]
     },
-    { x: 2, y: 0, name: "B", idEqPart: "einsumindl13_B_ij",
+    { x: 2, y: 0, name: "A", idEqPart: "einsumindl13_A_ij"
+        ,
         indices: [
-            { pos: "left", name: "j" },
-            { pos: "right", name: "i" }
+            { pos: "left", name: "k" },
+            { pos: "right", name: "l" }
+        ]
+    },
+    { x: 2, y: 2, name: "B", idEqPart: "einsumindl13_B_ij",
+        indices: [
+            { pos: "left", name: "m" },
+            { pos: "right", name: "n" }
+        ]
+    },
+    { x: 3, y: 1, name: "Y", idEqPart: "einsumindl13_Y_ij", shape: "dot",
+        indices: [
+            { pos: "left", name: "l" },
+            { pos: "left", name: "n" },
+            { pos: "right", name: "j" },
         ]
     },
 ];
 
 const contractions_einsumindl13 = [
-    { source: 0, target: 1, name: "j" }, //check this case!!
+    { source: 0, target: 1, name: "k", pos: "left" },
+    { source: 0, target: 2, name: "m", pos: "left" },
+    { source: 1, target: 3, name: "l", pos: "left" },
+    { source: 2, target: 3, name: "n", pos: "left" },
 ];
 
-drawDiagram(tensors_einsumindl13, contractions_einsumindl13, "einsumindl13", 220, 120);
+drawDiagram(tensors_einsumindl13, contractions_einsumindl13, "einsumindl13", 270, 220);
 
 ```
 
