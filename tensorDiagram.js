@@ -268,7 +268,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
                 .attr("class", "tensor-label")
                 .attr("x", (d) => d.labPos === "left" || d.labPos === "leftup" ? xScale(d.x - 0.5) : xScale(d.x))
                 .attr("y", (d) => d.labPos === "left" ? yScale(d.y + 0.1) : yScale(d.y - 0.4))
-                .text((d) => d.name);
+                .text((d) => d.shape === "dot" ? "" : d.name);
 
         });
 
@@ -280,7 +280,7 @@ function drawShape(selected, d, xScale, yScale) {
     if( d.shape === "circle" || d.shape === "dot" ) {
         shape = selected
             .append("circle")
-            .attr("r", d.shape === "dot" ? 6 : 10)
+            .attr("r", d.shape === "dot" ? 5 : 10)
             .attr("cx", (d) => xScale(d.x))
             .attr("cy", (d) => yScale(d.y));
     } else if( d.shape === "square" ) {
