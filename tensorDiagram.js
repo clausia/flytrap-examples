@@ -268,7 +268,7 @@ function drawDiagram(tensors, contractions, idContainer, widthContainer, heightC
                 .attr("class", "tensor-label")
                 .attr("x", (d) => d.labPos === "left" || d.labPos === "leftup" ? xScale(d.x - 0.5) : xScale(d.x))
                 .attr("y", (d) => d.labPos === "left" ? yScale(d.y + 0.1) : yScale(d.y - 0.4))
-                .text((d) => d.shape === "dot" ? "" : d.name);
+                .text((d) => d.shape === "dot" || d.shape === "asterisk" ? "" : d.name);
 
         });
 
@@ -283,6 +283,19 @@ function drawShape(selected, d, xScale, yScale) {
             .attr("r", d.shape === "dot" ? 5 : 10)
             .attr("cx", (d) => xScale(d.x))
             .attr("cy", (d) => yScale(d.y));
+    } else if( d.shape === "asterisk" ) {
+        shape = selected
+            .append("path")
+            .attr("d", function(d) {
+                const sx = xScale(d.x);
+                const sy = yScale(d.y);
+                return ' M ' + (sx-7) +' '+ (sy-7) +
+                       ' L ' + (sx+7) + ' ' + (sy+7) + ' L ' + (sx) + ' ' + (sy) +
+                       ' L ' + (sx+7) + ' ' + (sy-7) + ' L ' + (sx-7) + ' ' + (sy+7) + ' L ' + (sx) + ' ' + (sy) +
+                       ' L ' + (sx) + ' ' + (sy-10) + ' L ' + (sx) + ' ' + (sy+10) + ' L ' + (sx) + ' ' + (sy) +
+                       ' L ' + (sx+10) + ' ' + (sy) + ' L ' + (sx-10) + ' ' + (sy) + ' L ' + (sx) + ' ' + (sy) +
+                       ' z';
+            });
     } else if( d.shape === "square" ) {
         shape = selected
             .append("rect")
