@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplos</title>
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>
+            <div class="equation">
+                <div id="containerCircle" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="M_A_ex1" class="eq-elem">A_{ij}</div>
+            </div>
+
+            <div class="equation">
+                <div id="containerSquare" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="M_B_ex1" class="eq-elem">B_{kl}</div>
+            </div>
+
+            <div class="equation">
+                <div id="containerTriangleUp" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="M_C_ex1" class="eq-elem">C_{mn}</div>
+            </div>
+
+            <div class="equation">
+                <div id="containerTriangleDown" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="M_D_ex1" class="eq-elem">D_{pq}</div>
+            </div>
+
+            <div class="equation">
+                <div id="containerTriangleLeft" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="M_E_ex1" class="eq-elem">E_{rs}</div>
+            </div>
+
+            <div class="equation">
+                <div id="containerTriangleRight" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="M_F_ex1" class="eq-elem">F_{tu}</div>
+            </div>
+
+            <div class="equation">
+                <div id="containerRectangle" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="M_G_ex1" class="eq-elem">G_{vwxyz}</div>
+            </div>
+
+            <div class="equation">
+                <div id="firstcontainer" class="eq-diagram"></div>
+            </div>
+            <div class="equation">
+                <div class="eq-elem">=</div>
+                <div id="v_x" class="eq-elem">x_{i}</div>
+                <div id="M_A" class="eq-elem">A_{ij}</div>
+                <div id="M_B" class="eq-elem">B_{jk}</div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl1" class="eq-diagram"></div>
+            </div>
+            <div class="equation">
+                <div id="einsumindl1_sum_ik" class="eq-elem">=</div>
+                <div id="einsumindl1_A_ik" class="eq-elem">A_{ik}</div>
+                <div id="einsumindl1_B_kj" class="eq-elem">B_{kj}</div>
+            </div>
+
+            <br><br><br><br>
+
+        </td>
+        <td>
+
+            <div class="equation">
+                <div id="einsumindl2" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl3" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl4" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl5_1" class="eq-diagram"></div>
+                <div class="eq-elem">=</div>
+                <div id="einsumindl5_2" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl9" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl10" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl12" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl13" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl14" class="eq-diagram"></div>
+                <div id="einsumindl14_eq3" class="eq-elem">=</div>
+                <div id="einsumindl14_r" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl15" class="eq-diagram"></div>
+            </div>
+
+        </td>
+        <td>
+
+            <div class="equation">
+                <div id="containerDot" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl16" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="einsumindl17" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve1" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve2" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve3" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve4" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve5" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve6" class="eq-diagram"></div>
+            </div>
+
+        </td>
+        <td>
+
+            <div class="equation">
+                <div id="containerAsterisk" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve7" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve8" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve9" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve10" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve11" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve12" class="eq-diagram"></div>
+            </div>
+
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+
+            <div class="equation">
+                <div id="container_ex_curve13" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve14" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve15" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_curve16" class="eq-diagram"></div>
+            </div>
+
+            <br><br><br>
+            <div class="equation">
+                <div id="container_ex_curve17" class="eq-diagram"></div>
+            </div>
+            <br><br><br>
+
+        </td>
+        <td>
+
+            <div class="equation">
+                <div id="container_ex_lines1" class="eq-diagram"></div>
+            </div>
+
+            <div class="equation">
+                <div id="container_ex_lines2" class="eq-diagram"></div>
+            </div>
+
+        </td>
+
+    </tr>
+</table>
+
+
+<br><br><br>
+
+<script src="tensordiagrams.js"></script>
+<script src="ex_diagrams.js"></script>
+
+</body>
+</html>
