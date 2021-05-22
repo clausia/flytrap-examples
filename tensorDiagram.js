@@ -3,8 +3,35 @@
 // inspiration from http://tensornetwork.org/diagrams/
 
 
-function drawDiagram(tensors, contractions, idContainer, widthContainer, heightContainer, startColorIndex = 0) {
+function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, heightContainer, startColorIndex = 0) {
 
+
+    // **********************************************************
+    //                      Validations
+    // **********************************************************
+
+    if(invalidVar(tensors)) {
+        if(!invalidVar(contractions)) {
+            throw ".:. Cannot specify contractions without nodes"; //cannot continue
+        } else { //contractions is invalid
+            tensors = [];
+            contractions = [];
+            if(invalidVar(lines)) {
+                throw ".:. Cannot generate a diagram without any element specification"; //cannot continue
+            }
+        }
+    } else {
+        if(invalidVar(contractions)) contractions = [];
+        if(invalidVar(lines)) lines = [];
+    }
+
+    if(invalidVar(idContainer)) {
+        throw ".:. The id of the 'div' where the diagram will be drawn must be specified"; //cannot continue
+    }
+
+    if(invalidVar(widthContainer) || invalidVar(heightContainer)) {
+        throw ".:. The size in pixels of the diagram must be specified"; //cannot continue
+    }
 
     // **********************************************************
     //                      Definitions
@@ -339,4 +366,8 @@ function drawShape(selected, d, xScale, yScale) {
             .attr("ry", 7);
     }
     return shape;
+}
+
+function invalidVar(variable){
+    return typeof variable === 'undefined' || variable === null;
 }

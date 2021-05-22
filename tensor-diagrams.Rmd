@@ -90,7 +90,7 @@ const contractions = [
     { source: 1, target: 2 , name: "j" },
 ];
 
-drawDiagram(tensors, contractions, "firstcontainer", 220, 120);
+drawDiagram(tensors, contractions, null, "firstcontainer", 220, 120);
 
 ```
 
@@ -131,7 +131,7 @@ const contractions_einsumindl1 = [
     { source: 0, target: 1, name: "k" },
 ];
 
-drawDiagram(tensors_einsumindl1, contractions_einsumindl1, "einsumindl1", 220, 120);
+drawDiagram(tensors_einsumindl1, contractions_einsumindl1, null, "einsumindl1", 220, 120);
 
 ```
 
@@ -163,7 +163,7 @@ const contractions_einsumindl2 = [
     { source: 0, target: 1, name: "i" },
 ];
 
-drawDiagram(tensors_einsumindl2, contractions_einsumindl2, "einsumindl2", 100, 120);
+drawDiagram(tensors_einsumindl2, contractions_einsumindl2, null, "einsumindl2", 100, 120);
 
 ```
 
@@ -198,7 +198,7 @@ const contractions_einsumindl3 = [
     { source: 0, target: 1, name: "k" },
 ];
 
-drawDiagram(tensors_einsumindl3, contractions_einsumindl3, "einsumindl3", 220, 130);
+drawDiagram(tensors_einsumindl3, contractions_einsumindl3, null, "einsumindl3", 220, 130);
 
 ```
 
@@ -234,7 +234,7 @@ const contractions_einsumindl4 = [
     { source: 0, target: 1, name: "k" },
 ];
 
-drawDiagram(tensors_einsumindl4, contractions_einsumindl4, "einsumindl4", 220, 140);
+drawDiagram(tensors_einsumindl4, contractions_einsumindl4, null, "einsumindl4", 220, 140);
 
 ```
 
@@ -263,8 +263,6 @@ const tensors_einsumindl5_1 = [
     },
 ];
 
-const contractions_einsumindl5_1 = [];
-
 const tensors_einsumindl5_2 = [
     { x: 1, y: 0, name: "A", idEqPart: "einsumindl5_A_ij",
         indices: [
@@ -274,10 +272,8 @@ const tensors_einsumindl5_2 = [
     },
 ];
 
-const contractions_einsumindl5_2 = [];
-
-drawDiagram(tensors_einsumindl5_1, contractions_einsumindl5_1, "einsumindl5_1", 160, 110, 1);
-drawDiagram(tensors_einsumindl5_2, contractions_einsumindl5_2, "einsumindl5_2", 160, 110, 2);
+drawDiagram(tensors_einsumindl5_1, null, null, "einsumindl5_1", 160, 110, 1);
+drawDiagram(tensors_einsumindl5_2, null, null, "einsumindl5_2", 160, 110, 2);
 
 ```
 
@@ -300,9 +296,7 @@ const tensors_einsumindl6 = [
     },
 ];
 
-const contractions_einsumindl6 = [];
-
-drawDiagram(tensors_einsumindl6, contractions_einsumindl6, "einsumindl6", 160, 120);
+drawDiagram(tensors_einsumindl6, null, null, "einsumindl6", 160, 120);
 
 ```
 
@@ -325,9 +319,7 @@ const tensors_einsumindl7 = [
     },
 ];
 
-const contractions_einsumindl7 = [];
-
-drawDiagram(tensors_einsumindl7, contractions_einsumindl7, "einsumindl7", 160, 120, 1);
+drawDiagram(tensors_einsumindl7, null, null, "einsumindl7", 160, 120, 1);
 
 ```
 
@@ -350,9 +342,7 @@ const tensors_einsumindl8 = [
     },
 ];
 
-const contractions_einsumindl8 = [];
-
-drawDiagram(tensors_einsumindl8, contractions_einsumindl8, "einsumindl8", 160, 120, 2);
+drawDiagram(tensors_einsumindl8, null, null, "einsumindl8", 160, 120, 2);
 
 ```
 
@@ -385,7 +375,7 @@ const contractions_einsumindl9 = [
     { source: 0, target: 1, name: "k" },
 ];
 
-drawDiagram(tensors_einsumindl9, contractions_einsumindl9, "einsumindl9", 170, 120);
+drawDiagram(tensors_einsumindl9, contractions_einsumindl9, null, "einsumindl9", 170, 120);
 
 ```
 
@@ -419,7 +409,7 @@ const contractions_einsumindl10 = [
     { source: 0, target: 1, name: "k" },
 ];
 
-drawDiagram(tensors_einsumindl10, contractions_einsumindl10, "einsumindl10", 220, 120);
+drawDiagram(tensors_einsumindl10, contractions_einsumindl10, null, "einsumindl10", 220, 120);
 
 ```
 
@@ -451,7 +441,7 @@ const contractions_einsumindl11 = [
     { source: 0, target: 1, name: "i" },
 ];
 
-drawDiagram(tensors_einsumindl11, contractions_einsumindl11, "einsumindl11", 100, 120);
+drawDiagram(tensors_einsumindl11, contractions_einsumindl11, null, "einsumindl11", 100, 120);
 
 ```
 
@@ -486,7 +476,7 @@ const contractions_einsumindl12 = [
     { source: 0, target: 1, name: "j" },
 ];
 
-drawDiagram(tensors_einsumindl12, contractions_einsumindl12, "einsumindl12", 220, 120);
+drawDiagram(tensors_einsumindl12, contractions_einsumindl12, null, "einsumindl12", 220, 120);
 
 ```
 
@@ -540,7 +530,7 @@ const contractions_einsumindl13 = [
     { source: 2, target: 3, name: "n", pos: "left" },
 ];
 
-drawDiagram(tensors_einsumindl13, contractions_einsumindl13, "einsumindl13", 270, 220);
+drawDiagram(tensors_einsumindl13, contractions_einsumindl13, null, "einsumindl13", 270, 220);
 
 ```
 
@@ -573,8 +563,6 @@ const tensors_einsumindl14 = [
     },
 ];
 
-const contractions_einsumindl14 = [];
-
 const tensors_einsumindl14_r = [
     { x: 1, y: 0, name: "C", idEqPart: "einsumindl14_C_ij",
         indices: [
@@ -584,10 +572,8 @@ const tensors_einsumindl14_r = [
     },
 ];
 
-const contractions_einsumindl14_r = [];
-
-drawDiagram(tensors_einsumindl14, contractions_einsumindl14, "einsumindl14", 220, 120);
-drawDiagram(tensors_einsumindl14_r, contractions_einsumindl14_r, "einsumindl14_r", 210, 120, 2);
+drawDiagram(tensors_einsumindl14, null, null, "einsumindl14", 220, 120);
+drawDiagram(tensors_einsumindl14_r, null, null, "einsumindl14_r", 210, 120, 2);
 
 ```
 
@@ -623,7 +609,7 @@ const contractions_einsumindl15 = [
     { source: 0, target: 1, name: "k" }
 ];
 
-drawDiagram(tensors_einsumindl15, contractions_einsumindl15, "einsumindl15", 220, 130);
+drawDiagram(tensors_einsumindl15, contractions_einsumindl15, null, "einsumindl15", 220, 130);
 
 ```
 
@@ -663,7 +649,7 @@ const contractions_einsumindl16 = [
     { source: 0, target: 1, name: "r" },  // must be drawn in parallel w/ q
 ];
 
-drawDiagram(tensors_einsumindl16, contractions_einsumindl16, "einsumindl16", 220, 260);
+drawDiagram(tensors_einsumindl16, contractions_einsumindl16, null, "einsumindl16", 220, 260);
 
 ```
 
@@ -706,6 +692,6 @@ const contractions_einsumindl17 = [
     { source: 1, target: 2, name: "l" },
 ];
 
-drawDiagram(tensors_einsumindl17, contractions_einsumindl17, "einsumindl17", 270, 130);
+drawDiagram(tensors_einsumindl17, contractions_einsumindl17, null, "einsumindl17", 270, 130);
 
 ```
