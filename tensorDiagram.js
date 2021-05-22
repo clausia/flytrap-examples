@@ -113,6 +113,15 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
     // **********************************************************
 
 
+    // draw lines
+
+    svg.selectAll(".contraction")
+        .data(lines)
+        .enter().append("path")
+        .attr("class", "contraction")
+        .attr("d", (d) => lineFunction([{x: d.ix, y: d.iy}, {x: d.fx, y: d.fy}]));
+
+
     // draw contractions
 
     let already_drawn_contraction = []; // remember indexes (indicated as contractions) already drawn
