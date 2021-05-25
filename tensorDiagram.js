@@ -329,12 +329,10 @@ function drawShape(selected, d, xScale, yScale) {
             .attr("d", function(d) {
                 const sx = xScale(d.x);
                 const sy = yScale(d.y);
-                return ' M ' + (sx-7) +' '+ (sy-7) +
-                       ' L ' + (sx+7) + ' ' + (sy+7) + ' L ' + (sx) + ' ' + (sy) +
-                       ' L ' + (sx+7) + ' ' + (sy-7) + ' L ' + (sx-7) + ' ' + (sy+7) + ' L ' + (sx) + ' ' + (sy) +
-                       ' L ' + (sx) + ' ' + (sy-10) + ' L ' + (sx) + ' ' + (sy+10) + ' L ' + (sx) + ' ' + (sy) +
-                       ' L ' + (sx+10) + ' ' + (sy) + ' L ' + (sx-10) + ' ' + (sy) + ' L ' + (sx) + ' ' + (sy) +
-                       ' z';
+                return ' M ' + (sx-7) +' '+ (sy-7) + ' L ' + (sx+7) + ' ' + (sy+7) +
+                       ' M ' + (sx+7) + ' ' + (sy-7) + ' L ' + (sx-7) + ' ' + (sy+7) +
+                       ' M ' + (sx) + ' ' + (sy-10) + ' L ' + (sx) + ' ' + (sy+10) +
+                       ' M ' + (sx+10) + ' ' + (sy) + ' L ' + (sx-10) + ' ' + (sy);
             });
     } else if( d.shape === "square" ) {
         shape = selected
