@@ -10,6 +10,7 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
     //                      Validations
     // **********************************************************
 
+
     if(invalidVar(tensors)) {
         if(!invalidVar(contractions)) {
             throw ".:. Cannot specify contractions without nodes"; //cannot continue
@@ -32,6 +33,7 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
     if(invalidVar(widthContainer) || invalidVar(heightContainer)) {
         throw ".:. The size in pixels of the diagram must be specified"; //cannot continue
     }
+
 
     // **********************************************************
     //                      Definitions
@@ -64,6 +66,14 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
 
     const curveFunction = d3.line()
         .curve(d3.curveBundle);
+
+
+    // **********************************************************
+    //                 Fill with Default Values
+    // **********************************************************
+
+
+    fillDefaults(tensors, contractions, lines);
 
 
     // **********************************************************
@@ -292,7 +302,6 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
                     .on("mouseout", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', false));
 
             // third draw tensor names
-            if( d.labPos === undefined ) d.labPos = "up"; //default value
             selected.append("text")
                 .attr("class", "tensor-label")
                 .attr("x", function(d) {
@@ -314,9 +323,34 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
 
 }
 
+
+function fillDefaults(tensors, contractions, lines){
+
+    if(!invalidVar(tensors))
+        tensors.forEach((t) => {
+            if( t.shape === undefined ) t.shape = "circle";
+            if( t.labPos === undefined ) t.labPos = "up";
+            if( t.showLabel === undefined ) t.showLabel = true;
+        });
+
+    if(!invalidVar(tensors.indices))
+        tensors.indices.forEach((i) => {
+            if( i.pos === undefined ) i.pos = "left";
+        });
+
+    if(!invalidVar(contractions))
+        contractions.forEach((c) => {
+            if( c.pos === undefined ) c.pos = "up";
+        });
+
+    if(!invalidVar(lines))
+        lines.forEach((l) => {
+        });
+}
+
+
 function drawShape(selected, d, xScale, yScale) {
     let shape;
-    if( d.shape === undefined ) d.shape = "circle"; //default value
     if( d.shape === "circle" || d.shape === "dot" ) {
         shape = selected
             .append("circle")
