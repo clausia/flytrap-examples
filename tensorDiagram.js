@@ -11,6 +11,12 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
     // **********************************************************
 
 
+    // valid combinations:
+    //     validity   ✓      ✓      ✓      ✓      ✖      ✖      ✓      ✖
+    //      tensors  []     []     []     []    null   null   null   null
+    // contractions  []     []    null   null    []     []    null   null
+    //        lines  []    null    []    null    []    null    []    null
+
     if(invalidVar(tensors)) {
         if(!invalidVar(contractions)) {
             throw ".:. Cannot specify contractions without nodes"; //cannot continue
@@ -333,11 +339,12 @@ function fillDefaults(tensors, contractions, lines){
             if( t.shape === undefined ) t.shape = "circle";
             if( t.labPos === undefined ) t.labPos = "up";
             if( t.showLabel === undefined ) t.showLabel = t.shape === "dot" || t.shape === "asterisk" ? false : true;
-        });
 
-    if(!invalidVar(tensors.indices))
-        tensors.indices.forEach((i) => {
-            if( i.pos === undefined ) i.pos = "left";
+            if(!invalidVar(t.indices))
+                t.indices.forEach((i) => {
+                    if( i.pos === undefined ) i.pos = "left";
+                });
+            else t.indices = [];
         });
 
     if(!invalidVar(contractions))
