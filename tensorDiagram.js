@@ -351,72 +351,82 @@ function fillDefaults(tensors, contractions, lines){
 
 function drawShape(selected, d, xScale, yScale) {
     let shape;
-    if( d.shape === "circle" || d.shape === "dot" ) {
-        shape = selected
-            .append("circle")
-            .attr("r", d.shape === "dot" ? 5 : 10)
-            .attr("cx", (d) => xScale(d.x))
-            .attr("cy", (d) => yScale(d.y));
-    } else if( d.shape === "asterisk" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x);
-                const sy = yScale(d.y);
-                return ' M ' + (sx-7) +' '+ (sy-7) + ' L ' + (sx+7) + ' ' + (sy+7) +
-                       ' M ' + (sx+7) + ' ' + (sy-7) + ' L ' + (sx-7) + ' ' + (sy+7) +
-                       ' M ' + (sx) + ' ' + (sy-10) + ' L ' + (sx) + ' ' + (sy+10) +
-                       ' M ' + (sx+10) + ' ' + (sy) + ' L ' + (sx-10) + ' ' + (sy);
-            });
-    } else if( d.shape === "square" ) {
-        shape = selected
-            .append("rect")
-            .attr("width", 20)
-            .attr("height", 20)
-            .attr("x", (d) => xScale(d.x) - 10)
-            .attr("y", (d) => yScale(d.y) - 10);
-    } else if( d.shape === "triangleUp" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y) + 10;
-                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy-20) + ' z';
-            });
-    } else if( d.shape === "triangleDown" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y) - 10;
-                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy+20) + ' z';
-            });
-    } else if( d.shape === "triangleLeft" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y);
-                return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy+10) + 'L ' + (sx+20) + ' ' + (sy-10) + ' z';
-            });
-    } else if( d.shape === "triangleRight" ) {
-        shape = selected
-            .append("path")
-            .attr("d", function(d) {
-                const sx = xScale(d.x) - 10;
-                const sy = yScale(d.y) - 10;
-                return 'M ' + sx +' '+ sy + ' L ' + (sx) + ' ' + (sy+20) + 'L ' + (sx+20) + ' ' + (sy+10) + ' z';
-            });
-    } else if( d.shape === "rectangle" ) {
-        // the height of the rectangle will depend on the number of indices it has, either on the left or on the right
-        shape = selected
-            .append("rect")
-            .attr("width", 20)
-            .attr("height", (d) => yScale(d.rectHeight - 2) + 15)
-            .attr("x", (d) => xScale(d.x) - 10)
-            .attr("y", (d) => yScale(d.y) - 10)
-            .attr("rx", 7)
-            .attr("ry", 7);
+    switch(d.shape){
+        case "circle":
+        case "dot":
+            shape = selected
+                .append("circle")
+                .attr("r", d.shape === "dot" ? 5 : 10)
+                .attr("cx", (d) => xScale(d.x))
+                .attr("cy", (d) => yScale(d.y));
+            break;
+        case "asterisk":
+            shape = selected
+                .append("path")
+                .attr("d", function(d) {
+                    const sx = xScale(d.x);
+                    const sy = yScale(d.y);
+                    return ' M ' + (sx-7)  + ' ' + (sy-7)  + ' L ' + (sx+7)  + ' ' + (sy+7) +
+                        ' M ' + (sx+7)  + ' ' + (sy-7)  + ' L ' + (sx-7)  + ' ' + (sy+7) +
+                        ' M ' + (sx)    + ' ' + (sy-10) + ' L ' + (sx)    + ' ' + (sy+10) +
+                        ' M ' + (sx+10) + ' ' + (sy)    + ' L ' + (sx-10) + ' ' + (sy);
+                });
+            break;
+        case "square":
+            shape = selected
+                .append("rect")
+                .attr("width", 20)
+                .attr("height", 20)
+                .attr("x", (d) => xScale(d.x) - 10)
+                .attr("y", (d) => yScale(d.y) - 10);
+            break;
+        case "triangleUp":
+            shape = selected
+                .append("path")
+                .attr("d", function(d) {
+                    const sx = xScale(d.x) - 10;
+                    const sy = yScale(d.y) + 10;
+                    return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy-20) + ' z';
+                });
+            break;
+        case "triangleDown":
+            shape = selected
+                .append("path")
+                .attr("d", function(d) {
+                    const sx = xScale(d.x) - 10;
+                    const sy = yScale(d.y) - 10;
+                    return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy+20) + ' z';
+                });
+            break;
+        case "triangleLeft":
+            shape = selected
+                .append("path")
+                .attr("d", function(d) {
+                    const sx = xScale(d.x) - 10;
+                    const sy = yScale(d.y);
+                    return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy+10) + 'L ' + (sx+20) + ' ' + (sy-10) + ' z';
+                });
+            break;
+        case "triangleRight":
+            shape = selected
+                .append("path")
+                .attr("d", function(d) {
+                    const sx = xScale(d.x) - 10;
+                    const sy = yScale(d.y) - 10;
+                    return 'M ' + sx +' '+ sy + ' L ' + (sx) + ' ' + (sy+20) + 'L ' + (sx+20) + ' ' + (sy+10) + ' z';
+                });
+            break;
+        case "rectangle":
+            // the height of the rectangle will depend on the number of indices it has, either on the left or on the right
+            shape = selected
+                .append("rect")
+                .attr("width", 20)
+                .attr("height", (d) => yScale(d.rectHeight - 2) + 15)
+                .attr("x", (d) => xScale(d.x) - 10)
+                .attr("y", (d) => yScale(d.y) - 10)
+                .attr("rx", 7)
+                .attr("ry", 7);
+            break;
     }
     return shape;
 }
