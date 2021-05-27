@@ -354,6 +354,7 @@ function drawShape(selected, d, xScale, yScale) {
     let shape;
 
     // the figure goes inside a box with an area equal to size*size
+    // (in the case of the rectangle, its width is this size, but not its length)
     const size = 20;
     // radius of the circumscribed circle in the box where the figure goes, also the center of the figures is in size/2
     const radius = size/2;
