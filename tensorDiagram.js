@@ -350,13 +350,22 @@ function fillDefaults(tensors, contractions, lines){
 
 
 function drawShape(selected, d, xScale, yScale) {
+
     let shape;
+
+    // the figure goes inside a box with an area equal to size*size
+    const size = 20;
+    // radius of the circumscribed circle in the box where the figure goes, also the center of the figures is in size/2
+    const radius = size/2;
+    // projection of the radius on the diagonal with angle pi/4
+    const diagonalRadius = Math.floor(Math.cos(Math.PI/4) * radius);
+
     switch(d.shape){
         case "circle":
         case "dot":
             shape = selected
                 .append("circle")
-                .attr("r", d.shape === "dot" ? 5 : 10)
+                .attr("r", d.shape === "dot" ? radius/2 : radius)
                 .attr("cx", (d) => xScale(d.x))
                 .attr("cy", (d) => yScale(d.y));
             break;
@@ -366,66 +375,81 @@ function drawShape(selected, d, xScale, yScale) {
                 .attr("d", function(d) {
                     const sx = xScale(d.x);
                     const sy = yScale(d.y);
-                    return ' M ' + (sx-7)  + ' ' + (sy-7)  + ' L ' + (sx+7)  + ' ' + (sy+7) +
-                        ' M ' + (sx+7)  + ' ' + (sy-7)  + ' L ' + (sx-7)  + ' ' + (sy+7) +
-                        ' M ' + (sx)    + ' ' + (sy-10) + ' L ' + (sx)    + ' ' + (sy+10) +
-                        ' M ' + (sx+10) + ' ' + (sy)    + ' L ' + (sx-10) + ' ' + (sy);
+                    return ' M ' + (sx - diagonalRadius) + ' ' + (sy - diagonalRadius) +
+                           ' L ' + (sx + diagonalRadius) + ' ' + (sy + diagonalRadius) +
+                           ' M ' + (sx + diagonalRadius) + ' ' + (sy - diagonalRadius) +
+                           ' L ' + (sx - diagonalRadius) + ' ' + (sy + diagonalRadius) +
+                           ' M ' + (sx) + ' ' + (sy - radius) +
+                           ' L ' + (sx) + ' ' + (sy + radius) +
+                           ' M ' + (sx + radius) + ' ' + (sy) +
+                           ' L ' + (sx - radius) + ' ' + (sy);
                 });
             break;
         case "square":
             shape = selected
                 .append("rect")
-                .attr("width", 20)
-                .attr("height", 20)
-                .attr("x", (d) => xScale(d.x) - 10)
-                .attr("y", (d) => yScale(d.y) - 10);
+                .attr("width", size)
+                .attr("height", size)
+                .attr("x", (d) => xScale(d.x) - radius)
+                .attr("y", (d) => yScale(d.y) - radius);
             break;
         case "triangleUp":
             shape = selected
                 .append("path")
                 .attr("d", function(d) {
-                    const sx = xScale(d.x) - 10;
-                    const sy = yScale(d.y) + 10;
-                    return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy-20) + ' z';
+                    const sx = xScale(d.x) - radius;
+                    const sy = yScale(d.y) + radius;
+                    return ' M ' + sx + ' ' + sy +
+                           ' L ' + (sx + size) + ' ' + (sy) +
+                           ' L ' + (sx + radius) + ' ' + (sy - size) +
+                           ' z ';
                 });
             break;
         case "triangleDown":
             shape = selected
                 .append("path")
                 .attr("d", function(d) {
-                    const sx = xScale(d.x) - 10;
-                    const sy = yScale(d.y) - 10;
-                    return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy) + 'L ' + (sx+10) + ' ' + (sy+20) + ' z';
+                    const sx = xScale(d.x) - radius;
+                    const sy = yScale(d.y) - radius;
+                    return ' M ' + sx + ' ' + sy +
+                           ' L ' + (sx + size) + ' ' + (sy) +
+                           ' L ' + (sx + radius) + ' ' + (sy + size) +
+                           ' z ';
                 });
             break;
         case "triangleLeft":
             shape = selected
                 .append("path")
                 .attr("d", function(d) {
-                    const sx = xScale(d.x) - 10;
+                    const sx = xScale(d.x) - radius;
                     const sy = yScale(d.y);
-                    return 'M ' + sx +' '+ sy + ' L ' + (sx+20) + ' ' + (sy+10) + 'L ' + (sx+20) + ' ' + (sy-10) + ' z';
+                    return ' M ' + sx + ' ' + sy +
+                           ' L ' + (sx + size) + ' ' + (sy + radius) +
+                           ' L ' + (sx + size) + ' ' + (sy - radius) +
+                           ' z ';
                 });
             break;
         case "triangleRight":
             shape = selected
                 .append("path")
                 .attr("d", function(d) {
-                    const sx = xScale(d.x) - 10;
-                    const sy = yScale(d.y) - 10;
-                    return 'M ' + sx +' '+ sy + ' L ' + (sx) + ' ' + (sy+20) + 'L ' + (sx+20) + ' ' + (sy+10) + ' z';
+                    const sx = xScale(d.x) - radius;
+                    const sy = yScale(d.y) - radius;
+                    return ' M ' + sx + ' ' + sy +
+                           ' L ' + (sx) + ' ' + (sy + size) +
+                           ' L ' + (sx + size) + ' ' + (sy + radius) + ' z';
                 });
             break;
         case "rectangle":
             // the height of the rectangle will depend on the number of indices it has, either on the left or on the right
             shape = selected
                 .append("rect")
-                .attr("width", 20)
-                .attr("height", (d) => yScale(d.rectHeight - 2) + 15)
-                .attr("x", (d) => xScale(d.x) - 10)
-                .attr("y", (d) => yScale(d.y) - 10)
-                .attr("rx", 7)
-                .attr("ry", 7);
+                .attr("width", size)
+                .attr("height", (d) => yScale(d.rectHeight - 2) + (radius * 1.5))
+                .attr("x", (d) => xScale(d.x) - radius)
+                .attr("y", (d) => yScale(d.y) - radius)
+                .attr("rx", diagonalRadius)
+                .attr("ry", diagonalRadius);
             break;
     }
     return shape;
