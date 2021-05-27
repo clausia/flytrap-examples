@@ -302,22 +302,24 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
                     .on("mouseout", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', false));
 
             // third draw tensor names
-            selected.append("text")
-                .attr("class", "tensor-label")
-                .attr("x", function(d) {
-                    let shiftHor = 0;
-                    if(d.labPos.startsWith("left")) shiftHor = -0.4;
-                    if(d.labPos.startsWith("right")) shiftHor = 0.4;
-                    return xScale(d.x + shiftHor);
-                })
-                .attr("y", function(d){
-                    let shiftVer = 0;
-                    if(d.labPos.endsWith("up")) shiftVer = -0.4;
-                    if(d.labPos.endsWith("down")) shiftVer = 0.6;
-                    if(d.labPos == "left" || d.labPos == "right") shiftVer += 0.14;
-                    return yScale(d.y + shiftVer);
-                })
-                .text((d) => d.shape === "dot" || d.shape === "asterisk" ? "" : d.name);
+            if(d.showLabel) {
+                selected.append("text")
+                    .attr("class", "tensor-label")
+                    .attr("x", function (d) {
+                        let shiftHor = 0;
+                        if (d.labPos.startsWith("left")) shiftHor = -0.4;
+                        if (d.labPos.startsWith("right")) shiftHor = 0.4;
+                        return xScale(d.x + shiftHor);
+                    })
+                    .attr("y", function (d) {
+                        let shiftVer = 0;
+                        if (d.labPos.endsWith("up")) shiftVer = -0.4;
+                        if (d.labPos.endsWith("down")) shiftVer = 0.6;
+                        if (d.labPos == "left" || d.labPos == "right") shiftVer += 0.14;
+                        return yScale(d.y + shiftVer);
+                    })
+                    .text((d) => d.name);
+            }
 
         });
 
@@ -330,7 +332,7 @@ function fillDefaults(tensors, contractions, lines){
         tensors.forEach((t) => {
             if( t.shape === undefined ) t.shape = "circle";
             if( t.labPos === undefined ) t.labPos = "up";
-            if( t.showLabel === undefined ) t.showLabel = true;
+            if( t.showLabel === undefined ) t.showLabel = t.shape === "dot" || t.shape === "asterisk" ? false : true;
         });
 
     if(!invalidVar(tensors.indices))
