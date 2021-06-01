@@ -303,7 +303,11 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
             let shape = drawShape(selected, d, xScale, yScale);
             if(shape)
                 shape.attr("class", "tensor")
-                    .style("fill", (d) => d.shape === "dot" ? "black" : colorScale(d.name))
+                    .style("fill", function(d) {
+                        if(d.shape === "dot") return "black";
+                        if(d.color) return d.color;
+                        return colorScale(d.name);
+                    })
                     .on("mouseover", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', true))
                     .on("mouseout", (event, d) => d3.selectAll('#' + d.idEqPart).classed('circle-sketch-highlight', false));
 
@@ -364,7 +368,8 @@ function drawShape(selected, d, xScale, yScale) {
 
     // the figure goes inside a box with an area equal to size*size
     // (in the case of the rectangle, its width is this size, but not its length)
-    const size = 20;
+    let size = 20;
+    if(d.size) size = d.size;
     // radius of the circumscribed circle in the box where the figure goes, also the center of the figures is in size/2
     const radius = size/2;
     // projection of the radius on the diagonal with angle pi/4
