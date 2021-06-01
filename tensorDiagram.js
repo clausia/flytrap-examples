@@ -342,6 +342,7 @@ function fillDefaults(tensors, contractions, lines){
         tensors.forEach((t) => {
             if( t.shape === undefined ) t.shape = "circle";
             if( t.labPos === undefined ) t.labPos = "up";
+            if( t.size === undefined ) t.size = 20;
             if( t.showLabel === undefined ) t.showLabel = t.shape === "dot" || t.shape === "asterisk" ? false : true;
 
             if(!invalidVar(t.indices))
@@ -368,8 +369,7 @@ function drawShape(selected, d, xScale, yScale) {
 
     // the figure goes inside a box with an area equal to size*size
     // (in the case of the rectangle, its width is this size, but not its length)
-    let size = 20;
-    if(d.size) size = d.size;
+    const size= d.size;
     // radius of the circumscribed circle in the box where the figure goes, also the center of the figures is in size/2
     const radius = size/2;
     // projection of the radius on the diagonal with angle pi/4
