@@ -189,26 +189,34 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
                         let dir_y_out = 0; // source_pos = "down", "up"
                         let dir_y_in = 0;  // target_pos = "down", "up
 
-                        if(d.pos == "up") dir_y = 1;
-                        else if(d.pos == "down") dir_y = -1;
-                        else if(d.pos == "left") dir_x = 1;
-                        else if(d.pos == "right") dir_x = -1;
-                        else throw ".:. Position in loop contractions must be specified"; //cannot continue
 
+                        const posDir = {
+                            "up": () => dir_y = 1,
+                            "down": () => dir_y = -1,
+                            "left": () => dir_x = 1,
+                            "right": () => dir_x = -1,
+                            "default": () => {throw ".:. Position in loop contractions must be specified"}, //cannot continue
+                        };
+                        (posDir[d.pos] || posDir['default'])();
 
-                        if(source_pos == "right") dir_x_out = 1;
-                        else if(source_pos == "left") dir_x_out = -1;
-                        else if(source_pos == "down") dir_y_out = 1;
-                        else if(source_pos == "up") dir_y_out = -1;
-                        else throw ".:. Position in source index must be specified"; //cannot continue
+                        const sourcePosDir = {
+                            "right": () => dir_x_out = 1,
+                            "left": () => dir_x_out = -1,
+                            "down": () => dir_y_out = 1,
+                            "up": () => dir_y_out = -1,
+                            "default": () => {throw ".:. Position in source index must be specified"}, //cannot continue
+                        };
+                        (sourcePosDir[source_pos] || sourcePosDir['default'])();
 
-
-                        if(target_pos == "right") dir_x_in = 1;
-                        else if(target_pos == "left") dir_x_in = -1;
-                        else if(target_pos == "down") dir_y_in = 1;
-                        else if(target_pos == "up") dir_y_in = -1;
-                        else throw ".:. Position in target index must be specified"; //cannot continue
-
+                        const targetPosDir = {
+                            "right": () => dir_x_in = 1,
+                            "left": () => dir_x_in = -1,
+                            "down": () => dir_y_in = 1,
+                            "up": () => dir_y_in = -1,
+                            "default": () => {throw ".:. Position in target index must be specified"}, //cannot continue
+                        };
+                        (targetPosDir[target_pos] || targetPosDir['default'])();
+                        
 
                         return curveFunction([
                             [xScale(d.source.x),                                                  yScale(d.source.y)],
