@@ -3,6 +3,78 @@
 // inspiration from http://tensornetwork.org/diagrams/
 
 
+/**
+ * Draw a diagram, with the indicated parameters (nodes, contractions and lines), within the specified
+ * HTML DOM Element Object (div, span, etc), creating the image of the indicated size.
+ *
+ * The nodes (or tensors), the contractions, and the lines are specified in lists of elements that describe each
+ * type of component. These lists can be null (no elements), but restricted to the following combination of null lists.
+ *
+ * Valid combinations of null lists:
+ *        valid?   ✓      ✓      ✓      ✓      ✖      ✖      ✓      ✖
+ *       tensors  []     []     []     []    null   null   null   null
+ *  contractions  []     []    null   null    []     []    null   null
+ *         lines  []    null    []    null    []    null    []    null
+ *
+ * The generated image will have a size of [widthContainer x heightContainer] and will be placed inside the
+ * HTML element with identifier ('id' parameter) 'idContainer'.
+ *
+ * By default, colors from a list are assigned to each node (or tensor) sequentially and in the same order in each
+ * execution, but if you want the first color to be assigned to each node to be different from that of position 0 ,
+ * then it must be specified with 'startColorIndex'.
+ *
+ * The diagram is drawn using a main grid, which is defined with positions indicated with integers and the distances
+ * between points are fixed, (these positions are not in pixels), examples of the grid (uppercase is for nodes and
+ * lowercase is for indices):
+ *
+ *    i-----F-----j                  // tensor 'F' is in position (x,y) = (1,0)
+ *
+ *
+ *    i-----A-----B-----j            // tensor 'A' is in position (x,y) = (1,0)
+ *          |     |                  // tensor 'B' is in position (x,y) = (2,0)
+ *          |     |                  // tensor 'C' is in position (x,y) = (1,1)
+ *          C-----D-----k            // tensor 'D' is in position (x,y) = (2,1)
+ *
+ *
+ *          m
+ *          |
+ *          |
+ *    i-----G-----k                  // tensor 'G' is in position (x,y) = (1,1)
+ *          |
+ *          |
+ *          j
+ *
+ *
+ * @param {?Object[]} tensors - list of nodes (or tensors) that are part of the diagram to be drawn, each element
+ *     of this list is an object with the following structure:
+ *
+ *     { x: 1,
+ *       y: 1,
+ *       name: "A",
+ *       shape: "circle"(default)|"dot"|"asterisk"|"square"|"triangleUp"|"triangleDown"|"triangleLeft"|"triangleRight"|"rectangle",
+ *       labPos: "up"(default)|"rightup"|"right"|"rightdown"|"down"|"leftdown"|"left"|"leftup",
+ *       idEqPart: "id_div_to_highlight"(optional),
+ *       showLabel: true(default)|false,
+ *       color: "#FFFFFF"(optional),
+ *       size: 35(optional),
+ *
+ *       indices: [
+ *         {
+ *           pos: "left"(default)|"right"|"up"|"down"|,
+ *           name: "j",
+ *          },
+ *       ]
+ *     },
+ *
+ * @param {number} tensors[].x - Position on the x-axis of the node (or tensor) in the main grid where the elements
+ *     are placed
+ * @param contractions
+ * @param lines
+ * @param idContainer
+ * @param widthContainer
+ * @param heightContainer
+ * @param startColorIndex
+ */
 function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, heightContainer, startColorIndex = 0) {
 
 
@@ -344,6 +416,12 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
 }
 
 
+/**
+ *
+ * @param tensors
+ * @param contractions
+ * @param lines
+ */
 function fillDefaults(tensors, contractions, lines){
 
     if(!invalidVar(tensors))
@@ -371,6 +449,14 @@ function fillDefaults(tensors, contractions, lines){
 }
 
 
+/**
+ *
+ * @param selected
+ * @param d
+ * @param xScale
+ * @param yScale
+ * @returns {*}
+ */
 function drawShape(selected, d, xScale, yScale) {
 
     let shape;
@@ -400,6 +486,10 @@ function drawShape(selected, d, xScale, yScale) {
 
     // internal functions that draw specific shapes
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawCircle() {
         return shape = selected
             .append("circle")
@@ -408,6 +498,10 @@ function drawShape(selected, d, xScale, yScale) {
             .attr("cy", (d) => yScale(d.y));
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawAsterisk() {
         return shape = selected
             .append("path")
@@ -425,6 +519,10 @@ function drawShape(selected, d, xScale, yScale) {
             });
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawSquare() {
         return shape = selected
             .append("rect")
@@ -434,6 +532,10 @@ function drawShape(selected, d, xScale, yScale) {
             .attr("y", (d) => yScale(d.y) - radius);
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawTriangleUp() {
         return shape = selected
             .append("path")
@@ -447,6 +549,10 @@ function drawShape(selected, d, xScale, yScale) {
             });
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawTriangleDown() {
         return shape = selected
             .append("path")
@@ -460,6 +566,10 @@ function drawShape(selected, d, xScale, yScale) {
             });
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawTriangleLeft() {
         return shape = selected
             .append("path")
@@ -473,6 +583,10 @@ function drawShape(selected, d, xScale, yScale) {
             });
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawTriangleRight() {
         return shape = selected
             .append("path")
@@ -485,6 +599,10 @@ function drawShape(selected, d, xScale, yScale) {
             });
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     function drawRectangle() {
         // the height of the rectangle will depend on the number of indices it has, either on the left or on the right
         return shape = selected
@@ -501,6 +619,11 @@ function drawShape(selected, d, xScale, yScale) {
     return drawShape[d.shape]();
 }
 
+/**
+ *
+ * @param variable
+ * @returns {boolean}
+ */
 function invalidVar(variable){
     return typeof variable === 'undefined' || variable === null;
 }
