@@ -360,13 +360,11 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
                 .data(indicesToDraw)
                 .enter()
                 .each(function(idx, i) {
-                    //console.log(d);
 
                     // draw loose ends
                     d3.select(this)
                         .append("path")
                         .attr("class", "contraction")
-                        //.style("stroke", "red")                                       //  <- quitar, solo es pa ver
                         .attr("d", (idx) => lineFunction([idx.source, idx.target]));
 
                     //draw indices names
