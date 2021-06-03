@@ -370,12 +370,14 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
                         .attr("d", (idx) => lineFunction([idx.source, idx.target]));
 
                     //draw indices names
-                    d3.select(this)
-                        .append("text")
-                        .attr("class", "contraction-label")
-                        .attr("x", (idx) => xScale(idx.labelPosition.x))
-                        .attr("y", (idx) => yScale(idx.labelPosition.y))
-                        .text((idx) => idx.name);
+                    if(idx.showLabel) {
+                        d3.select(this)
+                            .append("text")
+                            .attr("class", "contraction-label")
+                            .attr("x", (idx) => xScale(idx.labelPosition.x))
+                            .attr("y", (idx) => yScale(idx.labelPosition.y))
+                            .text((idx) => idx.name);
+                    }
                 });
 
             // second draw nodes
@@ -434,6 +436,7 @@ function fillDefaults(tensors, contractions, lines){
             if(!invalidVar(t.indices))
                 t.indices.forEach((i) => {
                     if( i.pos === undefined ) i.pos = "left";
+                    if( i.showLabel === undefined) i.showLabel = true;
                 });
             else t.indices = [];
         });
