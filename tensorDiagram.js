@@ -11,10 +11,12 @@
  * type of component. These lists can be null (no elements), but restricted to the following combination of null lists.
  *
  * Valid combinations of null lists:
+ * <pre>
  *        valid?   ✓      ✓      ✓      ✓      ✖      ✖      ✓      ✖
  *       tensors  []     []     []     []    null   null   null   null
  *  contractions  []     []    null   null    []     []    null   null
  *         lines  []    null    []    null    []    null    []    null
+ * </pre>
  *
  * The generated image will have a size of [widthContainer x heightContainer] and will be placed inside the
  * HTML element with identifier ('id' parameter) 'idContainer'.
@@ -27,6 +29,7 @@
  * between points are fixed, (these positions are not in pixels), examples of the grid (uppercase is for nodes and
  * lowercase is for indices):
  *
+ * <pre>
  *    i-----F-----j                  // tensor 'F' is in position (x,y) = (1,0)
  *
  *
@@ -43,12 +46,14 @@
  *          |
  *          |
  *          j
+ * </pre>
  *
  *
  * @param {?Object[]} tensors - list of nodes (or tensors) that are part of the diagram to be drawn, each element
  *     of this list is an object with the following structure:
- *
- *     { x: 1,
+ * <pre>
+ *     {
+ *       x: 1,
  *       y: 1,
  *       name: "A",
  *       shape: "circle"(default)|"dot"|"asterisk"|"square"|"triangleUp"|"triangleDown"|"triangleLeft"|"triangleRight"|"rectangle",
@@ -62,12 +67,39 @@
  *         {
  *           pos: "left"(default)|"right"|"up"|"down"|,
  *           name: "j",
- *          },
+ *           showLabel: true(default)|false,
+ *         },
  *       ]
  *     },
+ * </pre>
  *
  * @param {number} tensors[].x - Position on the x-axis of the node (or tensor) in the main grid where the elements
- *     are placed
+ *     are placed, positive values go to the right.
+ * @param {number} tensors[].y - Position on the y-axis of the node (or tensor) in the main grid where the elements
+ *     are placed, positive values go down.
+ * @param {string} tensors[].name - Name of the node (or tensor), the same one used when displaying its label
+ * @param {'circle'|'do'|'asterisk'|'square'|'triangleUp'|'triangleDown'|'triangleLeft'|'triangleRight'|'rectangle'} [tensors[].shape = 'circle'] - Shape
+ *     of the drawing that represents the node (or tensor) in the diagram. If this parameter is not specified,
+ *     the default value will be 'circle'.
+ * @param {'up'|'rightup'|'right'|'rightdown'|'down'|'leftdown'|'left'|'leftup'} [tensors[].name = "up"] - Indicates
+ *     the position in which the label of the node (or tensor) will be placed with respect to the node.
+ * @param {string} [tensors[].idEqPart] - Identifier of the HTML element that this node refers to, for example a
+ *     part of a formula, in order to make a highlight when hovering over the node.
+ * @param {boolean} [tensors[].showLabel = true] - Indicates whether or not the label of this node (or tensor)
+ *     should be displayed.
+ * @param {string} [tensors[].color] - It helps to specify the color of the node fill in hexadecimal code, it must
+ *     include the symbol '#', if not specified, then the color will be chosen from a list of predetermined colors.
+ * @param {number} [tensors[].size] - Size in pixels of one side of the square box containing the figure representing
+ *     this node.
+ * @param {Object[]} [tensors[].indices] - List of indices for this node, all the indices that correspond to this tensor
+ *     must be specified, whether they are part of the contractions or not.
+ * @param {'left'|'right'|'up'|'down'} [tensors[].indices[].pos = 'left'] - Indicates in which direction this index
+ *     should go out from the node (or tensor).
+ * @param {string} tensors[].indices[].name - Name of this index that identifies it, it will be this same string that
+ *     is shown as its label. Consistency must be maintained in the names of the indexes and contractions that use
+ *     the desired index, since this is how it is known whether or not the index belongs to a contraction.
+ * @param {boolean} [tensors[].indices[].showLabel = true] - Indicates whether or not the label of this index should
+ *     be displayed.
  * @param contractions
  * @param lines
  * @param idContainer
