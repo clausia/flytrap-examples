@@ -93,15 +93,10 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
         if(!invalidVar(contractions)) {
             throw ".:. Cannot specify contractions without nodes"; //cannot continue
         } else { //contractions is invalid
-            tensors = [];
-            contractions = [];
             if(invalidVar(lines)) {
                 throw ".:. Cannot generate a diagram without any element specification"; //cannot continue
             }
         }
-    } else {
-        if(invalidVar(contractions)) contractions = [];
-        if(invalidVar(lines)) lines = [];
     }
 
     if(invalidVar(idContainer)) {
@@ -151,7 +146,7 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
     // **********************************************************
 
 
-    fillDefaults(tensors, contractions, lines);
+    [tensors, contractions, lines] = fillDefaults(tensors, contractions, lines);  // here the empty lists are assigned
 
 
     // **********************************************************
@@ -446,6 +441,8 @@ function fillDefaults(tensors, contractions, lines){
     lines = lines || [];
     lines.forEach((l) => {
     });
+
+    return [tensors, contractions, lines];
 }
 
 
