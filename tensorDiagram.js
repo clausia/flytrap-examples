@@ -426,22 +426,21 @@ function fillDefaults(tensors, contractions, lines){
 
     if(!invalidVar(tensors))
         tensors.forEach((t) => {
-            if( t.shape === undefined ) t.shape = "circle";
-            if( t.labPos === undefined ) t.labPos = "up";
-            if( t.size === undefined ) t.size = 20;
-            if( t.showLabel === undefined ) t.showLabel = t.shape === "dot" || t.shape === "asterisk" ? false : true;
+            t.shape = t.shape || "circle";
+            t.labPos = t.labPos || "up";
+            t.size = t.size || 20;
+            t.showLabel = t.showLabel === undefined ? (t.shape === "dot" || t.shape === "asterisk" ? false : true) : t.showLabel;
 
-            if(!invalidVar(t.indices))
-                t.indices.forEach((i) => {
-                    if( i.pos === undefined ) i.pos = "left";
-                    if( i.showLabel === undefined) i.showLabel = true;
-                });
-            else t.indices = [];
+            t.indices = t.indices || [];
+            t.indices.forEach((i) => {
+                i.pos = i.pos || "left";
+                i.showLabel = i.showLabel === undefined ? true : i.showLabel;
+            });
         });
 
     if(!invalidVar(contractions))
         contractions.forEach((c) => {
-            if( c.pos === undefined ) c.pos = "up";
+            c.pos = c.pos || "up";
         });
 
     if(!invalidVar(lines))
