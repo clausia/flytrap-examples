@@ -424,28 +424,28 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
  */
 function fillDefaults(tensors, contractions, lines){
 
-    if(!invalidVar(tensors))
-        tensors.forEach((t) => {
-            t.shape = t.shape || "circle";
-            t.labPos = t.labPos || "up";
-            t.size = t.size || 20;
-            t.showLabel = t.showLabel === undefined ? (t.shape === "dot" || t.shape === "asterisk" ? false : true) : t.showLabel;
+    tensors = tensors || [];
+    tensors.forEach((t) => {
+        t.shape = t.shape || "circle";
+        t.labPos = t.labPos || "up";
+        t.size = t.size || 20;
+        t.showLabel = t.showLabel === undefined ? (t.shape === "dot" || t.shape === "asterisk" ? false : true) : t.showLabel;
 
-            t.indices = t.indices || [];
-            t.indices.forEach((i) => {
-                i.pos = i.pos || "left";
-                i.showLabel = i.showLabel === undefined ? true : i.showLabel;
-            });
+        t.indices = t.indices || [];
+        t.indices.forEach((i) => {
+            i.pos = i.pos || "left";
+            i.showLabel = i.showLabel === undefined ? true : i.showLabel;
         });
+    });
 
-    if(!invalidVar(contractions))
-        contractions.forEach((c) => {
-            c.pos = c.pos || "up";
-        });
+    contractions = contractions || [];
+    contractions.forEach((c) => {
+        c.pos = c.pos || "up";
+    });
 
-    if(!invalidVar(lines))
-        lines.forEach((l) => {
-        });
+    lines = lines || [];
+    lines.forEach((l) => {
+    });
 }
 
 
