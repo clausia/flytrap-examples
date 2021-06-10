@@ -77,11 +77,11 @@
  *     are placed, positive values go to the right.
  * @param {number} tensors[].y - Position on the y-axis of the node (or tensor) in the main grid where the elements
  *     are placed, positive values go down.
- * @param {string} tensors[].name - Name of the node (or tensor), the same one used when displaying its label
+ * @param {string} tensors[].name - Name of the node (or tensor), the same one used when displaying its label.
  * @param {'circle'|'do'|'asterisk'|'square'|'triangleUp'|'triangleDown'|'triangleLeft'|'triangleRight'|'rectangle'} [tensors[].shape = 'circle'] - Shape
  *     of the drawing that represents the node (or tensor) in the diagram. If this parameter is not specified,
  *     the default value will be 'circle'.
- * @param {'up'|'rightup'|'right'|'rightdown'|'down'|'leftdown'|'left'|'leftup'} [tensors[].name = "up"] - Indicates
+ * @param {'up'|'rightup'|'right'|'rightdown'|'down'|'leftdown'|'left'|'leftup'} [tensors[].labPos = "up"] - Indicates
  *     the position in which the label of the node (or tensor) will be placed with respect to the node.
  * @param {string} [tensors[].idEqPart] - Identifier of the HTML element that this node refers to, for example a
  *     part of a formula, in order to make a highlight when hovering over the node.
