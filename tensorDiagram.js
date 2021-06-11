@@ -118,7 +118,21 @@
  * @param {number} contractions[].name - Nnme of the contraction, it must match the name of a single index in the
  *     list of indices of both the source and the target.
  * @param {'up'|'down'|'left'|'right'} [contractions[].pos = 'up'] - direction in which the contraction should be drawn.
- * @param lines
+ * @param {?Object[]} lines - list of lines that are part of the diagram, these lines do not join the nodes,
+ *     they are independent, and they are drawn behind the nodes, each element of this list is an object with the
+ *     following structure:
+ * <pre>
+ *     {
+ *        ix: 0,
+ *        iy: 0,
+ *        fx: 4,
+ *        fy: 0
+ *      },
+ * </pre>
+ * @param {number} lines[].ix - position on the x axis of the starting point of the line, specified in the main grid.
+ * @param {number} lines[].iy - position on the y axis of the starting point of the line, specified in the main grid.
+ * @param {number} lines[].fx - position on the x axis of the end point of the line, specified in the main grid.
+ * @param {number} lines[].fx - position on the y axis of the end point of the line, specified in the main grid.
  * @param idContainer
  * @param widthContainer
  * @param heightContainer
