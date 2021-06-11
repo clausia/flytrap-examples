@@ -477,8 +477,7 @@ function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, 
 
 
 /**
- * It is responsible for filling the default values of the optional parameters for the lists of main elements that
- * make up the diagram.
+ * Fills the default values of the optional parameters for the lists of main elements that compose the diagram.
  * @param {?Object[]} tensors - list of nodes (or tensors) that are part of the diagram to be drawn.
  * @param {?Object[]} contractions - list of indices that form contractions, that is, that join nodes.
  * @param {?Object[]} lines - list of lines that are part of the diagram, these lines do not join the nodes,
