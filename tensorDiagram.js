@@ -537,7 +537,7 @@ function fillDefaults(tensors, contractions, lines){
  * @param {Object} d - tensor object, contains all the characteristics of the tensor to be drawn.
  * @param {xScale} xScale - callback that scales linearly on the x-axis.
  * @param {yScale} yScale - callback that scales linearly on the y-axis.
- * @returns {Object} shape - returns the generated shape so that it can be manipulated such as setting its fill color.
+ * @returns {Object} - returns the generated shape so that it can be manipulated such as setting its fill color.
  */
 function drawShape(selected, d, xScale, yScale) {
 
@@ -569,8 +569,8 @@ function drawShape(selected, d, xScale, yScale) {
     // internal functions that draw specific shapes
 
     /**
-     *
-     * @returns {*}
+     * Generates a circle shape.
+     * @returns {Object} - returns the generated circle shape.
      */
     function drawCircle() {
         return shape = selected
@@ -581,8 +581,8 @@ function drawShape(selected, d, xScale, yScale) {
     }
 
     /**
-     *
-     * @returns {*}
+     * Generates an asterisk shape.
+     * @returns {Object} - returns the generated asterisk shape.
      */
     function drawAsterisk() {
         return shape = selected
@@ -602,8 +602,8 @@ function drawShape(selected, d, xScale, yScale) {
     }
 
     /**
-     *
-     * @returns {*}
+     * Generates a square shape.
+     * @returns {Object} - returns the generated square shape.
      */
     function drawSquare() {
         return shape = selected
@@ -615,8 +615,8 @@ function drawShape(selected, d, xScale, yScale) {
     }
 
     /**
-     *
-     * @returns {*}
+     * Generates a triangle up-pointing shape.
+     * @returns {Object} - returns the generated triangle up-pointing shape.
      */
     function drawTriangleUp() {
         return shape = selected
@@ -632,8 +632,8 @@ function drawShape(selected, d, xScale, yScale) {
     }
 
     /**
-     *
-     * @returns {*}
+     * Generates a triangle down-pointing shape.
+     * @returns {Object} - returns the generated triangle down-pointing shape.
      */
     function drawTriangleDown() {
         return shape = selected
@@ -649,8 +649,8 @@ function drawShape(selected, d, xScale, yScale) {
     }
 
     /**
-     *
-     * @returns {*}
+     * Generates a triangle left-pointing shape.
+     * @returns {Object} - returns the generated triangle left-pointing shape.
      */
     function drawTriangleLeft() {
         return shape = selected
@@ -666,8 +666,8 @@ function drawShape(selected, d, xScale, yScale) {
     }
 
     /**
-     *
-     * @returns {*}
+     * Generates a triangle right-pointing shape.
+     * @returns {Object} - returns the generated triangle right-pointing shape.
      */
     function drawTriangleRight() {
         return shape = selected
@@ -682,8 +682,8 @@ function drawShape(selected, d, xScale, yScale) {
     }
 
     /**
-     *
-     * @returns {*}
+     * Generates a rectangle shape.
+     * @returns {Object} - returns the generated rectangle shape.
      */
     function drawRectangle() {
         // the height of the rectangle will depend on the number of indices it has, either on the left or on the right
