@@ -110,6 +110,7 @@
  *        pos: "up"(default)|"down"|"left"|"right"
  *      },
  * </pre>
+ *
  * @param {number} contractions[].source - node where this contraction will come from, specified as the index in the
  *     node list (previous parameter), for example, the first node (in the list of nodes) has the index 0 and is thus
  *     referred to in this parameter.
@@ -129,14 +130,15 @@
  *        fy: 0
  *      },
  * </pre>
+ *
  * @param {number} lines[].ix - position on the x axis of the starting point of the line, specified in the main grid.
  * @param {number} lines[].iy - position on the y axis of the starting point of the line, specified in the main grid.
  * @param {number} lines[].fx - position on the x axis of the end point of the line, specified in the main grid.
- * @param {number} lines[].fx - position on the y axis of the end point of the line, specified in the main grid.
- * @param idContainer
- * @param widthContainer
- * @param heightContainer
- * @param startColorIndex
+ * @param {number} lines[].fy - position on the y axis of the end point of the line, specified in the main grid.
+ * @param {string} idContainer - identifier of the HTML element in which the diagram drawing will be placed.
+ * @param {number} widthContainer - width of diagram drawing specified in pixels.
+ * @param {number} heightContainer - height of diagram drawing specified in pixels.
+ * @param {number} [startColorIndex] - index of the list of predefined colors to start with, the default value is 0.
  */
 function drawDiagram(tensors, contractions, lines, idContainer, widthContainer, heightContainer, startColorIndex = 0) {
 
