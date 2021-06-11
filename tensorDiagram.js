@@ -100,7 +100,24 @@
  *     the desired index, since this is how it is known whether or not the index belongs to a contraction.
  * @param {boolean} [tensors[].indices[].showLabel = true] - Indicates whether or not the label of this index should
  *     be displayed.
- * @param contractions
+ * @param {?Object[]} contractions - list of indices that form contractions, that is, that join nodes, each element
+ *     of this list is an object with the following structure:
+ * <pre>
+ *     {
+ *        source: 0,
+ *        target: 1,
+ *        name: "i",
+ *        pos: "up"(default)|"down"|"left"|"right"
+ *      },
+ * </pre>
+ * @param {number} contractions[].source - node where this contraction will come from, specified as the index in the
+ *     node list (previous parameter), for example, the first node (in the list of nodes) has the index 0 and is thus
+ *     referred to in this parameter.
+ * @param {number} contractions[].target - node where this contraction will arrive, specified as the index in the
+ *     node list.
+ * @param {number} contractions[].name - Nnme of the contraction, it must match the name of a single index in the
+ *     list of indices of both the source and the target.
+ * @param {'up'|'down'|'left'|'right'} [contractions[].pos = 'up'] - direction in which the contraction should be drawn.
  * @param lines
  * @param idContainer
  * @param widthContainer
