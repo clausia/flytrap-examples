@@ -513,12 +513,31 @@ function fillDefaults(tensors, contractions, lines){
 
 
 /**
+ * This callback is responsible for linearly scaling the values in terms of positions on the x-axis in the main grid
+ * to pixels.
  *
- * @param selected
- * @param d
- * @param xScale
- * @param yScale
- * @returns {*}
+ * @callback xScale
+ * @param {number} x - value to be scaled.
+ */
+
+/**
+ * This callback is responsible for linearly scaling the values in terms of positions on the y-axis in the main grid
+ * to pixels.
+ *
+ * @callback yScale
+ * @param {number} y - value to be scaled.
+ */
+
+/**
+ * Determines the shape of the node (or tensor), appends it to the selected element (element of the svg figure),
+ * this figure will be of the size specified for the particular tensor, remaining within the square box
+ * of size d.size*d.size .
+ * @param {Object} selected - represents the element within the svg figure to which the shape generated in this
+ *     function will be added.
+ * @param {Object} d - tensor object, contains all the characteristics of the tensor to be drawn.
+ * @param {xScale} xScale - callback that scales linearly on the x-axis.
+ * @param {yScale} yScale - callback that scales linearly on the y-axis.
+ * @returns {Object} shape - returns the generated shape so that it can be manipulated such as setting its fill color.
  */
 function drawShape(selected, d, xScale, yScale) {
 
