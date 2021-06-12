@@ -702,9 +702,9 @@ function drawShape(selected, d, xScale, yScale) {
 }
 
 /**
- *
- * @param variable
- * @returns {boolean}
+ * Checks if the received variable is null or 'undefined'.
+ * @param {+} variable - variable to be checked.
+ * @returns {boolean}- true if the variable is null or 'undefined', false otherwise.
  */
 function invalidVar(variable){
     return typeof variable === 'undefined' || variable === null;
